@@ -6,6 +6,7 @@
   <title>Caffeine-Corner</title>
   <link rel="icon" href="/assets/icon/icons8-coffee-shop-64.png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="assets/css/dashboard.css">
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
@@ -13,29 +14,33 @@
     /* Sidebar styling */
     #sidebar {
       transition: all 0.3s ease;
-      background-color: darkred;
+      background: linear-gradient(to right, #10ac84, #01a3a4);
     }
 
-    #sidebar ul li:hover{
-      background-color: rosybrown;
-      border-radius: 15px;
+    #sidebar ul li:hover {
+      background-color: #064535;
+      border-radius: 20px;
     }
 
-    #sidebar ul li a{
-     font-weight: bold;
-    }
-
-    #sidebar ul li a ion-icon{
+    #sidebar ul li a {
       font-weight: bold;
     }
 
-    #sidebar ul li:hover a{
+    #sidebar ul li a ion-icon {
+      font-weight: bold;
+    }
+
+    #sidebar ul li:hover a {
       color: black;
       font-size: larger;
       font-weight: bolder;
     }
 
-
+    .logo {
+      padding: 0;
+      margin: 0 auto; /* Center logo */
+      display: block; /* Center the logo */
+    }
     /* Default hidden state for sidebar on smaller screens */
     @media (max-width: 768px) {
       #sidebar {
@@ -67,28 +72,56 @@
         <ion-icon name="close-outline"></ion-icon>
       </button>
 
-      <div class="d-flex align-items-center mb-4">
-        <img src="assets/images/" class="logo me-2" alt="Logo">
-        <h4>Caffeine Corner</h4>
+      <div class="d-flex justify-content-center align-items-center mb-4">
+        <img src="assets/images/colorful-logo-removebg-preview%20(1).png" class="logo" alt="Logo" style="max-width: 150px;,max-height: 150px">
       </div>
       <ul class="nav flex-column">
         <li class="nav-item mb-3">
           <a href="#" class="nav-link text-white"><ion-icon name="home-outline"></ion-icon> Dashboard</a>
         </li>
         <li class="nav-item mb-3">
-          <a href="#" class="nav-link text-white"><ion-icon name="people-outline"></ion-icon> Customers</a>
+          <a href="#" class="nav-link text-white"><ion-icon name="people-outline"></ion-icon> Field</a>
         </li>
         <li class="nav-item mb-3">
-          <a href="#" class="nav-link text-white"><ion-icon name="color-fill-outline"></ion-icon> Products</a>
+          <a href="#" class="nav-link text-white"><ion-icon name="color-fill-outline"></ion-icon> Staff</a>
         </li>
         <li class="nav-item mb-3">
-          <a href="#" class="nav-link text-white"><ion-icon name="reader-outline"></ion-icon> Orders</a>
+          <a href="#" class="nav-link text-white"><ion-icon name="reader-outline"></ion-icon> Crop</a>
+        </li>
+
+        <!-- Logs Dropdown -->
+        <li class="nav-item mb-3">
+          <a href="#" class="nav-link text-white d-flex align-items-center justify-content-between" data-bs-toggle="collapse" data-bs-target="#logsDropdown" aria-expanded="false">
+          <span>
+              <ion-icon name="settings-outline"></ion-icon> Logs
+          </span>
+            <ion-icon name="caret-down-outline"></ion-icon>
+          </a>
+          <ul id="logsDropdown" class="collapse list-unstyled ms-4">
+            <li class="nav-item mb-2">
+              <a href="#" class="nav-link text-white">Crop Logs Details</a>
+            </li>
+            <li class="nav-item mb-2">
+              <a href="#" class="nav-link text-white">Staff Logs Details</a>
+            </li>
+            <li class="nav-item mb-2">
+              <a href="#" class="nav-link text-white">Field Logs Details</a>
+            </li>
+          </ul>
+        </li>
+
+
+        <li class="nav-item mb-3">
+          <a href="#" class="nav-link text-white"><i class="fa-solid fa-truck"></i>Vehicle</a>
         </li>
         <li class="nav-item mb-3">
-          <a href="#" class="nav-link text-white"><ion-icon name="settings-outline"></ion-icon> Settings</a>
+          <a href="#" class="nav-link text-white"><ion-icon name="help-outline"></ion-icon> Equipment</a>
         </li>
         <li class="nav-item mb-3">
-          <a href="#" class="nav-link text-white"><ion-icon name="help-outline"></ion-icon> Help</a>
+          <a href="#" class="nav-link text-white"><ion-icon name="help-outline"></ion-icon> Reports</a>
+        </li>
+        <li class="nav-item mb-3">
+          <a href="#" class="nav-link text-white"><ion-icon name="help-outline"></ion-icon> Setting</a>
         </li>
         <li class="nav-item">
           <a href="#" class="nav-link text-white"><ion-icon name="log-out-outline"></ion-icon> Sign Out</a>
@@ -180,30 +213,28 @@
           <div class="col-lg-6 mb-3">
             <div class="card">
               <div class="card-header">
-                Beverages & Desserts
+                Beverages Rate
               </div>
               <div class="card-body">
-                <div id="area-chart"></div>
+                <div id="pie-chart"></div>
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</div>
 
-    </div> <!-- End of Main Content -->
-  </div> <!-- End of Row -->
-</div> <!-- End of Container -->
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Scripts -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.51.0/apexcharts.min.js"></script>
 <script>
-  document.getElementById("menu-toggle").addEventListener("click", function () {
-    document.getElementById("sidebar").classList.toggle("active");
+  document.getElementById('menu-toggle').addEventListener('click', function() {
+    document.getElementById('sidebar').classList.toggle('active');
   });
 
-  document.getElementById("close-sidebar").addEventListener("click", function () {
-    document.getElementById("sidebar").classList.remove("active");
+  document.getElementById('close-sidebar').addEventListener('click', function() {
+    document.getElementById('sidebar').classList.remove('active');
   });
 </script>
 </body>
