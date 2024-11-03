@@ -18,8 +18,12 @@
     }
 
     #sidebar ul li:hover {
-      background-color: #064535;
+      background-color: rgb(180, 180, 180);
       border-radius: 20px;
+    }
+
+    #sidebar ul li a ion-icon {
+      font-size: 1.4rem; /* Adjust this value as needed */
     }
 
     #sidebar ul li a {
@@ -77,23 +81,23 @@
       </div>
       <ul class="nav flex-column">
         <li class="nav-item mb-3">
-          <a href="#" class="nav-link text-white"><ion-icon name="home-outline"></ion-icon> Dashboard</a>
+          <a href="#" class="nav-link text-white"><ion-icon name="home"></ion-icon> Dashboard</a>
         </li>
         <li class="nav-item mb-3">
-          <a href="#" class="nav-link text-white"><ion-icon name="people-outline"></ion-icon> Field</a>
+          <a href="#" class="nav-link text-white"><ion-icon name="location"></ion-icon> Field</a>
         </li>
         <li class="nav-item mb-3">
-          <a href="#" class="nav-link text-white"><ion-icon name="color-fill-outline"></ion-icon> Staff</a>
+          <a href="#" class="nav-link text-white"><ion-icon name="id-card"></ion-icon> Staff</a>
         </li>
         <li class="nav-item mb-3">
-          <a href="#" class="nav-link text-white"><ion-icon name="reader-outline"></ion-icon> Crop</a>
+          <a href="#" class="nav-link text-white"><ion-icon name="leaf"></ion-icon> Crop</a>
         </li>
 
         <!-- Logs Dropdown -->
         <li class="nav-item mb-3">
           <a href="#" class="nav-link text-white d-flex align-items-center justify-content-between" data-bs-toggle="collapse" data-bs-target="#logsDropdown" aria-expanded="false">
           <span>
-              <ion-icon name="settings-outline"></ion-icon> Logs
+              <ion-icon name="newspaper"></ion-icon> Logs
           </span>
             <ion-icon name="caret-down-outline"></ion-icon>
           </a>
@@ -112,19 +116,19 @@
 
 
         <li class="nav-item mb-3">
-          <a href="#" class="nav-link text-white"><i class="fa-solid fa-truck"></i>Vehicle</a>
+          <a href="#" class="nav-link text-white"><ion-icon name="bus"></ion-icon> Vehicle</a>
         </li>
         <li class="nav-item mb-3">
-          <a href="#" class="nav-link text-white"><ion-icon name="help-outline"></ion-icon> Equipment</a>
+          <a href="#" class="nav-link text-white"><ion-icon name="construct"></ion-icon> Equipment</a>
         </li>
         <li class="nav-item mb-3">
-          <a href="#" class="nav-link text-white"><ion-icon name="help-outline"></ion-icon> Reports</a>
+          <a href="#" class="nav-link text-white"><ion-icon name="document-attach"></ion-icon> Reports</a>
         </li>
         <li class="nav-item mb-3">
-          <a href="#" class="nav-link text-white"><ion-icon name="help-outline"></ion-icon> Setting</a>
+          <a href="#" class="nav-link text-white"><ion-icon name="settings"></ion-icon> Setting</a>
         </li>
         <li class="nav-item">
-          <a href="#" class="nav-link text-white"><ion-icon name="log-out-outline"></ion-icon> Sign Out</a>
+          <a href="#" class="nav-link text-white"><ion-icon name="log-out"></ion-icon> Sign Out</a>
         </li>
       </ul>
     </div>
@@ -148,7 +152,7 @@
       </div>
 
       <!-- Dashboard Cards -->
-      <div class="container mt-4">
+      <div class="container mt-4" id="dashboard-section">
         <div class="row g-3">
           <div class="col-sm-6 col-lg-3">
             <div class="card text-white bg-primary">
@@ -156,7 +160,7 @@
                 <div class="me-3"><ion-icon name="people-outline" style="font-size: 2rem;"></ion-icon></div>
                 <div>
                   <h5 class="card-title mb-0">10</h5>
-                  <small>Customers</small>
+                  <small>Field Count</small>
                 </div>
               </div>
             </div>
@@ -167,7 +171,7 @@
                 <div class="me-3"><ion-icon name="color-fill-outline" style="font-size: 2rem;"></ion-icon></div>
                 <div>
                   <h5 class="card-title mb-0">12</h5>
-                  <small>Products</small>
+                  <small>Staff Count</small>
                 </div>
               </div>
             </div>
@@ -178,7 +182,7 @@
                 <div class="me-3"><ion-icon name="reader-outline" style="font-size: 2rem;"></ion-icon></div>
                 <div>
                   <h5 class="card-title mb-0">227</h5>
-                  <small>Orders</small>
+                  <small>Crop Count</small>
                 </div>
               </div>
             </div>
@@ -189,7 +193,7 @@
                 <div class="me-3"><ion-icon name="accessibility-outline" style="font-size: 2rem;"></ion-icon></div>
                 <div>
                   <h5 class="card-title mb-0">4</h5>
-                  <small>Employees</small>
+                  <small>Vehicle Count</small>
                 </div>
               </div>
             </div>
