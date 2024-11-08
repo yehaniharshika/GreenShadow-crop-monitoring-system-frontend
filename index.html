@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="assets/css/dashboard.css">
   <link rel="stylesheet" href="assets/css/field.css">
   <link rel="stylesheet" href="assets/css/staff.css">
+  <link rel="stylesheet" href="assets/css/crop.css">
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 
@@ -440,37 +441,42 @@
             </div>
             <div class="card-body">
               <form>
-                <div class="mb-3">
-                  <label for="crop-code" class="form-label">Crop code</label>
-                  <input type="text" class="form-control" id="crop-code">
-                </div>
-
                 <div class="row mb-3">
+                  <div class="col-md-6">
+                    <label for="crop-code" class="form-label">Crop code</label>
+                    <input type="text" class="form-control" id="crop-code">
+                  </div>
+
                   <div class="col-md-6">
                     <label for="crop-common-name" class="form-label">Crop Common Name</label>
                     <input type="text" class="form-control" id="crop-common-name" placeholder="Enter common name">
                   </div>
+                </div>
+
+                <div class="row mb-3">
                   <div class="col-md-6">
                     <label for="crop-scientific-name" class="form-label">Crop Scientific Name</label>
                     <input type="text" class="form-control" id="crop-scientific-name" placeholder="Enter scientific name">
                   </div>
+
+                  <div class="col-md-6">
+                    <label for="crop-image" class="form-label">Crop Image</label>
+                    <input type="file" class="form-control" id="crop-image" accept="image/*">
+                  </div>
                 </div>
 
-                <div class="mb-3">
-                  <label for="crop-image" class="form-label">Crop Image</label>
-                  <input type="file" class="form-control" id="crop-image" accept="image/*">
-                </div>
+                <div class="row mb-3">
+                  <div class="col-md-6">
+                    <label for="category" class="form-label">Category</label>
+                    <input type="text" class="form-control" id="category" placeholder="Enter category(e.g. Cereal)">
+                  </div>
 
-                <div class="mb-3">
-                  <label for="category" class="form-label">Category</label>
-                  <input type="text" class="form-control" id="category" placeholder="Enter category(e.g. Cereal)">
+                  <div class="col-md-6">
+                    <label for="season" class="form-label">Season</label>
+                    <input type="text" class="form-control" id="season" placeholder="Enter season of the crop">
+                  </div>
                 </div>
-
-                <div class="mb-3">
-                  <label for="season" class="form-label">Season</label>
-                  <input type="text" class="form-control" id="season" placeholder="Enter season of the crop">
-                </div>
-
+                
                 <div class="row mb-3">
                   <div class="col-md-6">
                     <label class="form-label fw-bold">Field Code</label>
@@ -506,7 +512,7 @@
           </div>
         </section>
 
-        <section class="search-field-part col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+        <section class="search-crop-part col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
           <div class="card" >
             <div  class="card-body">
               <h5 id="crop-search-bar" class="card-title">Search Crop</h5>
