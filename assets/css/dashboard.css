@@ -1,0 +1,54 @@
+/* Sidebar styling */
+#sidebar {
+    transition: all 0.3s ease;
+    background: linear-gradient(to right, #10ac84, #01a3a4);
+}
+
+#sidebar ul li:hover {
+    background-color: rgb(180, 180, 180);
+    border-radius: 20px;
+}
+
+#sidebar ul li a ion-icon {
+    font-size: 1.4rem; /* Adjust this value as needed */
+    font-weight: bold;
+}
+
+#sidebar ul li a {
+    font-weight: bold;
+}
+
+#dashboard-section{
+    background-color: plum;
+}
+
+#sidebar ul li:hover a {
+    color: black;
+    font-size: larger;
+    font-weight: bolder;
+}
+
+.logo {
+    padding: 0;
+    margin: 0 auto; /* Center logo */
+    display: block; /* Center the logo */
+}
+/* Default hidden state for sidebar on smaller screens */
+
+@media (max-width: 768px) {
+    #sidebar {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1050; /* Ensures sidebar appears above content */
+        width: 240px;
+        height: 100%; /* Full height for sidebar */
+        background-color: darkred; /* Transparent overlay */
+    }
+
+    /* Sidebar shown when toggled */
+    #sidebar.active {
+        display: block;
+    }
+}
