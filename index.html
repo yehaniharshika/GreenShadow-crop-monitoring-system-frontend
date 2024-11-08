@@ -222,10 +222,10 @@
                 </div>
 
                 <div class="mt-3 mb-5 btn-field-list">
-                  <button type="button" class="btn btn-success" id="customer-save">Save</button>
-                  <button type="button" class="btn btn-primary" id="customer-update">Update</button>
-                  <button type="button" class="btn btn-danger" id="customer-delete">Delete</button>
-                  <button type="reset" class="btn btn-warning" id="customer-reset">Reset</button>
+                  <button type="button" class="btn btn-success" id="field-save">Save</button>
+                  <button type="button" class="btn btn-primary" id="field-update">Update</button>
+                  <button type="button" class="btn btn-danger" id="field-delete">Delete</button>
+                  <button type="reset" class="btn btn-warning" id="field-reset">Reset</button>
                 </div>
               </form>
             </div>
@@ -257,7 +257,7 @@
               <th scope="col">Field Image-02</th>
             </tr>
             </thead>
-            <tbody  id="customer-tbl-tbody">
+            <tbody  id="field-tbl-tbody">
             </tbody>
           </table>
         </section>
@@ -265,16 +265,163 @@
     </section>
 
     <section class="col-md-9 col-lg-10 main" id="staff-section">
-      <h2>staff</h2>
-      <div class="card text-white bg-warning">
-        <div class="card-body d-flex align-items-center">
-          <div class="me-3"><ion-icon name="reader-outline" style="font-size: 2rem;"></ion-icon></div>
-          <div>
-            <h5 class="card-title mb-0">227</h5>
-            <small>staff Count</small>
-          </div>
-        </div>
+      <div class="d-flex justify-content-between align-items-center p-3 bg-white border-bottom">
+        <button class="btn btn-outline-secondary d-md-none" id="menu-toggle2"><ion-icon name="menu-outline"></ion-icon></button>
+        <h2>Staff Management</h2>
       </div>
+
+      <section class="row">
+        <section class="Field-details-form col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+          <div data-aos="flip-left"
+               data-aos-easing="ease-out-cubic"
+               data-aos-duration="3000" class="card cardSize">
+            <div id="staff-Header-back-colour" class="card-header">
+              Staff Details
+            </div>
+            <div class="card-body">
+              <form>
+                <div class="row mb-3">
+                  <div class="col-md-6">
+                    <label for="staff-id" class="form-label">Staff ID</label>
+                    <input type="text" class="form-control" id="staff-id">
+                  </div>
+
+                  <div class="col-md-6">
+                    <label for="firstName" class="form-label">First Name</label>
+                    <input type="text" class="form-control" id="firstName" placeholder="Enter first name">
+                  </div>
+
+                  <div class="col-md-6">
+                    <label for="lastName" class="form-label">Last Name</label>
+                    <input type="text" class="form-control" id="lastName" placeholder="Enter last name">
+                  </div>
+
+                  <div class="col-md-6">
+                    <label for="gender" class="form-label">Gender</label>
+                    <select class="form-select" id="gender">
+                      <option selected>Select gender</option>
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="row mb-3">
+                  <div class="col-md-6">
+                    <label for="addressLine1" class="form-label">Address Line 01</label>
+                    <input type="text" class="form-control" id="addressLine1" placeholder="Building no or name">
+                  </div>
+
+                  <div class="col-md-6">
+                    <label for="addressLine2" class="form-label">Address Line 02</label>
+                    <input type="text" class="form-control" id="addressLine2" placeholder="Lane">
+                  </div>
+
+                  <div class="col-md-6">
+                    <label for="addressLine3" class="form-label">Address Line 03</label>
+                    <input type="text" class="form-control" id="addressLine3" placeholder="City">
+                  </div>
+
+                  <div class="col-md-6">
+                    <label for="addressLine4" class="form-label">Address Line 04</label>
+                    <input type="text" class="form-control" id="addressLine4" placeholder="State">
+                  </div>
+
+                  <div class="col-md-6">
+                    <label for="addressLine5" class="form-label">Address Line 05</label>
+                    <input type="text" class="form-control" id="addressLine5" placeholder="Postal code">
+                  </div>
+                </div>
+
+                <div class="row mb-3">
+                  <div class="col-md-6">
+                    <label for="dob" class="form-label">Date of Birth</label>
+                    <input type="date" class="form-control" id="dob">
+                  </div>
+                  <div class="col-md-6">
+                    <label for="joinedDate" class="form-label">Joined Date</label>
+                    <input type="date" class="form-control" id="joinedDate">
+                  </div>
+                </div>
+
+                <div class="row mb-3">
+                  <div class="col-md-6">
+                    <label for="designation" class="form-label">Designation</label>
+                    <input type="text" class="form-control" id="designation" placeholder="Enter designation">
+                  </div>
+
+                  <div class="col-md-6">
+                    <label for="contactNo" class="form-label">Contact Number</label>
+                    <input type="tel" class="form-control" id="contactNo" placeholder="Enter mobile number">
+                  </div>
+
+                  <div class="col-md-6">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" placeholder="Enter email address">
+                  </div>
+
+                  <div class="col-md-6">
+                    <label for="role" class="form-label">Role</label>
+                    <select class="form-select" id="role">
+                      <option selected>Select role</option>
+                      <option value="Admin">ADMIN</option>
+                      <option value="Manager">Manager</option>
+                      <option value="Staff">Staff</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="mt-3 mb-5 btn-field-list">
+                  <button type="button" class="btn btn-success" id="staff-save">Save</button>
+                  <button type="button" class="btn btn-primary" id="staff-update">Update</button>
+                  <button type="button" class="btn btn-danger" id="staff-delete">Delete</button>
+                  <button type="reset" class="btn btn-warning" id="staff-reset">Reset</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </section>
+
+        <section class="search-field-part col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+          <div class="card" >
+            <div  class="card-body">
+              <h5 id="staff-search-bar" class="card-title">Search staff</h5>
+              <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Enter Staff ID here" id="staff-search-by-staff-id" aria-label="Search" >
+                <button class="btn btn-outline-primary" type="button" id="staff-search">Search</button>
+              </form>
+            </div>
+          </div>
+        </section>
+
+        <section class="staff-table-view col-12 col-sm-12 col-md-12 col-lg-10 col-xl-10 col-xxl-10">
+
+          <table class="table table-secondary table-striped" >
+            <thead>
+            <tr>
+              <th scope="col">Staff ID</th>
+              <th scope="col">First name</th>
+              <th scope="col">Last name</th>
+              <th scope="col">Gender</th>
+              <th scope="col">B.num/name</th>
+              <th scope="col">Lane</th>
+              <th scope="col">City</th>
+              <th scope="col">State</th>
+              <th scope="col">Postal code</th>
+              <th scope="col">DOB</th>
+              <th scope="col">Joined date</th>
+              <th scope="col">Designation</th>
+              <th scope="col">Contact num</th>
+              <th scope="col">Email</th>
+              <th scope="col">Role</th>
+            </tr>
+            </thead>
+            <tbody  id="staff-tbl-tbody">
+            </tbody>
+          </table>
+        </section>
+      </section>
     </section>
 
     <section class="col-md-9 col-lg-10 main" id="crops-section">
@@ -299,6 +446,7 @@
   const sidebar = document.getElementById("sidebar");
   const menuToggle = document.getElementById("menu-toggle");
   const menuToggleField = document.getElementById("menu-toggle1")
+  const menuToggleField = document.getElementById("menu-toggle2")
   const closeSidebar = document.getElementById("close-sidebar");
 
   menuToggle.addEventListener("click", () => {
