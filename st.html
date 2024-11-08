@@ -1,166 +1,259 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <link rel="stylesheet" href="assets/css/dashboard.css">
-  <link rel="stylesheet" href="assets/css/field.css">
-  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Logs Entry Form</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .dynamic-section { display: none; } /* Hide sections by default */
+  </style>
 </head>
 <body>
-<section class="col-md-9 col-lg-10 main" id="staff-section">
+
+<section class="col-md-9 col-lg-10 main" id="logs-section">
   <div class="d-flex justify-content-between align-items-center p-3 bg-white border-bottom">
-    <button class="btn btn-outline-secondary d-md-none" id="menu-toggle2"><ion-icon name="menu-outline"></ion-icon></button>
-    <h2>Crop Management</h2>
+    <button class="btn btn-outline-secondary d-md-none" id="menu-toggle"><ion-icon name="menu-outline"></ion-icon></button>
+    <h2>Logs Management</h2>
   </div>
 
   <section class="row">
-    <section class="Crop-details-form col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
-      <div data-aos="flip-left"
-           data-aos-easing="ease-out-cubic"
-           data-aos-duration="3000" class="card cardSize">
-        <div id="crop-Header-back-colour" class="card-header">
-          Crop Details
+    <!-- Log Details Form -->
+    <section class="Logs-details-form col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+      <div class="card cardSize">
+        <div id="Logs-Header-back-colour" class="card-header">
+          Logs Details
         </div>
         <div class="card-body">
           <form>
             <div class="row mb-3">
               <div class="col-md-6">
-                <label for="staff-id" class="form-label">Staff ID</label>
-                <input type="text" class="form-control" id="staff-id">
+                <label for="logId" class="form-label">Log ID</label>
+                <input type="text" class="form-control" id="logId" placeholder="Enter unique Log ID">
               </div>
-
               <div class="col-md-6">
-                <label for="firstName" class="form-label">First Name</label>
-                <input type="text" class="form-control" id="firstName" placeholder="Enter first name">
-              </div>
-
-              <div class="col-md-6">
-                <label for="lastName" class="form-label">Last Name</label>
-                <input type="text" class="form-control" id="lastName" placeholder="Enter last name">
-              </div>
-
-              <div class="col-md-6">
-                <label for="gender" class="form-label">Gender</label>
-                <select class="form-select" id="gender">
-                  <option selected>Select gender</option>
-                  <option value="Male">Male</option>
-                  <option value="Female">Female</option>
-                  <option value="Other">Other</option>
-                </select>
+                <label for="logDate" class="form-label">Log Date</label>
+                <input type="date" class="form-control" id="logDate">
               </div>
             </div>
 
-            <div class="row mb-3">
-              <div class="col-md-6">
-                <label for="addressLine1" class="form-label">Address Line 01</label>
-                <input type="text" class="form-control" id="addressLine1" placeholder="Building no or name">
-              </div>
+            <!--log category dropdown -->
+            <div class="mb-3">
+              <label for="logCategory" class="form-label">Log Category</label>
+              <select class="form-select" id="logCategory" onchange="showLogSection()">
+                <option value="" selected disabled>Choose a category</option>
+                <option value="crop">Crop</option>
+                <option value="field">Field</option>
+                <option value="staff">Staff</option>
+              </select>
+            </div>
 
-              <div class="col-md-6">
-                <label for="addressLine2" class="form-label">Address Line 02</label>
-                <input type="text" class="form-control" id="addressLine2" placeholder="Lane">
-              </div>
+            <!--dynamic crop section -->
+            <div id="crop-logs-section" class="dynamic-section">
 
-              <div class="col-md-6">
-                <label for="addressLine3" class="form-label">Address Line 03</label>
-                <input type="text" class="form-control" id="addressLine3" placeholder="City">
-              </div>
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <label class="form-label fw-bold">Crop Code</label>
+                  <select class="form-select" name="crop"  id="cropCodeOption">
+                    <option disabled selected value="">Select Crop Code</option>
+                  </select>
+                </div>
 
-              <div class="col-md-6">
-                <label for="addressLine4" class="form-label">Address Line 04</label>
-                <input type="text" class="form-control" id="addressLine4" placeholder="State">
-              </div>
+                <div class="col-md-6">
+                  <label class="form-label">Crop Common name</label>
+                  <input type="text" class="form-control customer-name-set" id="set-crop-common-name">
+                </div>
 
-              <div class="col-md-6">
-                <label for="addressLine5" class="form-label">Address Line 05</label>
-                <input type="text" class="form-control" id="addressLine5" placeholder="Postal code">
+                <div class="col-md-6">
+                  <label class="form-label">Crop Scientific name</label>
+                  <input type="text" class="form-control customer-name-set" id="set-crop-scientific-name">
+                </div>
+
+                <div class="col-md-6">
+                  <label class="form-label">category</label>
+                  <input type="text" class="form-control customer-name-set" id="set-crop-category">
+                </div>
               </div>
             </div>
 
-            <div class="row mb-3">
-              <div class="col-md-6">
-                <label for="dob" class="form-label">Date of Birth</label>
-                <input type="date" class="form-control" id="dob">
-              </div>
-              <div class="col-md-6">
-                <label for="joinedDate" class="form-label">Joined Date</label>
-                <input type="date" class="form-control" id="joinedDate">
+            <!--dynamic field section -->
+            <div id="field-logs-section" class="dynamic-section">
+
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <label class="form-label fw-bold">Field Code</label>
+                  <select class="form-select" name="field"  id="logFieldCodeOption">
+                    <option disabled selected value="">Select Field Code</option>
+                  </select>
+                </div>
+
+                <div class="col-md-6">
+                  <label class="form-label">Field name</label>
+                  <input type="text" class="form-control customer-name-set" id="set-field-name-for-log">
+                </div>
+
+                <div class="col-md-6">
+                  <label class="form-label">Field Location</label>
+                  <textarea class="form-control" placeholder="Set GPS Location" id="set-field-location-for-log" style="height: 80px"></textarea>
+                </div>
+
+                <div class="col-md-6">
+                  <label class="form-label">Extent Size (Sq. m)</label>
+                  <input type="number" step="0.01" class="form-control" id="set-field-extent-size-for-log">
+                </div>
               </div>
             </div>
 
-            <div class="row mb-3">
-              <div class="col-md-6">
-                <label for="designation" class="form-label">Designation</label>
-                <input type="text" class="form-control" id="designation" placeholder="Enter designation">
-              </div>
+            <!--dynamic Staff Section -->
+            <div id="staff-logs-section" class="dynamic-section">
 
-              <div class="col-md-6">
-                <label for="contactNo" class="form-label">Contact Number</label>
-                <input type="tel" class="form-control" id="contactNo" placeholder="Enter mobile number">
-              </div>
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <label class="form-label fw-bold">Crop Code</label>
+                  <select class="form-select" name="STAFF"  id="staffCodeOption">
+                    <option disabled selected value="">Select Staff ID</option>
+                  </select>
+                </div>
 
-              <div class="col-md-6">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" placeholder="Enter email address">
-              </div>
-
-              <div class="col-md-6">
-                <label for="role" class="form-label">Role</label>
-                <select class="form-select" id="role">
-                  <option selected>Select role</option>
-                  <option value="Admin">ADMIN</option>
-                  <option value="Manager">Manager</option>
-                  <option value="Staff">Staff</option>
-                </select>
+                <div class="col-md-6">
+                  <label class="form-label">First Name</label>
+                  <input type="text" class="form-control" id="set-staff-first-name">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Last Name</label>
+                  <input type="text" class="form-control" id="set-staff-last-name">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Email</label>
+                  <input type="text" class="form-control" id="set-staff-email">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Designation</label>
+                  <input type="text" class="form-control" id="set-designation">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Role</label>
+                  <input type="text" class="form-control" id="set-staff-role">
+                </div>
               </div>
             </div>
 
-            <div class="mt-3 mb-5 btn-field-list">
-              <button type="button" class="btn btn-success" id="staff-save">Save</button>
-              <button type="button" class="btn btn-primary" id="staff-update">Update</button>
-              <button type="button" class="btn btn-danger" id="staff-delete">Delete</button>
-              <button type="reset" class="btn btn-warning" id="staff-reset">Reset</button>
+            <div class="mb-3">
+              <label for="log-details" class="form-label">Log details</label>
+              <textarea class="form-control" placeholder="Enter Log Details here" id="log-details"></textarea>
+            </div>
+
+            <div class="mb-3">
+              <label for="observed-image" class="form-label">Observed Image</label>
+              <input type="file" class="form-control" id="observed-image" accept="image/*">
+            </div>
+
+            <div class="mt-3 mb-5 btn-logs-list">
+              <button type="button" class="btn btn-success" id="logs-save">Save</button>
+              <button type="button" class="btn btn-primary" id="logs-update">Update</button>
+              <button type="button" class="btn btn-danger" id="logs-delete">Delete</button>
+              <button type="reset" class="btn btn-warning" id="logs-reset">Reset</button>
             </div>
           </form>
         </div>
       </div>
     </section>
 
-    <section class="search-field-part col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
-      <div class="card" >
-        <div  class="card-body">
-          <h5 id="staff-search-bar" class="card-title">Search staff</h5>
+    <!-- search logs-->
+    <section class="search-logs-part col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 id="log-search-bar" class="card-title">Search Logs</h5>
           <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Enter Staff ID here" id="staff-search-by-staff-id" aria-label="Search" >
-            <button class="btn btn-outline-primary" type="button" id="staff-search">Search</button>
+            <input class="form-control me-2" type="search" placeholder="Enter Log Code here" id="logs-search-by-id" aria-label="Search">
+            <button class="btn btn-outline-primary" type="button" id="crop-search">Search</button>
           </form>
         </div>
       </div>
     </section>
 
-    <section class="staff-table-view col-12 col-sm-12 col-md-12 col-lg-10 col-xl-10 col-xxl-10">
+    <!--dynamic table section -->
+    <section id="dynamic-table-section" class="col-12">
+      <!--crop Table -->
+      <section class="field-logs-table-view col-12 col-sm-12 col-md-12 col-lg-10 col-xl-10 col-xxl-10">
+        <table id="crop-logs-table" class="table table-secondary table-striped dynamic-section" >
+          <thead>
+          <tr>
+            <th scope="col">Log Code</th>
+            <th scope="col">Log Date</th>
+            <th scope="col">Crop Code</th>
+            <th scope="col">Crop Name</th>
+          </tr>
+          </thead>
+          <tbody  id="crop-logs-tbl-tbody">
+          </tbody>
+        </table>
+      </section>
 
-      <table class="table table-secondary table-striped" >
-        <thead>
-        <tr>
-          <th scope="col">Field code</th>
-          <th scope="col">Field name</th>
-          <th scope="col">Field Location</th>
-          <th scope="col">extent size</th>
-          <th scope="col">Field Image-01</th>
-          <th scope="col">Field Image-02</th>
-        </tr>
-        </thead>
-        <tbody  id="staff-tbl-tbody">
-        </tbody>
-      </table>
+      <!--field Table -->
+      <section class="field-logs-table-view col-12 col-sm-12 col-md-12 col-lg-10 col-xl-10 col-xxl-10">
+        <table id="field-logs-table" class="table table-secondary table-striped dynamic-section" >
+          <thead>
+          <tr>
+            <th scope="col">Log Code</th>
+            <th scope="col">Log Date</th>
+            <th scope="col">Field Code</th>
+            <th scope="col">Field Name</th>
+          </tr>
+          </thead>
+          <tbody  id="field-logs-tbl-tbody">
+          </tbody>
+        </table>
+      </section>
+
+      <!--staff Table -->
+      <section class="staff-logs-table-view col-12 col-sm-12 col-md-12 col-lg-10 col-xl-10 col-xxl-10">
+        <table id="staff-logs-table" class="table table-secondary table-striped dynamic-section" >
+          <thead>
+          <tr>
+            <th scope="col">Log Code</th>
+            <th scope="col">Log Date</th>
+            <th scope="col">Staff ID</th>
+            <th scope="col">Staff Name</th>
+            <th scope="col">Designation</th>
+          </tr>
+          </thead>
+          <tbody  id="staff-logs-tbl-tbody">
+          </tbody>
+        </table>
+      </section>
     </section>
+
   </section>
 </section>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  function showLogSection() {
+    // Hide all sections first
+    const sections = ['crop-logs-section', 'field-logs-section', 'staff-logs-section'];
+    sections.forEach(section => document.getElementById(section).style.display = 'none');
+
+    // Hide all tables first
+    const tables = ['crop-logs-table', 'field-logs-table', 'staff-logs-table'];
+    tables.forEach(table => document.getElementById(table).style.display = 'none');
+
+    // Show selected form and table section
+    const selection = document.getElementById('logCategory').value;
+    if (selection === 'crop') {
+      document.getElementById('crop-logs-section').style.display = 'block';
+      document.getElementById('crop-logs-table').style.display = 'block';
+    } else if (selection === 'field') {
+      document.getElementById('field-logs-section').style.display = 'block';
+      document.getElementById('field-logs-table').style.display = 'block';
+    } else if (selection === 'staff') {
+      document.getElementById('staff-logs-section').style.display = 'block';
+      document.getElementById('staff-logs-table').style.display = 'block';
+    }
+  }
+</script>
 </body>
 </html>
