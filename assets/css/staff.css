@@ -1,0 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+.main-part {
+    position: relative;
+    top: 6rem;
+}
+
+.search-staff-part{
+    margin-top: 0.5rem;
+}
+
+.Staff-details-form{
+    margin-top: 0.5rem;
+}
+
+.staff-table-view{
+    position: relative;
+    top: 1rem;
+    left: 0;
+    right: 0;
+    margin: auto;
+    padding: 0;
+}
+
+#staff-Header-back-colour{
+    background: #133a75;
+    color: #eeeeee;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.card-body form div label{
+    font-weight: bold;
+}
