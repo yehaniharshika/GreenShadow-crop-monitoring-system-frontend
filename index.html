@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="assets/css/field.css">
   <link rel="stylesheet" href="assets/css/staff.css">
   <link rel="stylesheet" href="assets/css/crop.css">
+  <link rel="stylesheet" href="assets/css/logs.css">
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 
@@ -536,7 +537,6 @@
       </div>
 
       <section class="row">
-        <!-- Log Details Form -->
         <section class="Logs-details-form col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
           <div class="card cardSize">
             <div id="Logs-Header-back-colour" class="card-header">
@@ -568,7 +568,6 @@
 
                 <!--dynamic crop section -->
                 <div id="crop-logs-section" class="dynamic-section">
-
                   <div class="row mb-3">
                     <div class="col-md-6">
                       <label class="form-label fw-bold">Crop Code</label>
@@ -596,7 +595,6 @@
 
                 <!--dynamic field section -->
                 <div id="field-logs-section" class="dynamic-section">
-
                   <div class="row mb-3">
                     <div class="col-md-6">
                       <label class="form-label fw-bold">Field Code</label>
@@ -693,7 +691,7 @@
         <!--dynamic table section -->
         <section id="dynamic-table-section" class="col-12">
           <!--crop Table -->
-          <section class="field-logs-table-view col-12 col-sm-12 col-md-12 col-lg-10 col-xl-10 col-xxl-10">
+          <section class="crop-logs-table-view col-12 col-sm-12 col-md-12 col-lg-10 col-xl-10 col-xxl-10">
             <table id="crop-logs-table" class="table table-secondary table-striped dynamic-section" >
               <thead>
               <tr>
@@ -750,36 +748,9 @@
 <!-- Scripts -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 <script src="assets/lib/jquery-3.7.1.min.js"></script>
-<script>
-  const sidebar = document.getElementById("sidebar");
-  const menuToggle = document.getElementById("menu-toggle");
-  const menuToggleField = document.getElementById("menu-toggle1");
-  const menuToggleStaff = document.getElementById("menu-toggle2");
-  const menuToggleCrop = document.getElementById("menu-toggle3");
-  const closeSidebar = document.getElementById("close-sidebar");
-
-  menuToggle.addEventListener("click", () => {
-    sidebar.classList.add("active");
-  });
-
-  menuToggleField.addEventListener("click", () =>{
-    sidebar.classList.add("active");
-  });
-
-  menuToggleStaff.addEventListener("click", () =>{
-    sidebar.classList.add("active");
-  });
-
-  menuToggleCrop.addEventListener("click", () =>{
-    sidebar.classList.add("active");
-  });
-
-  closeSidebar.addEventListener("click", () => {
-    sidebar.classList.remove("active");
-  });
-
-</script>
-<script type="module" src="assets/js/main.js"></script>
 <script src="assets/js/logs.js"></script>
+<script src="assets/js/toggle.js"></script>
+<script type="module" src="assets/js/main.js"></script>
+
 </body>
 </html>
