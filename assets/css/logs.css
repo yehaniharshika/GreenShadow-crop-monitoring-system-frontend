@@ -17,52 +17,15 @@
     margin-top: 0.5rem;
 }
 
-/*.staff-logs-table-view{
-    position: relative;
-    top: 1rem;
-    left: 0;
-    right: 0;
-    margin: auto;
-    padding: 0;
-}
-
-.field-logs-table-view{
-    position: relative;
-    top: 1rem;
-    left: 0;
-    right: 0;
-    margin: auto;
-    padding: 0;
-}
-
-.crop-logs-table-view{
-    position: relative;
-    top: 1rem;
-    left: 0;
-    right: 0;
-    margin: auto;
-    padding: 0;
-}*/
-
 .staff-logs-table-view,
 .field-logs-table-view,
 .crop-logs-table-view {
-    width: 80%; /* Set a fixed width or use percentage for responsiveness */
-    margin: 1rem auto; /* Center the table and add vertical spacing */
+    position: relative;
+    top: 1rem;
+    left: 0;
+    right: 0;
+    margin: auto;
     padding: 0;
-}
-
-#crop-logs-table,
-#field-logs-table,
-#staff-logs-table {
-    width: 80%; /* Adjust width as needed */
-    margin: 0 auto; /* Center the table itself */
-}
-
-/* Optional: Add padding for visual appeal */
-#crop-logs-table th, .table td {
-    padding: 1rem;
-    text-align: center;
 }
 
 #Logs-Header-back-colour{
