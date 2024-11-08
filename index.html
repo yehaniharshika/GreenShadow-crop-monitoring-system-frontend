@@ -534,12 +534,213 @@
         <button class="btn btn-outline-secondary d-md-none" id="menu-toggle4"><ion-icon name="menu-outline"></ion-icon></button>
         <h2>Logs Management</h2>
       </div>
+
       <section class="row">
+        <!-- Log Details Form -->
+        <section class="Logs-details-form col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+          <div class="card cardSize">
+            <div id="Logs-Header-back-colour" class="card-header">
+              Logs Details
+            </div>
+            <div class="card-body">
+              <form>
+                <div class="row mb-3">
+                  <div class="col-md-6">
+                    <label for="logId" class="form-label">Log ID</label>
+                    <input type="text" class="form-control" id="logId" placeholder="Enter unique Log ID">
+                  </div>
+                  <div class="col-md-6">
+                    <label for="logDate" class="form-label">Log Date</label>
+                    <input type="date" class="form-control" id="logDate">
+                  </div>
+                </div>
 
+                <!--log category dropdown -->
+                <div class="mb-3">
+                  <label for="logCategory" class="form-label">Log Category</label>
+                  <select class="form-select" id="logCategory" onchange="showLogSection()">
+                    <option value="" selected disabled>Choose a category</option>
+                    <option value="crop">Crop</option>
+                    <option value="field">Field</option>
+                    <option value="staff">Staff</option>
+                  </select>
+                </div>
 
+                <!--dynamic crop section -->
+                <div id="crop-logs-section" class="dynamic-section">
 
+                  <div class="row mb-3">
+                    <div class="col-md-6">
+                      <label class="form-label fw-bold">Crop Code</label>
+                      <select class="form-select" name="crop"  id="cropCodeOption">
+                        <option disabled selected value="">Select Crop Code</option>
+                      </select>
+                    </div>
 
+                    <div class="col-md-6">
+                      <label class="form-label">Crop Common name</label>
+                      <input type="text" class="form-control customer-name-set" id="set-crop-common-name">
+                    </div>
 
+                    <div class="col-md-6">
+                      <label class="form-label">Crop Scientific name</label>
+                      <input type="text" class="form-control customer-name-set" id="set-crop-scientific-name">
+                    </div>
+
+                    <div class="col-md-6">
+                      <label class="form-label">category</label>
+                      <input type="text" class="form-control customer-name-set" id="set-crop-category">
+                    </div>
+                  </div>
+                </div>
+
+                <!--dynamic field section -->
+                <div id="field-logs-section" class="dynamic-section">
+
+                  <div class="row mb-3">
+                    <div class="col-md-6">
+                      <label class="form-label fw-bold">Field Code</label>
+                      <select class="form-select" name="field"  id="logFieldCodeOption">
+                        <option disabled selected value="">Select Field Code</option>
+                      </select>
+                    </div>
+
+                    <div class="col-md-6">
+                      <label class="form-label">Field name</label>
+                      <input type="text" class="form-control customer-name-set" id="set-field-name-for-log">
+                    </div>
+
+                    <div class="col-md-6">
+                      <label class="form-label">Field Location</label>
+                      <textarea class="form-control" placeholder="Set GPS Location" id="set-field-location-for-log" style="height: 80px"></textarea>
+                    </div>
+
+                    <div class="col-md-6">
+                      <label class="form-label">Extent Size (Sq. m)</label>
+                      <input type="number" step="0.01" class="form-control" id="set-field-extent-size-for-log">
+                    </div>
+                  </div>
+                </div>
+
+                <!--dynamic Staff Section -->
+                <div id="staff-logs-section" class="dynamic-section">
+
+                  <div class="row mb-3">
+                    <div class="col-md-6">
+                      <label class="form-label fw-bold">Crop Code</label>
+                      <select class="form-select" name="STAFF"  id="staffCodeOption">
+                        <option disabled selected value="">Select Staff ID</option>
+                      </select>
+                    </div>
+
+                    <div class="col-md-6">
+                      <label class="form-label">First Name</label>
+                      <input type="text" class="form-control" id="set-staff-first-name">
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label">Last Name</label>
+                      <input type="text" class="form-control" id="set-staff-last-name">
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label">Email</label>
+                      <input type="text" class="form-control" id="set-staff-email">
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label">Designation</label>
+                      <input type="text" class="form-control" id="set-designation">
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label">Role</label>
+                      <input type="text" class="form-control" id="set-staff-role">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <label for="log-details" class="form-label">Log details</label>
+                  <textarea class="form-control" placeholder="Enter Log Details here" id="log-details"></textarea>
+                </div>
+
+                <div class="mb-3">
+                  <label for="observed-image" class="form-label">Observed Image</label>
+                  <input type="file" class="form-control" id="observed-image" accept="image/*">
+                </div>
+
+                <div class="mt-3 mb-5 btn-logs-list">
+                  <button type="button" class="btn btn-success" id="logs-save">Save</button>
+                  <button type="button" class="btn btn-primary" id="logs-update">Update</button>
+                  <button type="button" class="btn btn-danger" id="logs-delete">Delete</button>
+                  <button type="reset" class="btn btn-warning" id="logs-reset">Reset</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </section>
+
+        <!-- search logs-->
+        <section class="search-logs-part col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 id="log-search-bar" class="card-title">Search Logs</h5>
+              <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Enter Log Code here" id="logs-search-by-id" aria-label="Search">
+                <button class="btn btn-outline-primary" type="button" id="log-search">Search</button>
+              </form>
+            </div>
+          </div>
+        </section>
+
+        <!--dynamic table section -->
+        <section id="dynamic-table-section" class="col-12">
+          <!--crop Table -->
+          <section class="field-logs-table-view col-12 col-sm-12 col-md-12 col-lg-10 col-xl-10 col-xxl-10">
+            <table id="crop-logs-table" class="table table-secondary table-striped dynamic-section" >
+              <thead>
+              <tr>
+                <th scope="col">Log Code</th>
+                <th scope="col">Log Date</th>
+                <th scope="col">Crop Code</th>
+                <th scope="col">Crop Name</th>
+              </tr>
+              </thead>
+              <tbody  id="crop-logs-tbl-tbody">
+              </tbody>
+            </table>
+          </section>
+
+          <!--field Table -->
+          <section class="field-logs-table-view col-12 col-sm-12 col-md-12 col-lg-10 col-xl-10 col-xxl-10">
+            <table id="field-logs-table" class="table table-secondary table-striped dynamic-section" >
+              <thead>
+              <tr>
+                <th scope="col">Log Code</th>
+                <th scope="col">Log Date</th>
+                <th scope="col">Field Code</th>
+                <th scope="col">Field Name</th>
+              </tr>
+              </thead>
+              <tbody  id="field-logs-tbl-tbody">
+              </tbody>
+            </table>
+          </section>
+
+          <!--staff Table -->
+          <section class="staff-logs-table-view col-12 col-sm-12 col-md-12 col-lg-10 col-xl-10 col-xxl-10">
+            <table id="staff-logs-table" class="table table-secondary table-striped dynamic-section" >
+              <thead>
+              <tr>
+                <th scope="col">Log Code</th>
+                <th scope="col">Log Date</th>
+                <th scope="col">Staff ID</th>
+                <th scope="col">Staff Name</th>
+                <th scope="col">Designation</th>
+              </tr>
+              </thead>
+              <tbody  id="staff-logs-tbl-tbody">
+              </tbody>
+            </table>
+          </section>
+        </section>
       </section>
     </section>
 
