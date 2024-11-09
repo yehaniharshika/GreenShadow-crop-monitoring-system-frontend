@@ -3,258 +3,145 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Logs Entry Form</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/st.css">
-  <!--<style>
-    .dynamic-section { display: none; } /* Hide sections by default */
-  </style>-->
+  <title>Vehicle Management System</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
 </head>
 <body>
-
-<section class="col-md-9 col-lg-10 main" id="logs-section">
+<section class="col-md-9 col-lg-10 main" id="vehicle-section">
   <div class="d-flex justify-content-between align-items-center p-3 bg-white border-bottom">
-    <button class="btn btn-outline-secondary d-md-none" id="menu-toggle"><ion-icon name="menu-outline"></ion-icon></button>
-    <h2>Logs Management</h2>
+    <button class="btn btn-outline-secondary d-md-none" id="menu-toggle3"><ion-icon name="menu-outline"></ion-icon></button>
+    <h2>Vehicle Management</h2>
   </div>
-
   <section class="row">
-    <!-- Log Details Form -->
-    <section class="Logs-details-form col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
-      <div class="card cardSize">
-        <div id="Logs-Header-back-colour" class="card-header">
-          Logs Details
+    <section class="Vehicle-details-form col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+      <div data-aos="flip-left"
+           data-aos-easing="ease-out-cubic"
+           data-aos-dueration="3000" class="card cardSize">
+        <div id="vehicle-Header-back-colour" class="card-header">
+          Equipment Details
         </div>
         <div class="card-body">
           <form>
-            <div class="row mb-3">
-              <div class="col-md-6">
-                <label for="logId" class="form-label">Log ID</label>
-                <input type="text" class="form-control" id="logId" placeholder="Enter unique Log ID">
-              </div>
-              <div class="col-md-6">
-                <label for="logDate" class="form-label">Log Date</label>
-                <input type="date" class="form-control" id="logDate">
-              </div>
+            <div class="mb-3">
+              <label for="vehicle-code" class="form-label">Equipment Code</label>
+              <input type="text" class="form-control" id="vehicle-code">
             </div>
 
-            <!--log category dropdown -->
             <div class="mb-3">
-              <label for="logCategory" class="form-label">Log Category</label>
-              <select class="form-select" id="logCategory" onchange="showLogSection()">
-                <option value="" selected disabled>Choose a category</option>
-                <option value="crop">Crop</option>
-                <option value="field">Field</option>
-                <option value="staff">Staff</option>
+              <label for="equipment-name" class="form-label">Equipment Name</label>
+              <input type="text" class="form-control" id="equipment-name" placeholder="Enter License Plate Number">
+            </div>
+
+            <div class="mb-3">
+              <label for="equipment-type" class="form-label">Type</label>
+              <select class="form-select" id="equipment-type" required>
+                <option selected>Select Type</option>
+                <option value="Electrical">Electrical</option>
+                <option value="Mechanical">Mechanical</option>
               </select>
             </div>
 
-            <!--dynamic crop section -->
-            <div id="crop-logs-section" class="dynamic-section">
-
-              <div class="row mb-3">
-                <div class="col-md-6">
-                  <label class="form-label fw-bold">Crop Code</label>
-                  <select class="form-select" name="crop"  id="cropCodeOption">
-                    <option disabled selected value="">Select Crop Code</option>
-                  </select>
-                </div>
-
-                <div class="col-md-6">
-                  <label class="form-label">Crop Common name</label>
-                  <input type="text" class="form-control customer-name-set" id="set-crop-common-name">
-                </div>
-
-                <div class="col-md-6">
-                  <label class="form-label">Crop Scientific name</label>
-                  <input type="text" class="form-control customer-name-set" id="set-crop-scientific-name">
-                </div>
-
-                <div class="col-md-6">
-                  <label class="form-label">category</label>
-                  <input type="text" class="form-control customer-name-set" id="set-crop-category">
-                </div>
-              </div>
-            </div>
-
-            <!--dynamic field section -->
-            <div id="field-logs-section" class="dynamic-section">
-
-              <div class="row mb-3">
-                <div class="col-md-6">
-                  <label class="form-label fw-bold">Field Code</label>
-                  <select class="form-select" name="field"  id="logFieldCodeOption">
-                    <option disabled selected value="">Select Field Code</option>
-                  </select>
-                </div>
-
-                <div class="col-md-6">
-                  <label class="form-label">Field name</label>
-                  <input type="text" class="form-control customer-name-set" id="set-field-name-for-log">
-                </div>
-
-                <div class="col-md-6">
-                  <label class="form-label">Field Location</label>
-                  <textarea class="form-control" placeholder="Set GPS Location" id="set-field-location-for-log" style="height: 80px"></textarea>
-                </div>
-
-                <div class="col-md-6">
-                  <label class="form-label">Extent Size (Sq. m)</label>
-                  <input type="number" step="0.01" class="form-control" id="set-field-extent-size-for-log">
-                </div>
-              </div>
-            </div>
-
-            <!--dynamic Staff Section -->
-            <div id="staff-logs-section" class="dynamic-section">
-
-              <div class="row mb-3">
-                <div class="col-md-6">
-                  <label class="form-label fw-bold">Crop Code</label>
-                  <select class="form-select" name="STAFF"  id="staffCodeOption">
-                    <option disabled selected value="">Select Staff ID</option>
-                  </select>
-                </div>
-
-                <div class="col-md-6">
-                  <label class="form-label">First Name</label>
-                  <input type="text" class="form-control" id="set-staff-first-name">
-                </div>
-                <div class="col-md-6">
-                  <label class="form-label">Last Name</label>
-                  <input type="text" class="form-control" id="set-staff-last-name">
-                </div>
-                <div class="col-md-6">
-                  <label class="form-label">Email</label>
-                  <input type="text" class="form-control" id="set-staff-email">
-                </div>
-                <div class="col-md-6">
-                  <label class="form-label">Designation</label>
-                  <input type="text" class="form-control" id="set-designation">
-                </div>
-                <div class="col-md-6">
-                  <label class="form-label">Role</label>
-                  <input type="text" class="form-control" id="set-staff-role">
-                </div>
-              </div>
+            <div class="mb-3">
+              <label for="equipment-category" class="form-label">Category</label>
+              <input type="text" class="form-control" id="equipment-category" placeholder="Enter Category">
             </div>
 
             <div class="mb-3">
-              <label for="log-details" class="form-label">Log details</label>
-              <textarea class="form-control" placeholder="Enter Log Details here" id="log-details"></textarea>
+              <label for="equipment-status" class="form-label">Status</label>
+              <select class="form-select" id="equipment-status">
+                <option selected>Select Status</option>
+                <option value="Available">Available</option>
+                <option value="Out of Service">Out of Service</option>
+              </select>
             </div>
 
-            <div class="mb-3">
-              <label for="observed-image" class="form-label">Observed Image</label>
-              <input type="file" class="form-control" id="observed-image" accept="image/*">
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label class="form-label fw-bold">Field Code</label>
+                <select class="form-select" name="equipment-field"  id="equipmentFieldCodeOption">
+                  <option disabled selected value="">Select Staff ID</option>
+                </select>
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label">Field Name</label>
+                <input type="text" class="form-control customer-name-set" id="set-staff-name">
+              </div>
             </div>
 
-            <div class="mt-3 mb-5 btn-logs-list">
-              <button type="button" class="btn btn-success" id="logs-save">Save</button>
-              <button type="button" class="btn btn-primary" id="logs-update">Update</button>
-              <button type="button" class="btn btn-danger" id="logs-delete">Delete</button>
-              <button type="reset" class="btn btn-warning" id="logs-reset">Reset</button>
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label class="form-label fw-bold">Staff ID</label>
+                <select class="form-select" name="staff"  id="staffIdOption">
+                  <option disabled selected value="">Select Staff ID</option>
+                </select>
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label">staff Name</label>
+                <input type="text" class="form-control customer-name-set" id="set-equipment-section-staff-name">
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label">Designation</label>
+                <input type="text" class="form-control customer-name-set" id="set-equipment-section-staff-designation">
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label">Contact Number</label>
+                <input type="tel" class="form-control" id="set-equipment-section-contact-number">
+              </div>
+            </div>
+
+            <div class="mt-3 mb-5 btn-vehicle-btn-list">
+              <button type="button" class="btn btn-success" id="vehicle-save">Save</button>
+              <button type="button" class="btn btn-primary" id="vehicle-update">Update</button>
+              <button type="button" class="btn btn-danger" id="vehicle-delete">Delete</button>
+              <button type="reset" class="btn btn-warning" id="vehicle-reset">Reset</button>
             </div>
           </form>
         </div>
       </div>
     </section>
 
-    <!-- search logs-->
-    <section class="search-logs-part col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
-      <div class="card">
-        <div class="card-body">
-          <h5 id="log-search-bar" class="card-title">Search Logs</h5>
+    <section class="search-equipment-part col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+      <div class="card" >
+        <div  class="card-body">
+          <h5 id="equipment-search-bar" class="card-title">Search Equipment</h5>
           <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Enter Log Code here" id="logs-search-by-id" aria-label="Search">
-            <button class="btn btn-outline-primary" type="button" id="crop-search">Search</button>
+            <input class="form-control me-2" type="search" placeholder="Enter Equipment code here" id="equipment-search-by-id" aria-label="Search" >
+            <button class="btn btn-outline-primary" type="button" id="equipment-search">Search</button>
           </form>
         </div>
       </div>
     </section>
 
-    <!--dynamic table section -->
-    <section id="dynamic-table-section" class="col-12">
-      <!--crop Table -->
-      <section class="field-logs-table-view col-12 col-sm-12 col-md-12 col-lg-10 col-xl-10 col-xxl-10">
-        <table id="crop-logs-table" class="table table-secondary table-striped dynamic-section" >
-          <thead>
-          <tr>
-            <th scope="col">Log Code</th>
-            <th scope="col">Log Date</th>
-            <th scope="col">Crop Code</th>
-            <th scope="col">Crop Name</th>
-          </tr>
-          </thead>
-          <tbody  id="crop-logs-tbl-tbody">
-          </tbody>
-        </table>
-      </section>
+    <section class="equipment-table-view col-12 col-sm-12 col-md-12 col-lg-10 col-xl-10 col-xxl-10">
+      <table class="table table-secondary table-striped" >
+        <thead>
+        <tr>
+          <th scope="col">Equipment code</th>
+          <th scope="col">Equipment Name</th>
+          <th scope="col">Type</th>
+          <th scope="col">Status</th>
+          <th scope="col">Staff ID</th>
+          <th scope="col">Staff Name</th>
+          <th scope="col">Field Code </th>
+          <th scope="col">Field Name</th>
 
-      <!--field Table -->
-      <section class="field-logs-table-view col-12 col-sm-12 col-md-12 col-lg-10 col-xl-10 col-xxl-10">
-        <table id="field-logs-table" class="table table-secondary table-striped dynamic-section" >
-          <thead>
-          <tr>
-            <th scope="col">Log Code</th>
-            <th scope="col">Log Date</th>
-            <th scope="col">Field Code</th>
-            <th scope="col">Field Name</th>
-          </tr>
-          </thead>
-          <tbody  id="field-logs-tbl-tbody">
-          </tbody>
-        </table>
-      </section>
-
-      <!--staff Table -->
-      <section class="staff-logs-table-view col-12 col-sm-12 col-md-12 col-lg-10 col-xl-10 col-xxl-10">
-        <table id="staff-logs-table" class="table table-secondary table-striped dynamic-section" >
-          <thead>
-          <tr>
-            <th scope="col">Log Code</th>
-            <th scope="col">Log Date</th>
-            <th scope="col">Staff ID</th>
-            <th scope="col">Staff Name</th>
-            <th scope="col">Designation</th>
-          </tr>
-          </thead>
-          <tbody  id="staff-logs-tbl-tbody">
-          </tbody>
-        </table>
-      </section>
+        </tr>
+        </thead>
+        <tbody  id="vehicle-tbl-tbody">
+        </tbody>
+      </table>
     </section>
-
   </section>
 </section>
 
-
-
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-  function showLogSection() {
-    // Hide all sections first
-    const sections = ['crop-logs-section', 'field-logs-section', 'staff-logs-section'];
-    sections.forEach(section => document.getElementById(section).style.display = 'none');
-
-    // Hide all tables first
-    const tables = ['crop-logs-table', 'field-logs-table', 'staff-logs-table'];
-    tables.forEach(table => document.getElementById(table).style.display = 'none');
-
-    // Show selected form and table section
-    const selection = document.getElementById('logCategory').value;
-    if (selection === 'crop') {
-      document.getElementById('crop-logs-section').style.display = 'block';
-      document.getElementById('crop-logs-table').style.display = 'block';
-    } else if (selection === 'field') {
-      document.getElementById('field-logs-section').style.display = 'block';
-      document.getElementById('field-logs-table').style.display = 'block';
-    } else if (selection === 'staff') {
-      document.getElementById('staff-logs-section').style.display = 'block';
-      document.getElementById('staff-logs-table').style.display = 'block';
-    }
-  }
-</script>
+<!-- jQuery, AJAX, and Bootstrap Scripts -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
