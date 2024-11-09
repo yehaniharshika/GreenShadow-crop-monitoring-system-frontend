@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="assets/css/crop.css">
   <link rel="stylesheet" href="assets/css/logs.css">
   <link rel="stylesheet" href="assets/css/vehicle.css">
+  <link rel="stylesheet" href="assets/css/equipment.css">
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 
@@ -881,7 +882,7 @@
         <h2>Equipment Management</h2>
       </div>
       <section class="row">
-        <section class="Vehicle-details-form col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+        <section class="Equipment-details-form col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
           <div data-aos="flip-left"
                data-aos-easing="ease-out-cubic"
                data-aos-dueration="3000" class="card cardSize">
@@ -890,37 +891,36 @@
             </div>
             <div class="card-body">
               <form>
-                <div class="mb-3">
-                  <label for="equipment-code" class="form-label">Equipment Code</label>
-                  <input type="text" class="form-control" id="equipment-code">
-                </div>
 
-                <div class="mb-3">
-                  <label for="equipment-name" class="form-label">Equipment Name</label>
-                  <input type="text" class="form-control" id="equipment-name" placeholder="Enter License Plate Number">
-                </div>
+                <div class="row mb-3">
+                  <div class="col-md-6">
+                    <label for="equipment-code" class="form-label">Equipment Code</label>
+                    <input type="text" class="form-control" id="equipment-code">
+                  </div>
 
-                <div class="mb-3">
-                  <label for="equipment-type" class="form-label">Type</label>
-                  <select class="form-select" id="equipment-type" required>
-                    <option selected>Select Type</option>
-                    <option value="Electrical">Electrical</option>
-                    <option value="Mechanical">Mechanical</option>
-                  </select>
-                </div>
+                  <div class="col-md-6">
+                    <label for="equipment-name" class="form-label">Equipment Name</label>
+                    <input type="text" class="form-control" id="equipment-name" placeholder="Enter Equipment Name">
+                  </div>
 
-                <div class="mb-3">
-                  <label for="equipment-category" class="form-label">Category</label>
-                  <input type="text" class="form-control" id="equipment-category" placeholder="Enter Category">
-                </div>
+                  <div class="col-md-6">
+                    <label for="equipment-type" class="form-label">Type</label>
+                    <select class="form-select" id="equipment-type" required>
+                      <option selected>Select Type</option>
+                      <option value="Electrical">Electrical</option>
+                      <option value="Mechanical">Mechanical</option>
+                    </select>
+                  </div>
 
-                <div class="mb-3">
-                  <label for="equipment-status" class="form-label">Status</label>
-                  <select class="form-select" id="equipment-status">
-                    <option selected>Select Status</option>
-                    <option value="Available">Available</option>
-                    <option value="Out of Service">Out of Service</option>
-                  </select>
+
+                  <div class="col-md-6">
+                    <label for="equipment-status" class="form-label">Status</label>
+                    <select class="form-select" id="equipment-status">
+                      <option selected>Select Status</option>
+                      <option value="Available">Available</option>
+                      <option value="Out of Service">Out of Service</option>
+                    </select>
+                  </div>
                 </div>
 
                 <div class="row mb-3">
