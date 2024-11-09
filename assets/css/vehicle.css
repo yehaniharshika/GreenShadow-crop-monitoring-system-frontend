@@ -13,6 +13,10 @@
     margin-top: 0.5rem;
 }
 
+#vehicle-section{
+    background-color: #cceded;
+}
+
 .vehicle-table-view{
     position: relative;
     top: 1rem;

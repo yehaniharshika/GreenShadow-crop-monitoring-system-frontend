@@ -14,8 +14,9 @@
 }
 
 #field-section{
-    background: skyblue;
+    background-color: #cceded;
 }
+
 .field-table-view{
     position: relative;
     top: 1rem;

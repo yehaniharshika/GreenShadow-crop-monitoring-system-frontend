@@ -13,6 +13,10 @@
     margin-top: 0.5rem;
 }
 
+#staff-section{
+    background-color: #cceded;
+}
+
 .staff-table-view{
     position: relative;
     top: 1rem;

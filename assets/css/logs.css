@@ -17,6 +17,10 @@
     margin-top: 0.5rem;
 }
 
+#logs-section{
+    background-color: #cceded;
+}
+
 .staff-logs-table-view,
 .field-logs-table-view,
 .crop-logs-table-view {

@@ -40,6 +40,10 @@
     margin-top: 4rem;
 }
 
+#crops-section{
+    background-color: #cceded;
+}
+
 .circle {
     display: inline-block;
     border-radius: 50%;
