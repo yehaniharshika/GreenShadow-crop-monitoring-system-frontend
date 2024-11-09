@@ -13,6 +13,9 @@
     margin-top: 0.5rem;
 }
 
+#field-section{
+    background: skyblue;
+}
 .field-table-view{
     position: relative;
     top: 1rem;

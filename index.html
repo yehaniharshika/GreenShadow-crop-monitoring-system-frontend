@@ -70,7 +70,7 @@
       </ul>
     </div>
 
-    <!--Main Content -->
+    <!--dashboard section-->
     <section class="col-md-9 col-lg-10 main" id="dashboard-section">
       <!--Top-bar-->
       <div class="d-flex justify-content-between align-items-center p-3 bg-white border-bottom">
@@ -90,34 +90,36 @@
 
       <!--Dashboard cards-->
       <div class="container mt-4">
-        <div class="row g-3">
-          <div class="col-sm-6 col-lg-3">
-            <div class="card text-white bg-primary">
+        <div class="row g-3 cards">
+          <div class="col-sm-6 col-lg-3 ">
+            <div class="card text-white field-count-card">
               <div class="card-body d-flex align-items-center">
                 <div class="me-3"><ion-icon name="people-outline" style="font-size: 2rem;"></ion-icon></div>
-                <div>
+                <div class="card-content">
                   <h5 class="card-title mb-0">10</h5>
                   <small>Field Count</small>
                 </div>
               </div>
             </div>
           </div>
-          <div class="col-sm-6 col-lg-3">
-            <div class="card text-white bg-success">
+
+          <div class="col-sm-6 col-lg-3 ">
+            <div class="card text-white staff-count-card">
               <div class="card-body d-flex align-items-center">
                 <div class="me-3"><ion-icon name="color-fill-outline" style="font-size: 2rem;"></ion-icon></div>
-                <div>
+                <div class="card-content">
                   <h5 class="card-title mb-0">12</h5>
                   <small>Staff Count</small>
                 </div>
               </div>
             </div>
           </div>
+
           <div class="col-sm-6 col-lg-3">
-            <div class="card text-white bg-warning">
+            <div class="card text-white  crop-count-card">
               <div class="card-body d-flex align-items-center">
                 <div class="me-3"><ion-icon name="reader-outline" style="font-size: 2rem;"></ion-icon></div>
-                <div>
+                <div class="card-content">
                   <h5 class="card-title mb-0">227</h5>
                   <small>Crop Count</small>
                 </div>
@@ -125,11 +127,11 @@
             </div>
           </div>
           <div class="col-sm-6 col-lg-3">
-            <div class="card text-white bg-danger">
+            <div class="card text-white vehicle-count-card">
               <div class="card-body d-flex align-items-center">
-                <div class="me-3"><ion-icon name="accessibility-outline" style="font-size: 2rem;"></ion-icon></div>
-                <div>
-                  <h5 class="card-title mb-0">4</h5>
+                <div class="me-3"><img src="assets/icon/vehicle.png" style="width: 70px; height: 70px;"></div>
+                <div class="card-content">
+                  <h5 class="card-title mb-0" id="vehicle-count-amount">04</h5>
                   <small>Vehicle Count</small>
                 </div>
               </div>
@@ -253,6 +255,7 @@
       </section>
     </section>
 
+    <!--staff section-->
     <section class="col-md-9 col-lg-10 main" id="staff-section">
       <div class="d-flex justify-content-between align-items-center p-3 bg-white border-bottom">
         <button class="btn btn-outline-secondary d-md-none" id="menu-toggle2"><ion-icon name="menu-outline"></ion-icon></button>
@@ -413,6 +416,7 @@
       </section>
     </section>
 
+    <!--crop section-->
     <section class="col-md-9 col-lg-10 main" id="crops-section">
       <div class="d-flex justify-content-between align-items-center p-3 bg-white border-bottom">
         <button class="btn btn-outline-secondary d-md-none" id="menu-toggle3"><ion-icon name="menu-outline"></ion-icon></button>
@@ -507,6 +511,18 @@
                 <input class="form-control me-2" type="search" placeholder="Enter Crop code here" id="crop-search-by-id" aria-label="Search" >
                 <button class="btn btn-outline-primary" type="button" id="crop-search">Search</button>
               </form>
+            </div>
+          </div>
+
+          <!-- Images Section -->
+          <div class="d-flex justify-content-center mt-4">
+            <div class="circle-container">
+              <div class="circle circle-left">
+                <img src="assets/images/cropImage01.jpg" alt="Image 1" class="img-fluid rounded-circle" style="width: 280px; height: 280px;">
+              </div>
+              <div class="circle circle-right ms-3">
+                <img src="assets/images/cropImage02.jpg" alt="Image 2" class="img-fluid rounded-circle" style="width: 280px; height: 280px;">
+              </div>
             </div>
           </div>
         </section>

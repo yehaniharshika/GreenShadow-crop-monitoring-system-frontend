@@ -19,13 +19,38 @@
 }
 
 #dashboard-section{
-    background-color: plum;
+    background-color: #cceded;
 }
 
 #sidebar ul li:hover a {
     color: black;
     font-size: larger;
     font-weight: bolder;
+}
+
+.staff-count-card,
+.vehicle-count-card{
+    background-color: #004142;
+    height: 150px;
+    border: 3px solid goldenrod;
+    border-radius: 30px;
+}
+
+.cards{
+    padding: 0;
+}
+.crop-count-card,
+.field-count-card{
+    background-color: #4d7a7b;
+    height: 150px;
+    border: 3px solid goldenrod;
+    border-radius: 30px;
+}
+
+.field-count-card,
+.vehicle-count-card div div ion-icon{
+    color: #67c8c8;
+    font-size: 30px;
 }
 
 .logo {
@@ -35,6 +60,15 @@
 }
 /* Default hidden state for sidebar on smaller screens */
 
+.card-content h5{
+    font-weight: bold;
+    font-size: 28px;
+}
+
+.card-content small{
+    font-weight: bold;
+    font-size: 22px;
+}
 @media (max-width: 768px) {
     #sidebar {
         display: none;
