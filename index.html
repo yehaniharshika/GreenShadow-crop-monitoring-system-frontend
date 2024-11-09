@@ -51,10 +51,10 @@
 
 
         <li class="nav-item mb-3">
-          <a href="#" class="nav-link text-white"><ion-icon name="bus"></ion-icon> Vehicle</a>
+          <a href="#vehicle-section" class="nav-link text-white" id="nav-vehicle"><ion-icon name="bus"></ion-icon> Vehicle</a>
         </li>
         <li class="nav-item mb-3">
-          <a href="#" class="nav-link text-white"><ion-icon name="construct"></ion-icon> Equipment</a>
+          <a href="#equipment-section" class="nav-link text-white" id="nav-equipment"><ion-icon name="construct"></ion-icon> Equipment</a>
         </li>
         <li class="nav-item mb-3">
           <a href="#" class="nav-link text-white"><ion-icon name="document-attach"></ion-icon> Reports</a>
@@ -63,7 +63,7 @@
           <a href="#" class="nav-link text-white"><ion-icon name="settings"></ion-icon> Setting</a>
         </li>
         <li class="nav-item">
-          <a href="#" class="nav-link text-white"><ion-icon name="log-out"></ion-icon> Sign Out</a>
+          <a href="auth.html" class="nav-link text-white"><ion-icon name="log-out"></ion-icon> Sign Out</a>
         </li>
       </ul>
     </div>
@@ -626,7 +626,7 @@
                   <div class="row mb-3">
                     <div class="col-md-6">
                       <label class="form-label fw-bold">Crop Code</label>
-                      <select class="form-select" name="STAFF"  id="staffCodeOption">
+                      <select class="form-select" name="staff"  id="staffCodeOption">
                         <option disabled selected value="">Select Staff ID</option>
                       </select>
                     </div>
@@ -751,6 +751,135 @@
           </section>
         </section>
       </section>
+    </section>
+
+
+    <!--vehicle section-->
+    <section class="col-md-9 col-lg-10 main" id="vehicle-section">
+      <div class="d-flex justify-content-between align-items-center p-3 bg-white border-bottom">
+        <button class="btn btn-outline-secondary d-md-none" id="menu-toggle5"><ion-icon name="menu-outline"></ion-icon></button>
+        <h2>Vehicle Management</h2>
+      </div>
+      <section class="row">
+        <section class="Vehicle-details-form col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+          <div data-aos="flip-left"
+               data-aos-easing="ease-out-cubic"
+               data-aos-dueration="3000" class="card cardSize">
+            <div id="vehicle-Header-back-colour" class="card-header">
+              Vehicle Details
+            </div>
+            <div class="card-body">
+              <form>
+                <div class="mb-3">
+                  <label for="vehicle-code" class="form-label">Vehicle Code</label>
+                  <input type="text" class="form-control" id="vehicle-code">
+                </div>
+
+                <div class="row mb-3">
+                  <div class="col-md-6">
+                    <label for="license-plate-number" class="form-label">License Plate Number</label>
+                    <input type="text" class="form-control" id="license-plate-number" placeholder="Enter License Plate Number">
+                  </div>
+
+                  <div class="col-md-6">
+                    <label for="fuel-type" class="form-label">Fuel Type</label>
+                    <input type="text" class="form-control" id="fuel-type" placeholder="Enter Fuel Type(e.g., Diesel)">
+                  </div>
+
+                  <div class="col-md-6">
+                    <label for="vehicle-category" class="form-label">Category</label>
+                    <input type="text" class="form-control" id="vehicle-category" placeholder="Enter Category">
+                  </div>
+
+                  <div class="col-md-6">
+                    <label for="vehicle-status" class="form-label">Status</label>
+                    <select class="form-select" id="vehicle-status">
+                      <option selected>Select Status</option>
+                      <option value="Available">Available</option>
+                      <option value="Out of Service">Out of Service</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <label for="vehicle-remark" class="form-label">Remarks</label>
+                  <textarea class="form-control" placeholder="Remarks" id="vehicle-remark" style="height: 80px"></textarea>
+                </div>
+
+                <div class="row mb-3">
+                  <div class="col-md-6">
+                    <label class="form-label fw-bold">Staff ID</label>
+                    <select class="form-select" name="staff"  id="staffIdOption">
+                      <option disabled selected value="">Select Staff ID</option>
+                    </select>
+                  </div>
+
+                  <div class="col-md-6">
+                    <label class="form-label">staff Name</label>
+                    <input type="text" class="form-control customer-name-set" id="set-staff-name">
+                  </div>
+
+                  <div class="col-md-6">
+                    <label class="form-label">Designation</label>
+                    <input type="text" class="form-control customer-name-set" id="set-staff-designation">
+                  </div>
+
+                  <div class="col-md-6">
+                    <label class="form-label">Contact Number</label>
+                    <input type="tel" class="form-control" id="set-contact-number">
+                  </div>
+                </div>
+
+                <div class="mt-3 mb-5 btn-vehicle-btn-list">
+                  <button type="button" class="btn btn-success" id="vehicle-save">Save</button>
+                  <button type="button" class="btn btn-primary" id="vehicle-update">Update</button>
+                  <button type="button" class="btn btn-danger" id="vehicle-delete">Delete</button>
+                  <button type="reset" class="btn btn-warning" id="vehicle-reset">Reset</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </section>
+
+        <section class="search-vehicle-part col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+          <div class="card" >
+            <div  class="card-body">
+              <h5 id="vehicle-search-bar" class="card-title">Search Vehicle</h5>
+              <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Enter Vehicle code here" id="vehicle-search-by-id" aria-label="Search" >
+                <button class="btn btn-outline-primary" type="button" id="vehicle-search">Search</button>
+              </form>
+            </div>
+          </div>
+        </section>
+
+        <section class="vehicle-table-view col-12 col-sm-12 col-md-12 col-lg-10 col-xl-10 col-xxl-10">
+          <table class="table table-secondary table-striped" >
+            <thead>
+            <tr>
+              <th scope="col">Vehicle code</th>
+              <th scope="col">License Plate Number</th>
+              <th scope="col">Fuel Type</th>
+              <th scope="col">Category</th>
+              <th scope="col">Status</th>
+              <th scope="col">Remarks</th>
+              <th scope="col">Staff ID</th>
+              <th scope="col">Staff Name</th>
+            </tr>
+            </thead>
+            <tbody  id="vehicle-tbl-tbody">
+            </tbody>
+          </table>
+        </section>
+      </section>
+    </section>
+
+    <section class="col-md-9 col-lg-10 main" id="equipment-section">
+      <div class="d-flex justify-content-between align-items-center p-3 bg-white border-bottom">
+        <button class="btn btn-outline-secondary d-md-none" id="menu-toggle6"><ion-icon name="menu-outline"></ion-icon></button>
+        <h2>Equipment Management</h2>
+      </div>
+
     </section>
 
   </div>
