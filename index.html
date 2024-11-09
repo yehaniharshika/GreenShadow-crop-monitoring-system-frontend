@@ -810,14 +810,14 @@
                 <div class="row mb-3">
                   <div class="col-md-6">
                     <label class="form-label fw-bold">Staff ID</label>
-                    <select class="form-select" name="staff"  id="staffIdOption">
+                    <select class="form-select" name="staff"  id="equipmentStaffIdOption">
                       <option disabled selected value="">Select Staff ID</option>
                     </select>
                   </div>
 
                   <div class="col-md-6">
                     <label class="form-label">staff Name</label>
-                    <input type="text" class="form-control customer-name-set" id="set-staff-name">
+                    <input type="text" class="form-control customer-name-set" id="set-equipment-staff-name">
                   </div>
 
                   <div class="col-md-6">
@@ -880,7 +880,130 @@
         <button class="btn btn-outline-secondary d-md-none" id="menu-toggle6"><ion-icon name="menu-outline"></ion-icon></button>
         <h2>Equipment Management</h2>
       </div>
+      <section class="row">
+        <section class="Vehicle-details-form col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+          <div data-aos="flip-left"
+               data-aos-easing="ease-out-cubic"
+               data-aos-dueration="3000" class="card cardSize">
+            <div id="equipment-Header-back-colour" class="card-header">
+              Equipment Details
+            </div>
+            <div class="card-body">
+              <form>
+                <div class="mb-3">
+                  <label for="equipment-code" class="form-label">Equipment Code</label>
+                  <input type="text" class="form-control" id="equipment-code">
+                </div>
 
+                <div class="mb-3">
+                  <label for="equipment-name" class="form-label">Equipment Name</label>
+                  <input type="text" class="form-control" id="equipment-name" placeholder="Enter License Plate Number">
+                </div>
+
+                <div class="mb-3">
+                  <label for="equipment-type" class="form-label">Type</label>
+                  <select class="form-select" id="equipment-type" required>
+                    <option selected>Select Type</option>
+                    <option value="Electrical">Electrical</option>
+                    <option value="Mechanical">Mechanical</option>
+                  </select>
+                </div>
+
+                <div class="mb-3">
+                  <label for="equipment-category" class="form-label">Category</label>
+                  <input type="text" class="form-control" id="equipment-category" placeholder="Enter Category">
+                </div>
+
+                <div class="mb-3">
+                  <label for="equipment-status" class="form-label">Status</label>
+                  <select class="form-select" id="equipment-status">
+                    <option selected>Select Status</option>
+                    <option value="Available">Available</option>
+                    <option value="Out of Service">Out of Service</option>
+                  </select>
+                </div>
+
+                <div class="row mb-3">
+                  <div class="col-md-6">
+                    <label class="form-label fw-bold">Field Code</label>
+                    <select class="form-select" name="equipment-field"  id="equipmentFieldCodeOption">
+                      <option disabled selected value="">Select Staff ID</option>
+                    </select>
+                  </div>
+
+                  <div class="col-md-6">
+                    <label class="form-label">Field Name</label>
+                    <input type="text" class="form-control customer-name-set" id="set-staff-name">
+                  </div>
+                </div>
+
+                <div class="row mb-3">
+                  <div class="col-md-6">
+                    <label class="form-label fw-bold">Staff ID</label>
+                    <select class="form-select" name="staff"  id="staffIdOption">
+                      <option disabled selected value="">Select Staff ID</option>
+                    </select>
+                  </div>
+
+                  <div class="col-md-6">
+                    <label class="form-label">staff Name</label>
+                    <input type="text" class="form-control customer-name-set" id="set-equipment-section-staff-name">
+                  </div>
+
+                  <div class="col-md-6">
+                    <label class="form-label">Designation</label>
+                    <input type="text" class="form-control customer-name-set" id="set-equipment-section-staff-designation">
+                  </div>
+
+                  <div class="col-md-6">
+                    <label class="form-label">Contact Number</label>
+                    <input type="tel" class="form-control" id="set-equipment-section-contact-number">
+                  </div>
+                </div>
+
+                <div class="mt-3 mb-5 btn-vehicle-btn-list">
+                  <button type="button" class="btn btn-success" id="equipment-save">Save</button>
+                  <button type="button" class="btn btn-primary" id="equipment-update">Update</button>
+                  <button type="button" class="btn btn-danger" id="equipment-delete">Delete</button>
+                  <button type="reset" class="btn btn-warning" id="equipment-reset">Reset</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </section>
+
+        <section class="search-equipment-part col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+          <div class="card" >
+            <div  class="card-body">
+              <h5 id="equipment-search-bar" class="card-title">Search Equipment</h5>
+              <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Enter Equipment code here" id="equipment-search-by-id" aria-label="Search" >
+                <button class="btn btn-outline-primary" type="button" id="equipment-search">Search</button>
+              </form>
+            </div>
+          </div>
+        </section>
+
+        <section class="equipment-table-view col-12 col-sm-12 col-md-12 col-lg-10 col-xl-10 col-xxl-10">
+          <table class="table table-secondary table-striped" >
+            <thead>
+            <tr>
+              <th scope="col">Equipment code</th>
+              <th scope="col">Equipment Name</th>
+              <th scope="col">Type</th>
+              <th scope="col">Status</th>
+              <th scope="col">Staff ID</th>
+              <th scope="col">Staff Name</th>
+              <th scope="col">Field Code </th>
+              <th scope="col">Field Name</th>
+
+            </tr>
+            </thead>
+            <tbody  id="equipment-tbl-tbody">
+            </tbody>
+          </table>
+        </section>
+      </section>
     </section>
 
   </div>
