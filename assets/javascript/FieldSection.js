@@ -24,7 +24,7 @@ function fetchFieldData(){
     });
 }
 
-/*function loadFieldTable(data) {
+function loadFieldTable(data) {
     const fieldTableBody = $("#field-tbl-tbody");
     fieldTableBody.empty();
 
@@ -105,7 +105,7 @@ $("#field-tbl-tbody").on('click', 'tr', function() {
 
     //show the modal
     $('#field-section-details-form').modal('show');
-});*/
+});
 
 
 
