@@ -260,7 +260,7 @@ $("#staff-delete").on("click", function (e) {
 });
 
 
-/*$("#staff-search").on("click", function (e) {
+$("#staff-search").on("click", function (e) {
     let staffSearchId = $("#staff-search-by-staff-id").val();
 
     if (!staffSearchId) {
@@ -336,7 +336,7 @@ $("#staff-delete").on("click", function (e) {
             );
         },
     });
-});*/
+});
 
 
 
