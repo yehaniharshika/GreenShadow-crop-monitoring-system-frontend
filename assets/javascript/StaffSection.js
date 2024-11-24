@@ -103,6 +103,7 @@ $("#staff-tbl-tbody").on('click', 'tr', function() {
 
     $('#staff-section-details-form').modal('show');
 });
+
 $("#staff-save").on("click", function (e) {
     e.preventDefault();
 

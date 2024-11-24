@@ -141,8 +141,8 @@
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 100px;  /* Adjust as needed */
-    height: 100px; /* Adjust as needed */
+    width: 140px;  /* Adjust as needed */
+    height: 120px; /* Adjust as needed */
     object-fit: cover; /* Ensures image retains its aspect ratio */
 }
 
