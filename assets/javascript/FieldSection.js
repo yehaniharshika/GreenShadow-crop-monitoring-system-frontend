@@ -7,7 +7,7 @@ window.addEventListener('load', () => {
 });
 
 
-/*function fetchFieldData(){
+function fetchFieldData(){
     $.ajax({
         url: "http://localhost:8080/GreenShadow/api/v1/fields",
         method: "GET",
@@ -22,7 +22,7 @@ window.addEventListener('load', () => {
             console.error("Failed to fetch field data:", xhr.responseText || error);
         }
     });
-}*/
+}
 
 /*function loadFieldTable(data) {
     const fieldTableBody = $("#field-tbl-tbody");
@@ -174,18 +174,18 @@ document.getElementById('fieldStaffIdOption').addEventListener('change', functio
     }
 });
 
-//save field
 $("#field-save").click(function () {
+
     const fieldCode = $("#field-code").val().trim();
     const fieldName = $("#field-name").val().trim();
     const fieldLocation = $("#field-location").val().trim();
     const extentSize = $("#extent-size").val().trim();
     const fieldImage1 = $("#fieldImage1")[0].files[0];
     const fieldImage2 = $("#fieldImage2")[0].files[0];
-    //collect staff data
+    // collect staff data
     const staffId = $("#fieldStaffIdOption").val();
 
-    //validate fields
+    // Validate fields
     if (!fieldCode || !fieldName || !fieldLocation || !extentSize || !fieldImage1 || !fieldImage2 || !staffId) {
         Swal.fire({
             icon: "error",
