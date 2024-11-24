@@ -2,140 +2,265 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Field Management</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Ionicons CSS -->
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+    <style>
+        /* Custom styles for the main container */
+        .image-container {
+            width: 340px;
+            height: 350px;
+            border: 2px solid #ddd;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            margin: 20px auto;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+        }
+
+        /* Styles for the image display box */
+        .image-box {
+            width: 300px;
+            height: 260px;
+            border: 2px solid #ddd;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            background-color: #e9e9e9;
+            margin-bottom: 10px;
+            border-radius: 8px;
+        }
+
+        .image-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Choose Image button and icon */
+        .choose-image-btn {
+            display: flex;
+            align-items: center;
+            font-size: 16px;
+            font-weight: bolder;
+            color: #007bff;
+            background-color: #f1f1f1;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .choose-image-btn ion-icon {
+            margin-right: 8px;
+            font-size: 20px;
+        }
+
+        .choose-image-btn:hover {
+            background-color: red;
+        }
+    </style>
 </head>
 <body>
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staff-section-details-form">
-    <ion-icon name="add-sharp"></ion-icon>Add staff
-</button>
 
-<!-- Modal -->
-<div class="modal fade" id="staff-section-details-form" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <section class="Staff-details-form">
-                    <div data-aos="flip-left"
-                         data-aos-easing="ease-out-cubic"
-                         data-aos-duration="3000" class="card cardSize">
-                        <div id="staff-Header-back-colour" class="card-header">
-                            Staff Details
-                        </div>
-                        <div class="card-body">
-                            <form>
-                                <div class="row mb-3">
-                                    <div class="col-md-6">
-                                        <label for="staff-id" class="form-label">Staff ID</label>
-                                        <input type="text" class="form-control" id="staff-id">
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <label for="firstName" class="form-label">First Name</label>
-                                        <input type="text" class="form-control" id="firstName" placeholder="Enter first name">
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <label for="lastName" class="form-label">Last Name</label>
-                                        <input type="text" class="form-control" id="lastName" placeholder="Enter last name">
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <label for="gender" class="form-label">Gender</label>
-                                        <select class="form-select" id="gender">
-                                            <option selected>Select gender</option>
-                                            <option value="Male">Male</option>
-                                            <option value="Female">Female</option>
-                                            <option value="Other">Other</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="row mb-3">
-                                    <div class="col-md-6">
-                                        <label for="addressLine1" class="form-label">Address Line 01</label>
-                                        <input type="text" class="form-control" id="addressLine1" placeholder="Building no or name">
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <label for="addressLine2" class="form-label">Address Line 02</label>
-                                        <input type="text" class="form-control" id="addressLine2" placeholder="Lane">
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <label for="addressLine3" class="form-label">Address Line 03</label>
-                                        <input type="text" class="form-control" id="addressLine3" placeholder="City">
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <label for="addressLine4" class="form-label">Address Line 04</label>
-                                        <input type="text" class="form-control" id="addressLine4" placeholder="State">
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <label for="addressLine5" class="form-label">Address Line 05</label>
-                                        <input type="text" class="form-control" id="addressLine5" placeholder="Postal code">
-                                    </div>
-                                </div>
-
-                                <div class="row mb-3">
-                                    <div class="col-md-6">
-                                        <label for="dob" class="form-label">Date of Birth</label>
-                                        <input type="date" class="form-control" id="dob">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="joined-date" class="form-label">Joined Date</label>
-                                        <input type="date" class="form-control" id="joined-date">
-                                    </div>
-                                </div>
-
-                                <div class="row mb-3">
-                                    <div class="col-md-6">
-                                        <label for="designation" class="form-label">Designation</label>
-                                        <input type="text" class="form-control" id="designation" placeholder="Enter designation">
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <label for="contact-number" class="form-label">Contact Number</label>
-                                        <input type="tel" class="form-control" id="contact-number" placeholder="Enter mobile number">
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <label for="email" class="form-label">Email</label>
-                                        <input type="email" class="form-control" id="email" placeholder="Enter email address">
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <label for="role" class="form-label">Role</label>
-                                        <select class="form-select" id="role">
-                                            <option selected>Select role</option>
-                                            <option value="Admin">ADMIN</option>
-                                            <option value="Manager">Manager</option>
-                                            <option value="Staff">Staff</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="mt-3 mb-5 btn-field-list">
-                                    <button type="button" class="btn btn-success" id="staff-save">Save</button>
-                                    <button type="button" class="btn btn-primary" id="staff-update">Update</button>
-                                    <button type="button" class="btn btn-danger" id="staff-delete">Delete</button>
-                                    <button type="reset" class="btn btn-warning" id="staff-reset">Reset</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </section>
-            </div>
-
-        </div>
+<section class="col-md-9 col-lg-10 main" id="staff-section">
+    <div class="d-flex justify-content-between align-items-center p-3 bg-white border-bottom">
+        <button class="btn btn-outline-secondary d-md-none" id="menu-toggle2"><ion-icon name="menu-outline"></ion-icon></button>
+        <h2>Staff Management</h2>
     </div>
-</div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+    <section class="row">
+        <section class="add-staff-button col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staff-section-details-form">
+                <ion-icon name="add-sharp"></ion-icon>Add field
+            </button>
+        </section>
+
+        <div class="modal fade" id="staff-section-details-form" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <section class="Staff-details-form">
+                            <div data-aos="flip-left"
+                                 data-aos-easing="ease-out-cubic"
+                                 data-aos-duration="3000" class="card cardSize">
+                                <div id="staff-Header-back-colour" class="card-header">
+                                    Staff Details
+                                </div>
+                                <div class="card-body">
+                                    <form>
+                                        <div class="mb-3">
+                                            <label for="field-code" class="form-label">Field Code</label>
+                                            <input type="text" class="form-control" id="field-code">
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="field-name" class="form-label">Field Name</label>
+                                            <input type="text" class="form-control" id="field-name" placeholder="Enter Field Name">
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="field-location" class="form-label">Field Location</label>
+                                            <textarea class="form-control" placeholder="Enter GPS Location" id="field-location" style="height: 100px"></textarea>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="extent-size" class="form-label">Extent Size (Sq. m)</label>
+                                            <input type="number" step="0.01" class="form-control" id="extent-size" placeholder="Enter extent size">
+                                        </div>
+
+                                        <!-- Image Upload Section 1 -->
+                                        <div class="mb-3">
+                                            <label for="fieldImage1" class="form-label">Field Image 1</label>
+                                            <div class="image-container">
+                                                <div class="image-box">
+                                                    <img id="previewImage1" src="" alt="Field Image 1 Preview" class="d-none">
+                                                </div>
+                                                <label for="fieldImage1" class="choose-image-btn">
+                                                    <ion-icon name="camera"></ion-icon>Choose Image
+                                                </label>
+                                                <input type="file" class="d-none" id="fieldImage1" accept="image/*">
+                                            </div>
+                                        </div>
+
+                                        <!-- Image Upload Section 2 -->
+                                        <div class="mb-3">
+                                            <label for="fieldImage2" class="form-label">Field Image 2</label>
+                                            <div class="image-container">
+                                                <div class="image-box">
+                                                    <img id="previewImage2" src="" alt="Field Image 2 Preview" class="d-none">
+                                                </div>
+                                                <label for="fieldImage2" class="choose-image-btn">
+                                                    <ion-icon name="camera"></ion-icon>Choose Image
+                                                </label>
+                                                <input type="file" class="d-none" id="fieldImage2" accept="image/*">
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <label class="form-label fw-bold">Staff ID</label>
+                                                <select class="form-select" name="staff"  id="fieldStaffIdOption">
+                                                    <option disabled selected value="">Select Staff ID</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <label class="form-label">staff Name</label>
+                                                <input type="text" class="form-control staff-name-set" id="set-field-staff-name">
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <label class="form-label">Designation</label>
+                                                <input type="text" class="form-control staff-designation" id="set-field-staff-designation">
+                                            </div>
+                                        </div>
+
+                                        <div class="mt-3 mb-5 btn-field-list">
+                                            <button type="button" class="btn btn-success" id="field-save">Save</button>
+                                            <button type="button" class="btn btn-primary" id="field-update">Update</button>
+                                            <button type="button" class="btn btn-danger" id="field-delete">Delete</button>
+                                            <button type="reset" class="btn btn-warning" id="field-reset">Reset</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="search-field-part col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+            <div class="card" >
+                <div  class="card-body">
+                    <h5 id="search-bar" class="card-title">Search Field</h5>
+                    <form class="d-flex" role="search">
+                        <input class="form-control me-2" type="search" placeholder="Enter Field code here" id="customer-search-by-id" aria-label="Search" >
+                        <button class="btn btn-outline-primary" type="button" id="customer-search">Search</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!--<section class="staff-img-part col-md-4 d-flex align-items-center justify-content-center">
+            <div class="circle-container text-center">
+                <div class="circle circle-left">
+                    <img src="assets/images/staff01.jpg" alt="Image 1" class="img-fluid rounded-circle">
+                </div>
+                <div class="circle circle-right ms-3">
+                    <img src="assets/images/staff02.jpg" alt="Image 2" class="img-fluid rounded-circle">
+                </div>
+            </div>
+        </section>-->
+
+        <section class="field-table-view col-12 col-sm-12 col-md-12 col-lg-10 col-xl-10 col-xxl-10">
+            <div class="table-responsive">
+                <table class="table table-striped  table-bordered" >
+                    <thead>
+                    <tr>
+                        <th scope="col">Field code</th>
+                        <th scope="col">Field name</th>
+                        <th scope="col">Field Location</th>
+                        <th scope="col">extent size</th>
+                        <th scope="col">Field Image-01</th>
+                        <th scope="col">Field Image-02</th>
+                    </tr>
+                    </thead>
+                    <tbody  id="field-tbl-tbody">
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </section>
+</section>
+
+<!-- Bootstrap 5 JS and Ionicons -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    // Image Upload Preview for Field Image 1
+    document.getElementById('fieldImage1').addEventListener('change', function (event) {
+        const file = event.target.files[0];
+        const preview = document.getElementById('previewImage1');
+
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                preview.src = e.target.result;
+                preview.classList.remove('d-none');  // Show the image
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    // Image Upload Preview for Field Image 2
+    document.getElementById('fieldImage2').addEventListener('change', function (event) {
+        const file = event.target.files[0];
+        const preview = document.getElementById('previewImage2');
+
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                preview.src = e.target.result;
+                preview.classList.remove('d-none');  // Show the image
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+</script>
+
 </body>
 </html>

@@ -133,7 +133,7 @@ function  fetchFieldCode(){
 }
 
 
-/*// Function to load staff IDs
+// Function to load staff IDs
 function loadStaffIds() {
     $.ajax({
         url: "http://localhost:8080/GreenShadow/api/v1/staff", // API URL for staff data
@@ -172,20 +172,20 @@ document.getElementById('fieldStaffIdOption').addEventListener('change', functio
         document.getElementById('set-field-staff-name').value = "";
         document.getElementById('set-field-staff-designation').value = "";
     }
-});*/
+});
 
-/*$("#field-save").click(function () {
-
+//save field
+$("#field-save").click(function () {
     const fieldCode = $("#field-code").val().trim();
     const fieldName = $("#field-name").val().trim();
     const fieldLocation = $("#field-location").val().trim();
     const extentSize = $("#extent-size").val().trim();
     const fieldImage1 = $("#fieldImage1")[0].files[0];
     const fieldImage2 = $("#fieldImage2")[0].files[0];
-    // collect staff data
+    //collect staff data
     const staffId = $("#fieldStaffIdOption").val();
 
-    // Validate fields
+    //validate fields
     if (!fieldCode || !fieldName || !fieldLocation || !extentSize || !fieldImage1 || !fieldImage2 || !staffId) {
         Swal.fire({
             icon: "error",
@@ -250,7 +250,7 @@ document.getElementById('fieldStaffIdOption').addEventListener('change', functio
             console.error("Error details:", xhr);
         }
     });
-});*/
+});
 
 
 
