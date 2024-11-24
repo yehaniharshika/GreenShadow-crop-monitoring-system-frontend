@@ -154,7 +154,7 @@ $("#staff-save").on("click", function (e) {
     });
 });
 
-/*$("#staff-update").on("click", function (e) {
+$("#staff-update").on("click", function (e) {
     e.preventDefault();
 
     const staffId = $('#staff-id').val();
@@ -214,7 +214,7 @@ $("#staff-save").on("click", function (e) {
             Swal.fire("Error", errorMessage, "error");
         },
     });
-});*/
+});
 
 /*$("#staff-delete").on("click", function (e) {
     e.preventDefault();
