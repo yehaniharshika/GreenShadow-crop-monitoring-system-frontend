@@ -32,9 +32,9 @@
 }
 
 .circle-container {
-    background: #01a3a4;
     display: flex;
     gap: 15px;
+    margin-top: 3rem;
 }
 
 .circle {
@@ -120,7 +120,7 @@
     }
 }
 
-@media (max-width: 1630px) {
+@media (max-width: 1280px) {
     .circle-left{
         width: 180px;
         height: 180px;
@@ -158,7 +158,6 @@
     }
 
     .circle-container {
-        background: #01a3a4;
         display: flex;
         gap: 5px;
     }
@@ -227,7 +226,6 @@
     }
 
     .circle-container {
-        background: #01a3a4;
         display: flex;
         gap: 5px;
     }
