@@ -23,7 +23,7 @@ function  fetchStaffId(){
         }
     });
 }
-/*
+
 function fetchStaffData(){
     $.ajax({
         url: "http://localhost:8080/GreenShadow/api/v1/staff",
@@ -102,7 +102,7 @@ $("#staff-tbl-tbody").on('click', 'tr', function() {
     $('#role').val(role)
 
     $('#staff-section-details-form').modal('show');
-});*/
+});
 $("#staff-save").on("click", function (e) {
     e.preventDefault();
 
