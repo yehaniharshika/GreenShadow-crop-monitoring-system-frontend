@@ -216,7 +216,7 @@ $("#staff-update").on("click", function (e) {
     });
 });
 
-/*$("#staff-delete").on("click", function (e) {
+$("#staff-delete").on("click", function (e) {
     e.preventDefault();
 
     // Retrieve the staff ID from the input field
@@ -257,7 +257,7 @@ $("#staff-update").on("click", function (e) {
             Swal.fire("Error", errorMessage, "error");
         }
     });
-});*/
+});
 
 
 /*$("#staff-search").on("click", function (e) {
