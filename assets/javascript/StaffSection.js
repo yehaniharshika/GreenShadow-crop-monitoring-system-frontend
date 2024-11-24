@@ -143,9 +143,13 @@ $("#staff-save").on("click", function (e) {
         },
         data: JSON.stringify(staffData),
         success: function (response) {
-            Swal.fire("Success", "Staff saved successfully!", "success").then(() => {
+            Swal.fire(
+                "Success",
+                "Staff saved successfully!",
+                "success").then(() => {
             });
             fetchStaffData();
+            staffClearFields()
             fetchStaffId();
         },
         error: function (xhr) {
@@ -207,6 +211,7 @@ $("#staff-update").on("click", function (e) {
                 $('#staff-section-details-form').modal('hide');
             });
             fetchStaffData();
+            staffClearFields();
             fetchStaffId();
         },
         error: function (xhr) {
@@ -339,5 +344,22 @@ $("#staff-search").on("click", function (e) {
 });
 
 
+function staffClearFields(){
+    $('#staff-id').val('');
+    $('#firstName').val('');
+    $('#lastName').val('');
+    $('#dob').val('');
+    $('#gender').val('');
+    $('#designation').val('');
+    $('#joined-date').val('');
+    $('#addressLine1').val('');
+    $('#addressLine2').val('');
+    $('#addressLine3').val('');
+    $('#addressLine4').val('');
+    $('#addressLine5').val('');
+    $('#contact-number').val('');
+    $('#email').val('');
+    $('#role').val('');
+}
 
 
