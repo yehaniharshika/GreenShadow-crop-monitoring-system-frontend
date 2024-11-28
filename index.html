@@ -283,8 +283,8 @@
             <div  class="card-body search-field-card-body">
               <h5 id="search-bar" class="card-title">Search Field</h5>
               <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Enter Field code here" id="customer-search-by-id" aria-label="Search" >
-                <button class="btn btn-outline-primary" type="button" id="customer-search">Search</button>
+                <input class="form-control me-2" type="search" placeholder="Enter Field code here" id="field-search-by-field-code" aria-label="Search" >
+                <button class="btn btn-outline-primary" type="button" id="field-search">Search</button>
               </form>
             </div>
           </div>
@@ -312,6 +312,7 @@
                 <th scope="col">extent size</th>
                 <th scope="col">Field Image-01</th>
                 <th scope="col">Field Image-02</th>
+                <th scope="col">Staff ID</th>
               </tr>
               </thead>
               <tbody  id="field-tbl-tbody">
@@ -323,7 +324,7 @@
     </section>
 
     <!--staff section-->
-    <section class="col-md-9 col-lg-10 main" id="staff-section">
+    <section class="col-md-9 col-lg-10 main " id="staff-section">
       <div class="d-flex justify-content-between align-items-center p-3 bg-white border-bottom">
         <button class="btn btn-outline-secondary d-md-none" id="menu-toggle2"><ion-icon name="menu-outline"></ion-icon></button>
         <h2>Staff Management</h2>
@@ -352,7 +353,7 @@
                     </div>
                     <div class="card-body">
                       <form>
-                        <div class="row mb-3">
+                         <div class="row mb-3">
                           <div class="col-md-6">
                             <label for="staff-id" class="form-label">Staff ID</label>
                             <input type="text" class="form-control" id="staff-id">
@@ -514,169 +515,9 @@
       </section>
     </section>
 
-    <!--<section class="col-md-9 col-lg-10 main" id="staff-section">
-      <div class="d-flex justify-content-between align-items-center p-3 bg-white border-bottom">
-        <button class="btn btn-outline-secondary d-md-none" id="menu-toggle2"><ion-icon name="menu-outline"></ion-icon></button>
-        <h2>Staff Management</h2>
-      </div>
-
-      <section class="row">
-        <section class="Staff-details-form col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
-          <div data-aos="flip-left"
-               data-aos-easing="ease-out-cubic"
-               data-aos-duration="3000" class="card cardSize">
-            <div id="staff-Header-back-colour" class="card-header">
-              Staff Details
-            </div>
-            <div class="card-body">
-              <form>
-                <div class="row mb-3">
-                  <div class="col-md-6">
-                    <label for="staff-id" class="form-label">Staff ID</label>
-                    <input type="text" class="form-control" id="staff-id">
-                  </div>
-
-                  <div class="col-md-6">
-                    <label for="firstName" class="form-label">First Name</label>
-                    <input type="text" class="form-control" id="firstName" placeholder="Enter first name">
-                  </div>
-
-                  <div class="col-md-6">
-                    <label for="lastName" class="form-label">Last Name</label>
-                    <input type="text" class="form-control" id="lastName" placeholder="Enter last name">
-                  </div>
-
-                  <div class="col-md-6">
-                    <label for="gender" class="form-label">Gender</label>
-                    <select class="form-select" id="gender">
-                      <option selected>Select gender</option>
-                      <option value="Male">Male</option>
-                      <option value="Female">Female</option>
-                      <option value="Other">Other</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div class="row mb-3">
-                  <div class="col-md-6">
-                    <label for="addressLine1" class="form-label">Address Line 01</label>
-                    <input type="text" class="form-control" id="addressLine1" placeholder="Building no or name">
-                  </div>
-
-                  <div class="col-md-6">
-                    <label for="addressLine2" class="form-label">Address Line 02</label>
-                    <input type="text" class="form-control" id="addressLine2" placeholder="Lane">
-                  </div>
-
-                  <div class="col-md-6">
-                    <label for="addressLine3" class="form-label">Address Line 03</label>
-                    <input type="text" class="form-control" id="addressLine3" placeholder="City">
-                  </div>
-
-                  <div class="col-md-6">
-                    <label for="addressLine4" class="form-label">Address Line 04</label>
-                    <input type="text" class="form-control" id="addressLine4" placeholder="State">
-                  </div>
-
-                  <div class="col-md-6">
-                    <label for="addressLine5" class="form-label">Address Line 05</label>
-                    <input type="text" class="form-control" id="addressLine5" placeholder="Postal code">
-                  </div>
-                </div>
-
-                <div class="row mb-3">
-                  <div class="col-md-6">
-                    <label for="dob" class="form-label">Date of Birth</label>
-                    <input type="date" class="form-control" id="dob">
-                  </div>
-                  <div class="col-md-6">
-                    <label for="joined-date" class="form-label">Joined Date</label>
-                    <input type="date" class="form-control" id="joined-date">
-                  </div>
-                </div>
-
-                <div class="row mb-3">
-                  <div class="col-md-6">
-                    <label for="designation" class="form-label">Designation</label>
-                    <input type="text" class="form-control" id="designation" placeholder="Enter designation">
-                  </div>
-
-                  <div class="col-md-6">
-                    <label for="contact-number" class="form-label">Contact Number</label>
-                    <input type="tel" class="form-control" id="contact-number" placeholder="Enter mobile number">
-                  </div>
-
-                  <div class="col-md-6">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email" placeholder="Enter email address">
-                  </div>
-
-                  <div class="col-md-6">
-                    <label for="role" class="form-label">Role</label>
-                    <select class="form-select" id="role">
-                      <option selected>Select role</option>
-                      <option value="MANAGER">MANAGER</option>
-                      <option value="ADMINISTRATOR">ADMINISTRATOR</option>
-                      <option value="SCIENTIST">SCIENTIST</option>
-                      <option value="OTHER">OTHER</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div class="mt-3 mb-5 btn-field-list">
-                  <button type="button" class="btn btn-success" id="staff-save">Save</button>
-                  <button type="button" class="btn btn-primary" id="staff-update">Update</button>
-                  <button type="button" class="btn btn-danger" id="staff-delete">Delete</button>
-                  <button type="reset" class="btn btn-warning" id="staff-reset">Reset</button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </section>
-
-        <section class="search-staff-part col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
-          <div class="card" >
-            <div  class="card-body">
-              <h5 id="staff-search-bar" class="card-title">Search staff</h5>
-              <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Enter Staff ID here" id="staff-search-by-staff-id" aria-label="Search" >
-                <button class="btn btn-outline-primary" type="button" id="staff-search">Search</button>
-              </form>
-            </div>
-          </div>
-        </section>
-
-        <section class="staff-table-view col-12 col-sm-12 col-md-12 col-lg-10 col-xl-10 col-xxl-10">
-
-          <table class="table table-secondary table-striped" >
-            <thead>
-            <tr>
-              <th scope="col">Staff ID</th>
-              <th scope="col">First Name</th>
-              <th scope="col">Last Name</th>
-              <th scope="col">Gender</th>
-              <th scope="col">Building No/Name</th>
-              <th scope="col">Lane</th>
-              <th scope="col">City</th>
-              <th scope="col">State</th>
-              <th scope="col">Postal Code</th>
-              <th scope="col">DOB</th>
-              <th scope="col">Joined Date</th>
-              <th scope="col">Designation</th>
-              <th scope="col">Contact No</th>
-              <th scope="col">Email</th>
-              <th scope="col">Role</th>
-            </tr>
-            </thead>
-            <tbody  id="staff-tbl-tbody">
-            </tbody>
-          </table>
-        </section>
-      </section>
-    </section>-->
 
     <!--crop section-->
-    <section class="col-md-9 col-lg-10 main" id="crops-section">
+    <!--<section class="col-md-9 col-lg-10 main" id="crops-section">
       <div class="d-flex justify-content-between align-items-center p-3 bg-white border-bottom">
         <button class="btn btn-outline-secondary d-md-none" id="menu-toggle3"><ion-icon name="menu-outline"></ion-icon></button>
         <h2>Crop Management</h2>
@@ -691,41 +532,45 @@
             </div>
             <div class="card-body">
               <form>
-                <div class="row mb-3">
-                  <div class="col-md-6">
-                    <label for="crop-code" class="form-label">Crop code</label>
-                    <input type="text" class="form-control" id="crop-code">
-                  </div>
+                <div class="mb-3">
+                  <label for="crop-code" class="form-label">Crop code</label>
+                  <input type="text" class="form-control" id="crop-code">
+                </div>
 
-                  <div class="col-md-6">
-                    <label for="crop-common-name" class="form-label">Crop Common Name</label>
-                    <input type="text" class="form-control" id="crop-common-name" placeholder="Enter common name">
+                <div class="mb-3">
+                  <label for="crop-common-name" class="form-label">Crop Common Name</label>
+                  <input type="text" class="form-control" id="crop-common-name" placeholder="Enter common name">
+                </div>
+
+
+                <div class="mb-3">
+                  <label for="crop-scientific-name" class="form-label">Crop Scientific Name</label>
+                  <input type="text" class="form-control" id="crop-scientific-name" placeholder="Enter scientific name">
+                </div>
+
+                <div class="mb-3">
+                  <label for="cropImage" class="form-label">Crop Image</label>
+                  <div class="crop-image-container">
+                    <div class="crop-image-box">
+                      <img id="previewImageCrop" src="" alt="Crop Image  Preview" class="d-none">
+                    </div>
+                    <label for="cropImage" class="crop-choose-image-btn">
+                      <ion-icon name="camera"></ion-icon>Choose Image
+                    </label>
+                    <input type="file" class="d-none" id="cropImage" accept="image/*">
                   </div>
                 </div>
 
-                <div class="row mb-3">
-                  <div class="col-md-6">
-                    <label for="crop-scientific-name" class="form-label">Crop Scientific Name</label>
-                    <input type="text" class="form-control" id="crop-scientific-name" placeholder="Enter scientific name">
-                  </div>
-
-                  <div class="col-md-6">
-                    <label for="crop-image" class="form-label">Crop Image</label>
-                    <input type="file" class="form-control" id="crop-image" accept="image/*">
-                  </div>
+                <div class="mb-3">
+                  <label for="category" class="form-label">Category</label>
+                  <input type="text" class="form-control" id="category" placeholder="Enter category(e.g. Cereal)">
                 </div>
 
-                <div class="row mb-3">
-                  <div class="col-md-6">
-                    <label for="category" class="form-label">Category</label>
-                    <input type="text" class="form-control" id="category" placeholder="Enter category(e.g. Cereal)">
-                  </div>
-
-                  <div class="col-md-6">
-                    <label for="season" class="form-label">Season</label>
-                    <input type="text" class="form-control" id="season" placeholder="Enter season of the crop">
-                  </div>
+                <div class="mb-3">
+                  <label for="season" class="form-label">Season</label>
+                  <input type="text" class="form-control" id="season" placeholder="Enter season of the crop">
                 </div>
+
 
                 <div class="row mb-3">
                   <div class="col-md-6">
@@ -742,7 +587,7 @@
 
                   <div class="col-md-6">
                     <label class="form-label">Field Location</label>
-                    <textarea class="form-control" placeholder="Set GPS Location" id="set-field-location" style="height: 80px"></textarea>
+                    <textarea class="form-control" placeholder="Set GPS Location" id="set-field-location" style="height: 40px"></textarea>
                   </div>
 
                   <div class="col-md-6">
@@ -773,7 +618,157 @@
             </div>
           </div>
 
-          <!-- Images Section -->
+          &lt;!&ndash; Images Section &ndash;&gt;
+          <div class="d-flex justify-content-center mt-4">
+            <div class="crop-circle-container">
+              <div class="crop-circle crop-circle-left">
+                <img src="assets/images/cropImage01.jpg" alt="Image 1" class="img-fluid rounded-circle">
+              </div>
+              <div class="crop-circle crop-circle-right ms-3">
+                <img src="assets/images/cropImage02.jpg" alt="Image 2" class="img-fluid rounded-circle">
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="crop-table-view col-12 col-sm-12 col-md-12 col-lg-10 col-xl-10 col-xxl-10">
+          <table class="table table-secondary table-striped" >
+            <thead>
+            <tr>
+              <th scope="col">Crop code</th>
+              <th scope="col">Common Name</th>
+              <th scope="col">Scientific Name</th>
+              <th scope="col">Crop Image</th>
+              <th scope="col">Category</th>
+              <th scope="col">Season</th>
+              <th scope="col">Field Code</th>
+              <th scope="col">Field Name</th>
+            </tr>
+            </thead>
+            <tbody  id="crop-tbl-tbody">
+            </tbody>
+          </table>
+        </section>
+      </section>
+    </section>-->
+    <section class="col-md-9 col-lg-10 main" id="crops-section">
+      <div class="d-flex justify-content-between align-items-center p-3 bg-white border-bottom">
+        <button class="btn btn-outline-secondary d-md-none" id="menu-toggle3"><ion-icon name="menu-outline"></ion-icon></button>
+        <h2>Crop Management</h2>
+      </div>
+      <section class="row">
+        <section class="add-staff-button col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#crop-section-details-form">
+            <ion-icon name="add-sharp"></ion-icon>Add Crop
+          </button>
+        </section>
+
+        <div class="modal fade" id="crop-section-details-form" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <section class="Crop-details-form">
+                  <div data-aos="flip-left"
+                       data-aos-easing="ease-out-cubic"
+                       data-aos-duration="3000" class="card cardSize">
+                    <div id="Crop-Header-back-colour" class="card-header">
+                      Field Details
+                    </div>
+                    <div class="card-body">
+                      <form>
+                        <div class="mb-3">
+                          <label for="crop-code" class="form-label">Crop code</label>
+                          <input type="text" class="form-control" id="crop-code">
+                        </div>
+
+                        <div class="mb-3">
+                          <label for="crop-common-name" class="form-label">Crop Common Name</label>
+                          <input type="text" class="form-control" id="crop-common-name" placeholder="Enter common name">
+                        </div>
+
+
+                        <div class="mb-3">
+                          <label for="crop-scientific-name" class="form-label">Crop Scientific Name</label>
+                          <input type="text" class="form-control" id="crop-scientific-name" placeholder="Enter scientific name">
+                        </div>
+
+                        <div class="mb-3">
+                          <label for="cropImage" class="form-label">Crop Image</label>
+                          <div class="crop-image-container">
+                            <div class="crop-image-box">
+                              <img id="previewImageCrop" src="" alt="Crop Image  Preview" class="d-none">
+                            </div>
+                            <label for="cropImage" class="crop-choose-image-btn">
+                              <ion-icon name="camera"></ion-icon>Choose Image
+                            </label>
+                            <input type="file" class="d-none" id="cropImage" accept="image/*">
+                          </div>
+                        </div>
+
+                        <div class="mb-3">
+                          <label for="category" class="form-label">Category</label>
+                          <input type="text" class="form-control" id="category" placeholder="Enter category(e.g. Cereal)">
+                        </div>
+
+                        <div class="mb-3">
+                          <label for="season" class="form-label">Season</label>
+                          <input type="text" class="form-control" id="season" placeholder="Enter season of the crop">
+                        </div>
+
+
+                        <div class="row mb-3">
+                          <div class="col-md-6">
+                            <label class="form-label fw-bold">Field Code</label>
+                            <select class="form-select" name="field"  id="cropFieldCodeOption">
+                              <option disabled selected value="">Select Field Code</option>
+                            </select>
+                          </div>
+
+                          <div class="col-md-6">
+                            <label class="form-label">Field Name</label>
+                            <input type="text" class="form-control customer-name-set" id="set-field-name">
+                          </div>
+
+                          <div class="col-md-6">
+                            <label class="form-label">Field Location</label>
+                            <textarea class="form-control" placeholder="Set GPS Location" id="set-field-location" style="height: 40px"></textarea>
+                          </div>
+
+                          <div class="col-md-6">
+                            <label class="form-label">Extent Size (Sq. m)</label>
+                            <input type="number" step="0.01" class="form-control" id="set-field-extent-size">
+                          </div>
+                        </div>
+
+                        <div class="mt-3 mb-5 btn-field-list">
+                          <button type="button" class="btn btn-success" id="crop-save">Save</button>
+                          <button type="button" class="btn btn-primary" id="crop-update">Update</button>
+                          <button type="button" class="btn btn-danger" id="crop-delete">Delete</button>
+                          <button type="reset" class="btn btn-warning" id="crop-reset">Reset</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </section>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <section class="search-crop-part col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+          <div class="card" >
+            <div  class="card-body">
+              <h5 id="crop-search-bar" class="card-title">Search Crop</h5>
+              <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Enter Crop code here" id="crop-search-by-id" aria-label="Search" >
+                <button class="btn btn-outline-primary" type="button" id="crop-search">Search</button>
+              </form>
+            </div>
+          </div>
+
           <div class="d-flex justify-content-center mt-4">
             <div class="crop-circle-container">
               <div class="crop-circle crop-circle-left">
@@ -806,6 +801,7 @@
         </section>
       </section>
     </section>
+
 
     <section class="col-md-9 col-lg-10 main" id="logs-section">
       <div class="d-flex justify-content-between align-items-center p-3 bg-white border-bottom">
