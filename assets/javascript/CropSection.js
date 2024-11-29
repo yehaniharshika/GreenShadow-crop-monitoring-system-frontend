@@ -60,7 +60,7 @@ function loadCropTable(data) {
     data.forEach(crop => {
         // Construct the image tag or display a placeholder
         const cropImage = crop.cropImage
-            ? `<img src="data:image/${getImageType(crop.cropImage)};base64,${crop.cropImage}" alt="Crop Image" class="centered-image" style="max-width: 100px; height: auto;">`
+            ? `<img src="data:image/${getImageType(crop.cropImage)};base64,${crop.cropImage}" alt="Crop Image" class="centered-image" style="max-width: 120px; height: 100px;">`
             : "No Image";
 
         // Append a new row to the table

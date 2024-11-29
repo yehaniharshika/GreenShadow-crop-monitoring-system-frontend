@@ -759,8 +759,8 @@
         </div>
 
         <section class="search-crop-part col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
-          <div class="card" >
-            <div  class="card-body">
+          <div class="card search-crop-card" >
+            <div  class="card-body search-crop-card-body">
               <h5 id="crop-search-bar" class="card-title">Search Crop</h5>
               <form class="d-flex" role="search">
                 <input class="form-control me-2" type="search" placeholder="Enter Crop code here" id="crop-search-by-crop-code" aria-label="Search" >
@@ -768,35 +768,37 @@
               </form>
             </div>
           </div>
+        </section>
 
-          <div class="d-flex justify-content-center mt-4">
-            <div class="crop-circle-container">
-              <div class="crop-circle crop-circle-left">
-                <img src="assets/images/cropImage01.jpg" alt="Image 1" class="img-fluid rounded-circle">
-              </div>
-              <div class="crop-circle crop-circle-right ms-3">
-                <img src="assets/images/cropImage02.jpg" alt="Image 2" class="img-fluid rounded-circle">
-              </div>
+        <section class="crop-img-part col-md-4 d-flex align-items-center justify-content-center">
+          <div class="crop-circle-container text-center">
+            <div class="crop-circle crop-circle-left">
+              <img src="assets/images/cropImage01.jpg" alt="Image 1" class="img-fluid rounded-circle">
+            </div>
+            <div class="crop-circle crop-circle-right ms-3">
+              <img src="assets/images/cropImage02.jpg" alt="Image 2" class="img-fluid rounded-circle">
             </div>
           </div>
         </section>
 
         <section class="crop-table-view col-12 col-sm-12 col-md-12 col-lg-10 col-xl-10 col-xxl-10">
-          <table class="table table-secondary table-striped" >
-            <thead>
-            <tr>
-              <th scope="col">Crop code</th>
-              <th scope="col">Common Name</th>
-              <th scope="col">Scientific Name</th>
-              <th scope="col">Crop Image</th>
-              <th scope="col">Category</th>
-              <th scope="col">Season</th>
-              <th scope="col">Field Code</th>
-            </tr>
-            </thead>
-            <tbody  id="crop-tbl-tbody">
-            </tbody>
-          </table>
+          <div class="table-responsive">
+            <table class="table table-striped  table-bordered" >
+              <thead>
+              <tr>
+                <th scope="col">Crop code</th>
+                <th scope="col">Common Name</th>
+                <th scope="col">Scientific Name</th>
+                <th scope="col">Crop Image</th>
+                <th scope="col">Category</th>
+                <th scope="col">Season</th>
+                <th scope="col">Field Code</th>
+              </tr>
+              </thead>
+              <tbody  id="crop-tbl-tbody">
+              </tbody>
+            </table>
+          </div>
         </section>
       </section>
     </section>
