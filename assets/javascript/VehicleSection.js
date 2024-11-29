@@ -6,7 +6,7 @@ window.addEventListener('load', () => {
     loadStaffIds();
 });
 
-/*function loadStaffIds(){
+function loadStaffIds(){
     $.ajax({
         url: "http://localhost:8080/GreenShadow/api/v1/staff",
         method: "GET",
@@ -27,7 +27,7 @@ window.addEventListener('load', () => {
             console.error("Response:", xhr.responseText);
         }
     });
-}*/
+}
 
 //get formatted vehicle code
 function  fetchVehicleCode(){
