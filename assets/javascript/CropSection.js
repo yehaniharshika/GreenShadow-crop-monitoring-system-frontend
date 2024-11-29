@@ -145,7 +145,7 @@ function  fetchCropCode(){
             "Authorization": `Bearer ${authToken}` // Add Bearer token to headers
         },
         success: function (data) {
-            //populate staff id field
+            //populate crop code field
             $("#crop-code").val(data.cropCode);
             console.log(data.cropCode);
         },
