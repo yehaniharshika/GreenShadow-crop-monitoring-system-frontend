@@ -51,7 +51,6 @@ function  fetchVehicleCode(){
 }
 
 //vehicle save
-/*
 $("#vehicle-save").on("click", function (e) {
     e.preventDefault();
 
@@ -96,4 +95,4 @@ $("#vehicle-save").on("click", function (e) {
             Swal.fire("Error", xhr.responseJSON.message || "Failed to save Vehicle. Please try again.", "error");
         },
     });
-});*/
+});
