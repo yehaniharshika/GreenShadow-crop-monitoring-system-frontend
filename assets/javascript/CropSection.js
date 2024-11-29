@@ -134,6 +134,8 @@ document.getElementById('cropFieldCodeOption').addEventListener('change', functi
         document.getElementById('set-crop-field-extent-size').value = "";
     }
 });
+
+//get formatted crop code
 function  fetchCropCode(){
     $.ajax({
         url: "http://localhost:8080/GreenShadow/api/v1/crops/generate-next-crop-code", // API URL
@@ -153,6 +155,8 @@ function  fetchCropCode(){
         }
     });
 }
+
+//crop save
 $("#crop-save").click(function () {
     const cropCode = $("#crop-code").val().trim();
     const cropCommonName = $("#crop-common-name").val().trim();
@@ -213,6 +217,7 @@ $("#crop-save").click(function () {
             });
             console.log("Server response:", response);
             fetchCropCode();
+            fetchCropData();
         },
         error: function (xhr) {
             Swal.fire({
@@ -222,6 +227,49 @@ $("#crop-save").click(function () {
             });
             console.error("Error details:", xhr);
         },
+    });
+});
+
+//crop delete
+$("#crop-delete").on("click", function (e) {
+    e.preventDefault();
+
+    // Retrieve the staff ID from the input field
+    const cropDeleteCode = $('#crop-code').val();
+
+    if (!cropDeleteCode) {
+        Swal.fire("Error", "Crop Code is required to delete crop details.", "error");
+        return;
+    }
+
+    console.log("crop code to delete: ", cropDeleteCode);
+
+    if (!authToken) {
+        Swal.fire("Error", "No authentication token found. Please log in again.", "error");
+        return;
+    }
+
+    // Send the DELETE request
+    $.ajax({
+        url: `http://localhost:8080/GreenShadow/api/v1/crops/${cropDeleteCode}`,
+        type: "DELETE",
+        headers: {
+            "Authorization": `Bearer ${authToken}` // Add the token to the Authorization header
+        },
+        success: function (response) {
+            Swal.fire("Success", "Crop deleted successfully!", "success").then(() => {
+                //Hide the modal after successful deletion
+                $('#crop-section-details-form').modal('hide');
+            });
+
+            //Refresh staff data
+            fetchCropData();
+            fetchCropCode();
+        },
+        error: function (xhr) {
+            const errorMessage = xhr.responseJSON?.message || "Failed to delete crop details.Please try again.";
+            Swal.fire("Error", errorMessage, "error");
+        }
     });
 });
 
