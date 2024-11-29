@@ -146,7 +146,7 @@ $("#vehicle-save").on("click", function (e) {
                 "Vehicle saved successfully!",
                 "success").then(() => {
             });
-
+            fetchVehicleData()
             fetchVehicleCode();
         },
         error: function (xhr) {
@@ -155,46 +155,55 @@ $("#vehicle-save").on("click", function (e) {
     });
 });
 
-/*
+
+//vehicle delete
 $("#vehicle-delete").on("click", function (e) {
     e.preventDefault();
 
     //Retrieve the vehicle code from the input field
-    const staffDeleteId = $('#staff-id').val();
+    const vehicleDeleteCode = $('#vehicle-code').val();
 
-    if (!staffDeleteId) {
-        Swal.fire("Error", "Staff ID is required to delete staff details.", "error");
+    if (!vehicleDeleteCode) {
+        Swal.fire("Error", "Vehicle Code is required to delete vehicle details.", "error");
         return;
     }
 
-    console.log("Staff ID to delete: ", staffDeleteId);
-    console.log("Auth Token: ", authToken);
+    console.log("Vehicle code to delete:", vehicleDeleteCode);
+    console.log("Auth token:", authToken);
 
     if (!authToken) {
         Swal.fire("Error", "No authentication token found. Please log in again.", "error");
         return;
     }
 
-    // Send the DELETE request
+    //send the DELETE request
     $.ajax({
-        url: `http://localhost:8080/GreenShadow/api/v1/staff/${staffDeleteId}`,
+        url: `http://localhost:8080/GreenShadow/api/v1/vehicles/${vehicleDeleteCode}`,
         type: "DELETE",
         headers: {
-            "Authorization": `Bearer ${authToken}` // Add the token to the Authorization header
+            "Authorization": `Bearer ${authToken}`
         },
         success: function (response) {
-            Swal.fire("Success", "Staff deleted successfully!", "success").then(() => {
-                // Hide the modal after successful deletion
-                $('#staff-section-details-form').modal('hide');
-            });
+            console.log("Delete response:", response);
 
-            // Refresh staff data
-            fetchStaffData();
-            fetchStaffId();
+            let successMessage = "Vehicle deleted successfully!";
+            if (response && response.message) {
+                successMessage = response.message;
+            }
+
+            Swal.fire("Success", successMessage, "success").then(() => {
+                //Refresh vehicle data after successful deletion
+                fetchVehicleData();
+                fetchVehicleCode();
+            });
         },
         error: function (xhr) {
-            const errorMessage = xhr.responseJSON?.message || "Failed to delete staff details. Please try again.";
+            console.error("Delete request failed:", xhr);
+            let errorMessage = "Failed to delete vehicle details. Please try again.";
             Swal.fire("Error", errorMessage, "error");
         }
     });
-});*/
+});
+
+
+
