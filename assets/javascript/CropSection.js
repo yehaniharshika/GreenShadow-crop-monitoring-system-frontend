@@ -362,6 +362,87 @@ $("#crop-update").click(function () {
 });
 
 
+//crop search
+$("#crop-search").on("click", function () {
+    // Get the field code entered by the user
+    const cropSearchCode = $("#crop-search-by-crop-code").val().trim();
+
+    if (!cropSearchCode) {
+        Swal.fire(
+            "Input Required",
+            "Please enter a valid crop code to search.",
+            "warning"
+        );
+        return;
+    }
+
+    console.log("Searching for crop code:", cropSearchCode);
+
+    //Perform the ajax GET request to search for the field
+    $.ajax({
+        url: `http://localhost:8080/GreenShadow/api/v1/crops/${cropSearchCode}`, // API endpoint
+        type: "GET",
+        contentType: "application/json",
+        headers: {
+            "Authorization": `Bearer ${authToken}`, // Add Bearer token to headers
+        },
+        success: function (response) {
+            console.log("Search result:", response);
+
+            //populate the form fields with the response data
+            $('#crop-code').val(response.cropCode);
+            $('#crop-common-name').val(response.cropCommonName);
+            $('#crop-scientific-name').val(response.scientificName);
+            $('#category').val(response.category);
+            $('#season').val(response.cropSeason);
+
+            //Display images in preview
+            if (response.cropImage) {
+                $('#previewImageCrop')
+                    .attr("src", `data:image/${getImageType(response.cropImage)};base64,${response.cropImage}`)
+                    .removeClass('d-none');
+            } else {
+                $('#previewImageCrop').addClass('d-none');
+            }
+
+            $('#cropFieldCodeOption').val(response.fieldCode);
+            const selectedField = fieldData.find(field => field.fieldCode === response.fieldCode);
+
+            if (selectedField) {
+                //populate the field details
+                $('#set-crop-field-name').val(selectedField.fieldName);
+                $('#set-crop-field-location').val(selectedField.fieldLocation);
+                $('#set-crop-field-extent-size').val(selectedField.extentSize);
+            } else {
+                //clear the field details if not found
+                $('#set-crop-field-name').val("");
+                $('#set-crop-field-location').val("");
+                $('#set-crop-field-extent-size').val("");
+            }
+
+            $('#crop-section-details-form').modal('show');
+
+            //show success notification
+            Swal.fire(
+                "Crop Found",
+                `Details for Crop Code: ${cropSearchCode} loaded successfully.`,
+                "success"
+            );
+        },
+        error: function (xhr, status, error) {
+            const errorMessage = xhr.responseJSON?.message || "Failed to fetch crop details. Please try again.";
+            Swal.fire(
+                "Error",
+                errorMessage,
+                "error"
+            );
+            console.error("Search error:", xhr.responseText || error);
+        }
+    });
+});
+
+
+
 
 
 
