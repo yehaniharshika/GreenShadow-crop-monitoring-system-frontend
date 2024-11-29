@@ -256,6 +256,7 @@ $("#crop-delete").on("click", function (e) {
         headers: {
             "Authorization": `Bearer ${authToken}` // Add the token to the Authorization header
         },
+        dataType: "text",
         success: function (response) {
             Swal.fire("Success", "Crop deleted successfully!", "success").then(() => {
                 //Hide the modal after successful deletion
@@ -270,6 +271,93 @@ $("#crop-delete").on("click", function (e) {
             const errorMessage = xhr.responseJSON?.message || "Failed to delete crop details.Please try again.";
             Swal.fire("Error", errorMessage, "error");
         }
+    });
+});
+
+
+//crop update
+$("#crop-update").click(function () {
+    const cropCode = $("#crop-code").val().trim();
+    const cropCommonName = $("#crop-common-name").val().trim();
+    const cropScientificName = $("#crop-scientific-name").val().trim();
+    const cropCategory = $("#category").val().trim();
+    const cropSeason = $("#season").val().trim();
+    const cropImage = $("#cropImage")[0].files[0];
+    const fieldCode = $("#cropFieldCodeOption").val();
+
+
+    if (!cropCode){
+        Swal.fire("Error", "Crop code is required to update crop details.", "error");
+        return;
+    }
+
+    if (!cropCommonName || !cropScientificName || !cropCategory || !cropSeason || !fieldCode) {
+        Swal.fire({
+            icon: "error",
+            title: "Missing Fields",
+            text: "Please fill in all the required fields!",
+        });
+        return;
+    }
+    console.log("Auth Token:", authToken);
+    // Prepare FormData
+    const formData = new FormData();
+    formData.append("cropCode", cropCode); // Add the crop code (ID)
+    formData.append("cropCommonName", cropCommonName);
+    formData.append("scientificName", cropScientificName);
+    formData.append("category", cropCategory);
+    formData.append("cropSeason", cropSeason);
+    if (cropImage) {
+        formData.append("cropImage", cropImage); // Include only if a new image is provided
+    }
+    formData.append("fieldCode", fieldCode);
+
+    console.log("Form Data prepared for update:", formData);
+
+    if (!authToken) {
+        Swal.fire({
+            icon: "error",
+            title: "Authorization Error",
+            text: "Missing or invalid authentication token.",
+        });
+        return;
+    }
+    console.log("Auth token: ", authToken);
+
+    //send AJAX POST request to POST
+    $.ajax({
+        url: `http://localhost:8080/GreenShadow/api/v1/crops/${cropCode}`, // Endpoint with crop ID
+        type: "PUT",
+        data: formData,
+        processData: false, // Do not process FormData
+        contentType: false, // Allow FormData to set content type
+        headers: {
+            "Authorization": `Bearer ${authToken}`, // Include the token in the headers
+        },
+        success: function (response) {
+            Swal.fire({
+                icon: "success",
+                title: "Crop Updated",
+                text: "Crop details updated successfully!",
+            });
+            console.log("Update response:", response);
+
+            // Refresh crop data and codes
+            fetchCropData();
+            fetchCropCode();
+
+            // Optionally hide the modal after updating
+            $('#crop-section-details-form').modal('hide');
+        },
+        error: function (xhr) {
+            const errorMessage = xhr.responseJSON?.message || "Failed to update crop details. Please try again.";
+            Swal.fire({
+                icon: "error",
+                title: "Update Failed",
+                text: errorMessage,
+            });
+            console.error("Error updating crop:", xhr);
+        },
     });
 });
 
