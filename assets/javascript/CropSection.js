@@ -28,6 +28,23 @@ function loadFieldCodes(){
         }
     });
 }
+
+document.getElementById('cropFieldCodeOption').addEventListener('change', function () {
+    const selectedFieldCode = this.value; // Get selected staff ID
+    // Find the selected staff data
+    const selectedField = fieldData.find(field => field.fieldCode === selectedFieldCode);
+
+    if (selectedField) {
+        // Populate staff name and designation fields
+        document.getElementById('set-crop-field-name').value = selectedField.fieldName;
+        document.getElementById('set-crop-field-location').value = selectedField.fieldLocation;
+        document.getElementById('set-crop-field-extent-size').value = selectedField.extentSize;
+    } else {
+        document.getElementById('set-crop-field-name').value = "";
+        document.getElementById('set-crop-field-location').value = "";
+        document.getElementById('set-crop-field-extent-size').value = "";
+    }
+});
 function  fetchCropCode(){
     $.ajax({
         url: "http://localhost:8080/GreenShadow/api/v1/crops/generate-next-crop-code", // API URL
@@ -47,6 +64,84 @@ function  fetchCropCode(){
         }
     });
 }
+$("#crop-save").click(function () {
+    const cropCode = $("#crop-code").val().trim();
+    const cropCommonName = $("#crop-common-name").val().trim();
+    const cropScientificName = $("#crop-scientific-name").val().trim();
+    const cropCategory = $("#category").val().trim();
+    const cropSeason = $("#season").val().trim();
+    const cropImage = $("#cropImage")[0].files[0];
+    const fieldCode = $("#cropFieldCodeOption").val();
+
+    // Validate fields
+    if (!cropCode || !cropCommonName || !cropScientificName || !cropImage || !cropCategory || !cropSeason || !fieldCode) {
+        Swal.fire({
+            icon: "error",
+            title: "Missing Fields",
+            text: "Please fill in all the required fields!",
+        });
+        return;
+    }
+
+    // Prepare FormData
+    const formData = new FormData();
+    formData.append("cropCode", cropCode);
+    formData.append("cropCommonName", cropCommonName);
+    formData.append("scientificName", cropScientificName);
+    formData.append("category", cropCategory);
+    formData.append("cropSeason", cropSeason);
+    formData.append("cropImage", cropImage);
+    formData.append("fieldCode", fieldCode);
+
+    console.log("Form Data prepared.");
+
+    // Ensure valid token
+    if (!authToken) {
+        Swal.fire({
+            icon: "error",
+            title: "Authorization Error",
+            text: "Missing or invalid authentication token.",
+        });
+        return;
+    }
+    console.log("Auth token: ", authToken);
+
+    // Send AJAX POST request
+    $.ajax({
+        url: "http://localhost:8080/GreenShadow/api/v1/crops",
+        type: "POST",
+        data: formData,
+        processData: false,
+        contentType: false,
+        headers: {
+            "Authorization": `Bearer ${authToken}`,
+        },
+        dataType: "text", // Expect plain text response from the server
+        success: function (response) {
+            Swal.fire({
+                icon: "success",
+                title: "Crop Saved",
+                text: response, // Use the server response
+            });
+            console.log("Server response:", response);
+            fetchCropCode(); // Refresh crop code after successful save
+        },
+        error: function (xhr) {
+            Swal.fire({
+                icon: "error",
+                title: "Error Saving Crop",
+                text: `Error: ${xhr.responseText}`,
+            });
+            console.error("Error details:", xhr);
+        },
+    });
+});
+
+
+
+
+
+
 
 
 
