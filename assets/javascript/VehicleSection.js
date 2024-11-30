@@ -224,6 +224,64 @@ $("#vehicle-delete").on("click", function (e) {
     });
 });
 
+//vehicle update
+$("#vehicle-update").on("click", function (e) {
+    e.preventDefault();
+
+    const vehicleCode = $('#vehicle-code').val();
+
+    if (!vehicleCode){
+        Swal.fire("Error", "Staff ID is required to update staff details.", "error");
+        return;
+    }
+
+    //Get staff details from the form
+    const vehicleData = {
+        vehicleCode: vehicleCode,
+        licensePlateNumber: $('#license-plate-number').val(),
+        category: $('#vehicle-category').val(),
+        fuelType: $('#fuel-type').val(),
+        status: $('#vehicle-status').val(),
+        remarks: $('#vehicle-remark').val(),
+        staffId: $('#vehicleStaffIdOption').val()
+    };
+
+    console.log("vehicle Data: ", vehicleData);
+    console.log("auth Token: ",authToken)
+
+    if (!authToken) {
+        Swal.fire("Error", "No authentication token found. Please log in again.", "error");
+        return;
+    }
+
+    $.ajax({
+        url: `http://localhost:8080/GreenShadow/api/v1/vehicles/${vehicleCode}`,
+        type: "PUT",
+        contentType: "application/json",
+        headers: {
+            "Authorization": `Bearer ${authToken}`, // Add the token to the Authorization header
+        },
+        data: JSON.stringify(vehicleData),
+        success: function (response) {
+            Swal.fire(
+                "Success",
+                "Vehicle updated successfully!",
+                "success").then(() => {
+                //$('#staff-section-details-form').modal('hide');
+            });
+            fetchVehicleData();
+            vehicleClearFields();
+            fetchVehicleCode();
+        },
+        error: function (xhr) {
+            const errorMessage = xhr.responseJSON?.message || "Failed to update vehicle details. Please try again.";
+            Swal.fire("Error", errorMessage, "error");
+        },
+    });
+});
+
+
+//All vehicle fields clear
 function vehicleClearFields(){
     $('#vehicle-code').val("");
     $('#license-plate-number').val("");
