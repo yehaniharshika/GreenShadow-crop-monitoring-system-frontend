@@ -6,7 +6,8 @@
 }
 
 .search-equipment-part{
-    margin-top: 0.5rem;
+    margin-top: 6.6rem;
+    margin-left: -15rem;
 }
 
 #equipment-section{
@@ -19,11 +20,54 @@
 
 .equipment-table-view{
     position: relative;
-    top: 1rem;
+    top: 2.5rem;
     left: 0;
     right: 0;
     margin: auto;
     padding: 0;
+    overflow-x: auto;
+    overflow-y: auto;
+    max-height: 560px;
+    width: 90%;
+}
+
+/*image part*/
+.equipment-img-part{
+    background-color: transparent;
+    margin-top: -2rem;
+}
+
+.equipment-circle-container{
+    display: flex;
+    gap: 15px;
+    margin-top: 3rem;
+}
+
+.equipment-circle{
+    display: inline-block;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.equipment-circle img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.equipment-circle-right{
+    width: 260px;
+    height: 260px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: -160px;
+}
+
+.equipment-circle-left{
+    width: 260px;
+    height: 260px;
+    border-radius: 50%;
+    object-fit: cover;
 }
 
 #equipment-Header-back-colour{
@@ -36,3 +80,178 @@
 .card-body form div label{
     font-weight: bold;
 }
+
+/*media queries*/
+@media (max-width: 1375px) {
+    .equipment-circle-left{
+        width: 220px;
+        height: 220px;
+        border-radius: 50%;
+        object-fit: cover;
+
+    }
+
+    .equipment-circle-right{
+        width: 220px;
+        height: 220px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+}
+
+
+@media (max-width: 1205px) {
+    .equipment-img-part{
+        margin-top: 1rem;
+    }
+
+    .equipment-circle-left{
+        width: 190px;
+        height: 190px;
+    }
+
+    .equipment-circle-right{
+        width: 190px;
+        height: 190px;
+        margin-right: -130px;
+    }
+}
+
+@media (max-width: 1037px) {
+    .equipment-circle-left{
+        width: 160px;
+        height: 160px;
+    }
+
+    .equipment-circle-right{
+        width: 160px;
+        height: 160px;
+        margin-right: -130px;
+    }
+
+    .equipment-circle-container{
+        gap: 8px;
+    }
+}
+
+/*@media (max-width: 990px) {
+    .equipment-circle-left{
+        width: 160px;
+        height: 160px;
+    }
+
+    .equipment-circle-right{
+        width: 160px;
+        height: 160px;
+        margin-right: -130px;
+    }
+
+    .equipment-img-part{
+        background-color: lightpink;
+        margin-top: 8rem;
+
+    }
+
+    .equipment-circle-container{
+        gap: 8px;
+    }
+}*/
+@media (max-width: 990px) {
+    .search-equipment-part {
+        margin-top: 6.2rem;
+        margin-left: -15rem;
+
+    }
+
+    .equipment-img-part {
+        display: flex;
+        flex-direction: row;
+        align-items: center; /* Center images horizontally */
+        justify-content: center; /* Center images vertically */
+        margin: -1rem 0; /* Adjust spacing above and below */
+        width: 100%; /* Make it span full width */
+        background-color: white;
+    }
+
+    .equipment-circle-container {
+        flex-direction: row; /* Stack images vertically */
+        gap: 1rem; /* Adjust spacing between images */
+    }
+
+    .equipment-circle-left{
+        width: 190px;
+        height: 190px;
+    }
+
+    .equipment-circle-right {
+        width: 190px; /* Adjust size for responsiveness */
+        height: 190px;
+        margin-right: -10px;
+    }
+
+}
+
+
+@media (max-width: 768px) {
+    .equipment-circle-container {
+        gap: 20px;
+    }
+
+    .equipment-img-part {
+        margin: -0.2rem 0; /* Adjust spacing above and below */
+    }
+
+    .equipment-circle-left{
+        width: 190px;
+        height: 190px;
+        margin-top: -1rem;
+        border-radius: 50%;
+        object-fit: cover;
+
+    }
+
+    .equipment-circle-right{
+        width: 190px;
+        height: 190px;
+        margin-top: -1rem;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-right: 1.2rem;
+    }
+
+    .equipment-circle-container .equipment-circle {
+        text-align: center; /* Ensure images are centered inside the circles */
+    }
+
+
+    .search-equipment-part{
+        flex-direction: column;
+        align-items: center; /* Center content horizontally */
+        margin: 10px auto; /* Add some spacing around */
+    }
+
+    .search-equipment-part .search-equipment-card {
+        width: 100%;
+        margin-bottom: 15px; /* Add spacing below */
+    }
+
+    .search-equipment-part .search-equipment-card-body form {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .search-equipment-part .form-control {
+        width: 100%;
+    }
+
+    .search-equipment-part .btn {
+        width: 22%;
+    }
+
+    .equipment-table-view{
+        top: 1.8rem;
+        max-height: 430px;
+    }
+}
+
+

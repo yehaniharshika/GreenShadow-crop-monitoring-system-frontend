@@ -202,7 +202,6 @@ $("#vehicle-delete").on("click", function (e) {
         Swal.fire("Error", "No authentication token found. Please log in again.", "error");
         return;
     }
-
     //send the DELETE request
     $.ajax({
         url: `http://localhost:8080/GreenShadow/api/v1/vehicles/${vehicleDeleteCode}`,
