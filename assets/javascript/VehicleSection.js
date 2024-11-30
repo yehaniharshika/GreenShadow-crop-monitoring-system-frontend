@@ -1,11 +1,14 @@
 const authToken = localStorage.getItem("authToken");
 let staffData=[];
+
 window.addEventListener('load', () => {
     fetchVehicleCode();
     fetchVehicleData();
     loadStaffIds();
 });
 
+
+//load staff ID
 function loadStaffIds(){
     $.ajax({
         url: "http://localhost:8080/GreenShadow/api/v1/staff",
@@ -29,6 +32,7 @@ function loadStaffIds(){
     });
 }
 
+
 document.getElementById('vehicleStaffIdOption').addEventListener('change', function () {
     const selectedStaffId = this.value; //get selected staff ID
     //Find the selected staff data
@@ -45,6 +49,7 @@ document.getElementById('vehicleStaffIdOption').addEventListener('change', funct
         document.getElementById('set-vehicle-staff-contact-number').value = "";
     }
 });
+
 
 //fetchVehicleData
 function fetchVehicleData(){
@@ -63,6 +68,7 @@ function fetchVehicleData(){
         }
     });
 }
+
 
 //load vehicle data to table
 function loadVehicleTable(data){
@@ -84,25 +90,27 @@ function loadVehicleTable(data){
     })
 }
 
+
 $("#vehicle-tbl-tbody").on('click', 'tr', function() {
     let vehicleCode = $(this).find(".vehicle-code-value").text();
     let licensePlateNumber = $(this).find(".license-plate-number-value").text();
-    let vehicleCategory = $(this).find(".vehicle-category-value").text();
     let fuelType = $(this).find(".vehicle-fuel-type-value").text();
+    let vehicleCategory = $(this).find(".vehicle-category-value").text();
     let status = $(this).find(".vehicle-status-value").text();
     let remarks = $(this).find(".vehicle-remarks-value").text();
     let staffId = $(this).find(".vehicle-staff-id-value").text();
 
-        $('#vehicle-code').val(vehicleCode),
-        $('#license-plate-number').val(licensePlateNumber),
-        $('#vehicle-category').val(vehicleCategory),
-        $('#fuel-type').val(fuelType),
-        $('#vehicle-status').val(status),
-        $('#vehicle-remark').val(remarks),
-        $('#vehicleStaffIdOption').val(staffId)
+            $('#vehicle-code').val(vehicleCode),
+            $('#license-plate-number').val(licensePlateNumber),
+            $('#fuel-type').val(fuelType),
+            $('#vehicle-category').val(vehicleCategory),
+            $('#vehicle-status').val(status),
+            $('#vehicle-remark').val(remarks),
+            $('#vehicleStaffIdOption').val(staffId)
 
-    /*$('#staff-section-details-form').modal('show');*/
+    $('#vehicle-section-details-form').modal('show');
 });
+
 
 //get formatted vehicle code
 function  fetchVehicleCode(){
@@ -124,6 +132,7 @@ function  fetchVehicleCode(){
         }
     });
 }
+
 
 //vehicle save
 $("#vehicle-save").on("click", function (e) {
@@ -210,6 +219,7 @@ $("#vehicle-delete").on("click", function (e) {
             }
 
             Swal.fire("Success", successMessage, "success").then(() => {
+                $('#vehicle-section-details-form').modal('hide');
                 //Refresh vehicle data after successful deletion
                 fetchVehicleData();
                 vehicleClearFields();
@@ -224,6 +234,7 @@ $("#vehicle-delete").on("click", function (e) {
     });
 });
 
+
 //vehicle update
 $("#vehicle-update").on("click", function (e) {
     e.preventDefault();
@@ -235,7 +246,7 @@ $("#vehicle-update").on("click", function (e) {
         return;
     }
 
-    //Get staff details from the form
+    //Get vehicle details from the form
     const vehicleData = {
         vehicleCode: vehicleCode,
         licensePlateNumber: $('#license-plate-number').val(),
@@ -267,7 +278,7 @@ $("#vehicle-update").on("click", function (e) {
                 "Success",
                 "Vehicle updated successfully!",
                 "success").then(() => {
-                //$('#staff-section-details-form').modal('hide');
+                $('#vehicle-section-details-form').modal('hide');
             });
             fetchVehicleData();
             vehicleClearFields();
@@ -276,6 +287,88 @@ $("#vehicle-update").on("click", function (e) {
         error: function (xhr) {
             const errorMessage = xhr.responseJSON?.message || "Failed to update vehicle details. Please try again.";
             Swal.fire("Error", errorMessage, "error");
+        },
+    });
+});
+
+//vehicle search
+$("#vehicle-search").on("click", function (e) {
+    let vehicleSearchCode = $("#vehicle-search-by-vehicle-code").val();
+
+    if (!vehicleSearchCode) {
+        Swal.fire(
+            'Input Required',
+            'Please enter a correct vehicle code to search.',
+            'warning'
+        );
+        return;
+    }
+
+    console.log("Searching for Vehicle code: ", vehicleSearchCode);
+
+    $.ajax({
+        url: `http://localhost:8080/GreenShadow/api/v1/vehicles/${vehicleSearchCode}`,
+        type: "GET",
+        contentType: "application/json",
+        headers: {
+            "Authorization": `Bearer ${authToken}`, // Add the token to the Authorization header
+        },
+        success: function (response) {
+            // Check if the response contains valid vehicle data
+            if (!response || !response.vehicleCode) {
+                Swal.fire(
+                    "Vehicle Not Found!",
+                    `No vehicle found with code ${vehicleSearchCode}. Please check and try again.`,
+                    "error"
+                );
+                return;
+            }
+
+            const vehicle = response;
+
+            $('#vehicle-code').val(vehicle.vehicleCode);
+            $('#license-plate-number').val(vehicle.licensePlateNumber);
+            $('#vehicle-category').val(vehicle.category);
+            $('#fuel-type').val(vehicle.fuelType);
+            $('#vehicle-status').val(vehicle.status);
+            $('#vehicle-remark').val(vehicle.remarks);
+            $('#vehicleStaffIdOption').val(vehicle.staffId);
+
+            const selectedStaffData = staffData.find(staff => staff.staffId === vehicle.staffId);
+
+            if (selectedStaffData) {
+                // Populate the staff details
+                document.getElementById('set-vehicle-staff-name').value = `${selectedStaffData.firstName} ${selectedStaffData.lastName}`;
+                document.getElementById('set-vehicle-designation').value = selectedStaffData.designation;
+                document.getElementById('set-vehicle-staff-contact-number').value = selectedStaffData.contactNumber;
+            } else {
+                document.getElementById('set-vehicle-staff-name').value = "";
+                document.getElementById('set-vehicle-designation').value = "";
+                document.getElementById('set-vehicle-staff-contact-number').value = "";
+            }
+
+            $('#vehicle-section-details-form').modal('show');
+
+            Swal.fire(
+                'Vehicle Found!',
+                'Vehicle details retrieved successfully.',
+                'success'
+            );
+        },
+        error: function (xhr) {
+            if (xhr.status === 404) {
+                Swal.fire(
+                    "Vehicle Not Found!",
+                    `No vehicle found with code ${vehicleSearchCode}. Please check and try again.`,
+                    "error"
+                );
+            } else {
+                Swal.fire(
+                    "Error",
+                    xhr.responseJSON?.message || "Failed to search Vehicle. Please try again.",
+                    "error"
+                );
+            }
         },
     });
 });
