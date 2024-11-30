@@ -75,6 +75,8 @@ document.getElementById('equipmentStaffIdOption').addEventListener('change', fun
     }
 });
 
+
+//load field codes
 function loadFieldCodes(){
     $.ajax({
         url: "http://localhost:8080/GreenShadow/api/v1/fields",
@@ -115,3 +117,77 @@ document.getElementById('equipmentFieldCodeOption').addEventListener('change', f
         document.getElementById('set-equipment-section-field-extent-size').value = "";
     }
 });
+
+
+//equipment save
+$("#equipment-save").on("click", function (e) {
+    e.preventDefault();
+
+    //get Vehicle details from the form
+    const equipmentData = {
+        equipmentId: $('#equipment-id').val(),
+        equipmentName: $('#equipment-name').val(),
+        type: $('#equipment-type').val(),
+        status: $('#equipment-status').val(),
+        staffId: $('#equipmentStaffIdOption').val(),
+        fieldCode: $('#equipmentFieldCodeOption').val(),
+    };
+
+    console.log("Equipment Data:", equipmentData);
+
+    console.log("auth token: ",authToken);
+
+    if (!authToken) {
+        Swal.fire("Error", "No authentication token found. Please log in again.", "error");
+        return;
+    }
+
+    $.ajax({
+        url: `http://localhost:8080/GreenShadow/api/v1/equipments`,
+        type: "POST",
+        contentType: "application/json",
+        headers: {
+            "Authorization": `Bearer ${authToken}`,
+        },
+
+        data: JSON.stringify(equipmentData),
+        success: function (response) {
+            Swal.fire(
+                "Success",
+                "Equipment saved successfully!",
+                "success").then(() => {
+            });
+
+            equipmentClearFields();
+            fetchEquipmentId();
+        },
+        error: function (xhr) {
+            Swal.fire(
+                "Error",
+                xhr.responseJSON.message || "Failed to save Equipment. Please try again.",
+                "error"
+            );
+        },
+    });
+});
+
+function equipmentClearFields(){
+    $('#equipment-id').val("");
+    $('#equipment-name').val("");
+    $('#equipment-type').val("");
+    $('#equipment-status').val("");
+    $('#equipmentStaffIdOption').val("");
+    $('#equipmentFieldCodeOption').val("");
+
+    //clear additional fields related to staff
+    $('#set-equipment-section-staff-name').val("");
+    $('#set-equipment-section-staff-designation').val("");
+    $('#set-equipment-section-contact-number').val("");
+
+    //clear additional fields related to field
+    $('#set-equipment-section-field-name').val("");
+    $('#set-equipment-section-field-location').val("");
+    $('#set-equipment-section-field-extent-size').val("");
+
+    console.log("All fields have been cleared.");
+}
