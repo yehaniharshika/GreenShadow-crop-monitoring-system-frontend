@@ -7,7 +7,7 @@
 
 .search-crop-part{
     margin-top: 6.6rem;
-    margin-left: -9.4rem;
+    margin-left: -12.4rem;
 }
 
 .Crop-details-form{
@@ -151,6 +151,23 @@
     .crop-circle-right{
         width: 220px;
         height: 220px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+}
+
+@media (max-width: 1265px) {
+    .crop-circle-left{
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        object-fit: cover;
+
+    }
+
+    .crop-circle-right{
+        width: 200px;
+        height: 200px;
         border-radius: 50%;
         object-fit: cover;
     }

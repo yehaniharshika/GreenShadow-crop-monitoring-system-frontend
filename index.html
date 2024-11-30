@@ -1029,7 +1029,7 @@
 
 
     <!--vehicle section-->
-    <section class="col-md-9 col-lg-10 main" id="vehicle-section">
+    <!--<section class="col-md-9 col-lg-10 main" id="vehicle-section">
       <div class="d-flex justify-content-between align-items-center p-3 bg-white border-bottom">
         <button class="btn btn-outline-secondary d-md-none" id="menu-toggle5"><ion-icon name="menu-outline"></ion-icon></button>
         <h2>Vehicle Management</h2>
@@ -1120,7 +1120,7 @@
             <div  class="card-body">
               <h5 id="vehicle-search-bar" class="card-title">Search Vehicle</h5>
               <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Enter Vehicle code here" id="vehicle-search-by-id" aria-label="Search" >
+                <input class="form-control me-2" type="search" placeholder="Enter Vehicle code here" id="vehicle-search-by-vehicle-code" aria-label="Search" >
                 <button class="btn btn-outline-primary" type="button" id="vehicle-search">Search</button>
               </form>
             </div>
@@ -1128,21 +1128,176 @@
         </section>
 
         <section class="vehicle-table-view col-12 col-sm-12 col-md-12 col-lg-10 col-xl-10 col-xxl-10">
-          <table class="table table-secondary table-striped" >
-            <thead>
-            <tr>
-              <th scope="col">Vehicle code</th>
-              <th scope="col">License Plate Number</th>
-              <th scope="col">Fuel Type</th>
-              <th scope="col">Category</th>
-              <th scope="col">Status</th>
-              <th scope="col">Remarks</th>
-              <th scope="col">Staff ID</th>
-            </tr>
-            </thead>
-            <tbody  id="vehicle-tbl-tbody">
-            </tbody>
-          </table>
+          <div class="table-responsive">
+            <table class="table table-striped  table-bordered" >
+              <thead>
+              <tr>
+                <th scope="col">Vehicle code</th>
+                <th scope="col">License Plate Number</th>
+                <th scope="col">Fuel Type</th>
+                <th scope="col">Category</th>
+                <th scope="col">Status</th>
+                <th scope="col">Remarks</th>
+                <th scope="col">Staff ID</th>
+              </tr>
+              </thead>
+              <tbody  id="vehicle-tbl-tbody">
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </section>
+    </section>-->
+    <section class="col-md-9 col-lg-10 main" id="vehicle-section">
+      <div class="d-flex justify-content-between align-items-center p-3 bg-white border-bottom">
+        <button class="btn btn-outline-secondary d-md-none" id="menu-toggle5"><ion-icon name="menu-outline"></ion-icon></button>
+        <h2>Vehicle Management</h2>
+      </div>
+      <section class="row">
+        <section class="add-staff-button col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#vehicle-section-details-form">
+            <ion-icon name="add-sharp"></ion-icon>Add Vehicle
+          </button>
+        </section>
+
+        <!--vehicle modal-->
+        <div class="modal fade" id="vehicle-section-details-form" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <section class="Vehicle-details-form">
+                  <div data-aos="flip-left"
+                       data-aos-easing="ease-out-cubic"
+                       data-aos-duration="3000" class="card cardSize">
+                    <div id="vehicle-Header-back-colour" class="card-header">
+                      Vehicle Details
+                    </div>
+                    <div class="card-body">
+                      <form>
+                        <div class="mb-3">
+                          <label for="vehicle-code" class="form-label">Vehicle Code</label>
+                          <input type="text" class="form-control" id="vehicle-code">
+                        </div>
+
+
+                        <div class="mb-3">
+                          <label for="license-plate-number" class="form-label">License Plate Number</label>
+                          <input type="text" class="form-control" id="license-plate-number" placeholder="Enter License Plate Number">
+                        </div>
+
+                        <div class="mb-3">
+                          <label for="fuel-type" class="form-label">Status</label>
+                          <select class="form-select" id="fuel-type">
+                            <option selected disabled>Select Fuel type</option>
+                            <option value="Diesel">Diesel</option>
+                            <option value="Petrol">Petrol</option>
+                            <option value="Bio Diesel">Bio Diesel</option>
+                            <option value="Electric">Electric</option>
+                          </select>
+                        </div>
+
+                        <div class="mb-3">
+                          <label for="vehicle-category" class="form-label">Category</label>
+                          <input type="text" class="form-control" id="vehicle-category" placeholder="Enter Category">
+                        </div>
+
+                        <div class="mb-3">
+                          <label for="vehicle-status" class="form-label">Status</label>
+                          <select class="form-select" id="vehicle-status">
+                            <option selected>Select Status</option>
+                            <option value="Available">Available</option>
+                            <option value="Out of Service">Out of Service</option>
+                          </select>
+                        </div>
+
+                        <div class="mb-3">
+                          <label for="vehicle-remark" class="form-label">Remarks</label>
+                          <textarea class="form-control" placeholder="Remarks" id="vehicle-remark" style="height: 60px"></textarea>
+                        </div>
+
+                        <div class="row mb-3">
+                          <div class="col-md-6">
+                            <label class="form-label fw-bold">Staff ID</label>
+                            <select class="form-select" name="staff"  id="vehicleStaffIdOption">
+                              <option disabled selected value="">Select Staff ID</option>
+                            </select>
+                          </div>
+
+                          <div class="col-md-6">
+                            <label class="form-label">staff Name</label>
+                            <input type="text" class="form-control staff-name-set" id="set-vehicle-staff-name">
+                          </div>
+
+                          <div class="col-md-6">
+                            <label class="form-label">Designation</label>
+                            <input type="text" class="form-control staff-designation-set" id="set-vehicle-designation">
+                          </div>
+
+                          <div class="col-md-6">
+                            <label class="form-label">Contact Number</label>
+                            <input type="tel" class="form-control" id="set-vehicle-staff-contact-number">
+                          </div>
+                        </div>
+
+                        <div class="mt-3 mb-5 btn-vehicle-btn-list">
+                          <button type="button" class="btn btn-success" id="vehicle-save">Save</button>
+                          <button type="button" class="btn btn-primary" id="vehicle-update">Update</button>
+                          <button type="button" class="btn btn-danger" id="vehicle-delete">Delete</button>
+                          <button type="reset" class="btn btn-warning" id="vehicle-reset">Reset</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </section>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <section class="search-vehicle-part col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+          <div class="card" >
+            <div  class="card-body">
+              <h5 id="vehicle-search-bar" class="card-title">Search Vehicle</h5>
+              <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Enter Vehicle code here" id="vehicle-search-by-vehicle-code" aria-label="Search" >
+                <button class="btn btn-outline-primary" type="button" id="vehicle-search">Search</button>
+              </form>
+            </div>
+          </div>
+        </section>
+
+        <section class="vehicle-img-part col-md-4 d-flex align-items-center justify-content-center">
+          <div class="vehicle-circle-container text-center">
+            <div class="vehicle-circle vehicle-circle-left">
+              <img src="assets/images/vehicle01.jpg" alt="Image 1" class="img-fluid rounded-circle">
+            </div>
+            <div class="vehicle-circle vehicle-circle-right ms-3">
+              <img src="assets/images/vehicle02.jpg" alt="Image 2" class="img-fluid rounded-circle">
+            </div>
+          </div>
+        </section>
+
+        <section class="vehicle-table-view col-12 col-sm-12 col-md-12 col-lg-10 col-xl-10 col-xxl-10">
+          <div class="table-responsive">
+            <table class="table table-striped  table-bordered" >
+              <thead>
+              <tr>
+                <th scope="col">Vehicle code</th>
+                <th scope="col">License Plate Number</th>
+                <th scope="col">Fuel Type</th>
+                <th scope="col">Category</th>
+                <th scope="col">Status</th>
+                <th scope="col">Remarks</th>
+                <th scope="col">Staff ID</th>
+              </tr>
+              </thead>
+              <tbody  id="vehicle-tbl-tbody">
+              </tbody>
+            </table>
+          </div>
         </section>
       </section>
     </section>

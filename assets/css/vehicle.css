@@ -6,7 +6,8 @@
 }
 
 .search-vehicle-part{
-    margin-top: 0.5rem;
+    margin-top: 6.6rem;
+    margin-left: -12.4rem;
 }
 
 .Vehicle-details-form{
@@ -24,6 +25,49 @@
     right: 0;
     margin: auto;
     padding: 0;
+    overflow-x: auto;
+    overflow-y: auto;
+    max-height: 560px;
+    width: 96.6%;
+}
+
+/*image part*/
+.vehicle-img-part{
+    background-color: yellow;
+    margin-top: -2rem;
+}
+
+.vehicle-circle-container{
+    display: flex;
+    gap: 15px;
+    margin-top: 3rem;
+}
+
+.vehicle-circle{
+    display: inline-block;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.vehicle-circle img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.vehicle-circle-right{
+    width: 260px;
+    height: 260px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: -160px;
+}
+
+.vehicle-circle-left{
+    width: 260px;
+    height: 260px;
+    border-radius: 50%;
+    object-fit: cover;
 }
 
 #vehicle-Header-back-colour{
@@ -35,4 +79,105 @@
 
 .card-body form div label{
     font-weight: bold;
+}
+
+/*media query*/
+@media (max-width: 1365px) {
+    .crop-circle-left{
+        width: 240px;
+        height: 240px;
+        border-radius: 50%;
+        object-fit: cover;
+
+    }
+
+    .crop-circle-right{
+        width: 240px;
+        height: 240px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+}
+
+@media (max-width: 1195px) {
+    .vehicle-circle-container{
+        gap: 8px;
+    }
+
+    .vehicle-circle-left{
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .vehicle-circle-right{
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-right: -120px;
+    }
+}
+
+@media (max-width: 768px) {
+    .vehicle-img-part{
+        background-color: transparent;
+        padding-top: 0;
+        margin-top: -2.7rem;
+    }
+
+    .vehicle-circle-container {
+        gap: 20px;
+    }
+
+    .vehicle-circle-left{
+        width: 190px;
+        height: 190px;
+        margin-top: -1rem;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .vehicle-circle-right{
+        width: 190px;
+        height: 190px;
+        margin-top: -1rem;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-right: 1.2rem;
+    }
+
+    .vehicle-circle-container .vehicle-circle {
+        text-align: center; /* Ensure images are centered inside the circles */
+    }
+
+    .search-vehicle-part{
+        flex-direction: column;
+        align-items: center; /* Center content horizontally */
+        margin: 10px auto; /* Add some spacing around */
+    }
+
+    .search-crop-part .search-crop-card {
+        width: 100%; /* Take full width of the container */
+        margin-bottom: 15px; /* Add spacing below */
+    }
+
+    .search-crop-part .search-crop-card-body form {
+        flex-direction: column; /* Stack form elements vertically */
+        gap: 10px; /* Add spacing between elements */
+    }
+
+    .search-crop-part .form-control {
+        width: 100%; /* Full width on smaller screens */
+    }
+
+    .search-crop-part .btn {
+        width: 22%; /* Adjust button width */
+    }
+
+    .crop-table-view{
+        top: 1.1rem;
+        max-height: 440px;
+    }
 }
