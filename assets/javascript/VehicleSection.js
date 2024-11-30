@@ -29,6 +29,23 @@ function loadStaffIds(){
     });
 }
 
+document.getElementById('vehicleStaffIdOption').addEventListener('change', function () {
+    const selectedStaffId = this.value; //get selected staff ID
+    //Find the selected staff data
+    const selectedStaff = staffData.find(staff => staff.staffId === selectedStaffId);
+
+    if (selectedStaff) {
+        //Populate staff name and designation fields
+        document.getElementById('set-vehicle-staff-name').value = `${selectedStaff.firstName} ${selectedStaff.lastName}`;
+        document.getElementById('set-vehicle-designation').value = selectedStaff.designation;
+        document.getElementById('set-vehicle-staff-contact-number').value = selectedStaff.contactNumber;
+    } else {
+        document.getElementById('set-vehicle-staff-name').value = "";
+        document.getElementById('set-vehicle-designation').value = "";
+        document.getElementById('set-vehicle-staff-contact-number').value = "";
+    }
+});
+
 //fetchVehicleData
 function fetchVehicleData(){
     $.ajax({
@@ -146,7 +163,8 @@ $("#vehicle-save").on("click", function (e) {
                 "Vehicle saved successfully!",
                 "success").then(() => {
             });
-            fetchVehicleData()
+            fetchVehicleData();
+            vehicleClearFields();
             fetchVehicleCode();
         },
         error: function (xhr) {
@@ -194,6 +212,7 @@ $("#vehicle-delete").on("click", function (e) {
             Swal.fire("Success", successMessage, "success").then(() => {
                 //Refresh vehicle data after successful deletion
                 fetchVehicleData();
+                vehicleClearFields();
                 fetchVehicleCode();
             });
         },
@@ -204,6 +223,16 @@ $("#vehicle-delete").on("click", function (e) {
         }
     });
 });
+
+function vehicleClearFields(){
+    $('#vehicle-code').val("");
+    $('#license-plate-number').val("");
+    $('#vehicle-category').val("");
+    $('#fuel-type').val("");
+    $('#vehicle-status').val("");
+    $('#vehicle-remark').val("");
+    $('#vehicleStaffIdOption').val("");
+}
 
 
 
