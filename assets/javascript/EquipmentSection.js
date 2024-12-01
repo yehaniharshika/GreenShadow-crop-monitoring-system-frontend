@@ -72,7 +72,7 @@ function loadEquipmentTable(data){
 
 
 //table listener
-$("#equipment-tbl-tbody").on('click', 'tr', function() {
+$("#equipment-tbl-tbody").on('click', 'tr', function () {
     let equipmentId = $(this).find(".equipment-id-value").text();
     let equipmentName = $(this).find(".equipment-name-value").text();
     let type = $(this).find(".equipment-type-value").text();
@@ -80,15 +80,47 @@ $("#equipment-tbl-tbody").on('click', 'tr', function() {
     let staffId = $(this).find(".equipment-staff-id-value").text();
     let fieldCode = $(this).find(".equipment-field-code-value").text();
 
-        $('#equipment-id').val(equipmentId),
-        $('#equipment-name').val(equipmentName),
-        $('#equipment-type').val(type),
-        $('#equipment-status').val(status),
-        $('#equipmentStaffIdOption').val(staffId),
-        $('#equipmentFieldCodeOption').val(fieldCode)
+    // Populate input fields with equipment details
+    $('#equipment-id').val(equipmentId);
+    $('#equipment-name').val(equipmentName);
+    $('#equipment-type').val(type);
+    $('#equipment-status').val(status);
+    $('#equipmentStaffIdOption').val(staffId);
+    $('#equipmentFieldCodeOption').val(fieldCode);
 
+    //Find staff data corresponding to the staffId
+    const selectedStaffDataWithTable = staffData.find(staff => staff.staffId === staffId);
+
+    if (selectedStaffDataWithTable) {
+        //populate staff details
+        document.getElementById('set-equipment-section-staff-name').value =
+            `${selectedStaffDataWithTable.firstName} ${selectedStaffDataWithTable.lastName}`;
+        document.getElementById('set-equipment-section-staff-designation').value = selectedStaffDataWithTable.designation;
+        document.getElementById('set-equipment-section-contact-number').value = selectedStaffDataWithTable.contactNumber;
+    } else {
+        //clear staff details if no match is found
+        document.getElementById('set-equipment-section-staff-name').value = "";
+        document.getElementById('set-equipment-section-staff-designation').value = "";
+        document.getElementById('set-equipment-section-contact-number').value = "";
+    }
+
+    //Find field data corresponding to the staffId
+    const  selectedFieldDataWithTable = fieldData.find(field => field.fieldCode === fieldCode);
+    if (selectedFieldDataWithTable){
+        //populate the field details
+        document.getElementById('set-equipment-section-field-name').value = selectedFieldDataWithTable.fieldName;
+        document.getElementById('set-equipment-section-field-location').value = selectedFieldDataWithTable.fieldLocation;
+        document.getElementById('set-equipment-section-field-extent-size').value = selectedFieldDataWithTable.extentSize;
+    }else {
+        document.getElementById('set-equipment-section-field-name').value = "";
+        document.getElementById('set-equipment-section-field-location').value = "";
+        document.getElementById('set-equipment-section-field-extent-size').value = "";
+    }
+
+    // Show the modal
     $('#equipment-section-details-form').modal('show');
 });
+
 
 
 //load staff ID
@@ -278,6 +310,159 @@ $("#equipment-delete").on("click", function (e) {
 });
 
 
+//equipment update
+$("#equipment-update").on("click", function (e) {
+    e.preventDefault();
+
+    const equipmentId = $('#equipment-id').val();
+
+    if (!equipmentId){
+        Swal.fire("Error", "Equipment ID is required to update equipment details.", "error");
+        return;
+    }
+
+    //Get equipment details from the form
+    const equipmentData = {
+        equipmentId: equipmentId,
+        equipmentName: $('#equipment-name').val(),
+        type: $('#equipment-type').val(),
+        status: $('#equipment-status').val(),
+        staffId: $('#equipmentStaffIdOption').val(),
+        fieldCode: $('#equipmentFieldCodeOption').val()
+    };
+
+    console.log("equipment Data: ", equipmentData);
+    console.log("Auth Token: ",authToken)
+
+    if (!authToken) {
+        Swal.fire("Error", "No authentication token found. Please log in again.", "error");
+        return;
+    }
+
+    $.ajax({
+        url: `http://localhost:8080/GreenShadow/api/v1/equipments/${equipmentId}`,
+        type: "PUT",
+        contentType: "application/json",
+        headers: {
+            "Authorization": `Bearer ${authToken}`, // Add the token to the Authorization header
+        },
+        data: JSON.stringify(equipmentData),
+
+        success: function (response) {
+            Swal.fire(
+                "Success",
+                "Equipment updated successfully!",
+                "success").then(() => {
+                $('#equipment-section-details-form').modal('hide');
+            });
+            fetchEquipmentData();
+            equipmentClearFields();
+            fetchEquipmentId();
+        },
+        error: function (xhr) {
+            const errorMessage = xhr.responseJSON?.message || "Failed to update Equipment details. Please try again.";
+            Swal.fire("Error", errorMessage, "error");
+        },
+    });
+});
+
+
+//equipment search
+$("#equipment-search").on("click", function (e) {
+    let equipmentSearchCode = $("#equipment-search-by-equipment-id").val();
+
+    if (!equipmentSearchCode) {
+        Swal.fire(
+            'Input Required',
+            'Please enter a correct equipment Id to search.',
+            'warning'
+        );
+        return;
+    }
+
+    console.log("Searching for equipment ID: ", equipmentSearchCode);
+
+    $.ajax({
+        url: `http://localhost:8080/GreenShadow/api/v1/equipments/${equipmentSearchCode}`,
+        type: "GET",
+        contentType: "application/json",
+        headers: {
+            "Authorization": `Bearer ${authToken}`, // Add the token to the Authorization header
+        },
+        success: function (response) {
+            // Check if the response contains valid vehicle data
+            if (!response || !response.equipmentId) {
+                Swal.fire(
+                    "Equipment Not Found!",
+                    `No Equipment found with code ${equipmentSearchCode}. Please check and try again.`,
+                    "error"
+                );
+                return;
+            }
+
+            const equipment = response;
+
+            $('#equipment-code').val(equipment.equipmentId);
+            $('#equipment-name').val(equipment.equipmentName);
+            $('#equipment-type').val(equipment.type);
+            $('#equipment-status').val(equipment.status);
+            $('#equipmentStaffIdOption').val(equipment.staffId);
+            $('#equipmentFieldCodeOption').val(equipment.fieldCode);
+
+
+            const selectedStaffData = staffData.find(staff => staff.staffId === equipment.staffId);
+
+            if (selectedStaffData) {
+                //populate the staff details
+                document.getElementById('set-equipment-section-staff-name').value = `${selectedStaffData.firstName} ${selectedStaffData.lastName}`;
+                document.getElementById('set-equipment-section-staff-designation').value = selectedStaffData.designation;
+                document.getElementById('set-equipment-section-contact-number').value = selectedStaffData.contactNumber;
+            } else {
+                document.getElementById('set-equipment-section-staff-name').value = "";
+                document.getElementById('set-equipment-section-staff-designation').value = "";
+                document.getElementById('set-equipment-section-contact-number').value = "";
+            }
+
+            const selectedFieldData = fieldData.find(field => field.fieldCode === equipment.fieldCode);
+
+            if (selectedFieldData){
+                //populate the field details
+                document.getElementById('set-equipment-section-field-name').value = selectedFieldData.fieldName;
+                document.getElementById('set-equipment-section-field-location').value = selectedFieldData.fieldLocation;
+                document.getElementById('set-equipment-section-field-extent-size').value = selectedFieldData.extentSize;
+            }else {
+                document.getElementById('set-equipment-section-field-name').value = "";
+                document.getElementById('set-equipment-section-field-location').value = "";
+                document.getElementById('set-equipment-section-field-extent-size').value = "";
+            }
+
+            $('#equipment-section-details-form').modal('show');
+
+            Swal.fire(
+                'Equipment Found!',
+                'Equipment details retrieved successfully.',
+                'success'
+            );
+        },
+        error: function (xhr) {
+            if (xhr.status === 404) {
+                Swal.fire(
+                    "Equipment Not Found!",
+                    `No Equipment found with code ${equipmentSearchCode}. Please check and try again.`,
+                    "error"
+                );
+            } else {
+                Swal.fire(
+                    "Error",
+                    xhr.responseJSON?.message || "Failed to search Equipment. Please try again.",
+                    "error"
+                );
+            }
+        },
+    });
+});
+
+//clear Equipment fields
 function equipmentClearFields(){
     $('#equipment-id').val("");
     $('#equipment-name').val("");
