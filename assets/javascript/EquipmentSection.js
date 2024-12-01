@@ -4,7 +4,7 @@ let fieldData=[];
 
 window.addEventListener('load', () => {
     fetchEquipmentId();
-    //fetchVehicleData();
+    fetchEquipmentData();
     loadStaffIds();
     loadFieldCodes();
 });
@@ -30,6 +30,65 @@ function  fetchEquipmentId(){
         }
     });
 }
+
+
+//fetch all equipment details
+function fetchEquipmentData(){
+    $.ajax({
+        url: "http://localhost:8080/GreenShadow/api/v1/equipments",
+        method: "GET",
+        contentType: "application/json",
+        headers: {
+            "Authorization": `Bearer ${authToken}`
+        },
+        success: function (response){
+            loadEquipmentTable(response);
+        },
+        error: function (xhr, status, error) {
+            console.error("Failed to fetch Equipment data:", xhr.responseText || error);
+        }
+    });
+}
+
+
+//load equipment table
+function loadEquipmentTable(data){
+    const equipmentTableBody = $("#equipment-tbl-tbody");
+    equipmentTableBody.empty();
+
+    data.forEach(equipment =>{
+        const row = `
+            <tr>
+                <td class="equipment-id-value">${equipment.equipmentId}</td>
+                <td class="equipment-name-value">${equipment.equipmentName}</td>
+                <td class="equipment-type-value">${equipment.type}</td>
+                <td class="equipment-status-value">${equipment.status}</td>
+                <td class="equipment-staff-id-value">${equipment.staffId}</td>
+                <td class="equipment-field-code-value">${equipment.fieldCode}</td>
+            </tr>`;
+        equipmentTableBody.append(row)
+    })
+}
+
+
+//table listener
+$("#equipment-tbl-tbody").on('click', 'tr', function() {
+    let equipmentId = $(this).find(".equipment-id-value").text();
+    let equipmentName = $(this).find(".equipment-name-value").text();
+    let type = $(this).find(".equipment-type-value").text();
+    let status = $(this).find(".equipment-status-value").text();
+    let staffId = $(this).find(".equipment-staff-id-value").text();
+    let fieldCode = $(this).find(".equipment-field-code-value").text();
+
+        $('#equipment-id').val(equipmentId),
+        $('#equipment-name').val(equipmentName),
+        $('#equipment-type').val(type),
+        $('#equipment-status').val(status),
+        $('#equipmentStaffIdOption').val(staffId),
+        $('#equipmentFieldCodeOption').val(fieldCode)
+
+    $('#equipment-section-details-form').modal('show');
+});
 
 
 //load staff ID
