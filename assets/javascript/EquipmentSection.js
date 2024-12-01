@@ -216,7 +216,7 @@ $("#equipment-save").on("click", function (e) {
                 "Equipment saved successfully!",
                 "success").then(() => {
             });
-
+            fetchEquipmentData();
             equipmentClearFields();
             fetchEquipmentId();
         },
@@ -229,6 +229,54 @@ $("#equipment-save").on("click", function (e) {
         },
     });
 });
+
+
+//equipment delete
+$("#equipment-delete").on("click", function (e) {
+    e.preventDefault();
+
+    const equipmentDeleteId = $('#equipment-id').val();
+
+    if (!equipmentDeleteId) {
+        Swal.fire("Error", "Equipment ID is required to delete equipment details.", "error");
+        return;
+    }
+
+    if (typeof authToken === "undefined" || !authToken) {
+        Swal.fire("Error", "No authentication token found. Please log in again.", "error");
+        return;
+    }
+
+    $.ajax({
+        url: `http://localhost:8080/GreenShadow/api/v1/equipments/${equipmentDeleteId}`,
+        type: "DELETE",
+        headers: {
+            "Authorization": `Bearer ${authToken}`
+        },
+        success: function (response) {
+            console.log("Delete Response:", response);
+            const successMessage = response?.message || "Equipment deleted successfully!";
+
+            Swal.fire("Success", successMessage, "success").then(() => {
+                $('#equipment-section-details-form').modal('hide');
+                fetchEquipmentData();
+                equipmentClearFields();
+                fetchEquipmentId();
+            });
+        },
+        error: function (xhr) {
+            console.error("Delete request failed:", xhr);
+
+            let errorMessage = "Failed to delete equipment details. Please try again.";
+            Swal.fire(
+                "Error",
+                errorMessage,
+                "error"
+            );
+        }
+    });
+});
+
 
 function equipmentClearFields(){
     $('#equipment-id').val("");
