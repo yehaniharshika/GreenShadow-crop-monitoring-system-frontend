@@ -122,7 +122,6 @@ $("#equipment-tbl-tbody").on('click', 'tr', function () {
 });
 
 
-
 //load staff ID
 function loadStaffIds(){
     $.ajax({

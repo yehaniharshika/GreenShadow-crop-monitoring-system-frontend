@@ -6,12 +6,13 @@ let fieldData=[];
 window.addEventListener('load', () => {
     fetchLogCode();
     setLogDate();
-    //loadStaffIdsToLogs();
+    loadStaffIdsToLogs();
     //loadCropCodesToLogs();
     loadFieldCodesToLogs();
 });
 
 
+//load field codes for logs section
 function loadFieldCodesToLogs(){
     $.ajax({
         url: "http://localhost:8080/GreenShadow/api/v1/fields",
@@ -35,6 +36,8 @@ function loadFieldCodesToLogs(){
     });
 }
 
+
+//set Field details according to Field code
 document.getElementById('logFieldCodeOption').addEventListener('change', function () {
     const selectedFieldCode = this.value; // Get selected staff ID
     //Find the selected staff data
@@ -42,9 +45,9 @@ document.getElementById('logFieldCodeOption').addEventListener('change', functio
 
     if (selectedField) {
         //Populate staff name and designation fields
-        document.getElementById('set-field-name-for-log').value = selectedField.fieldName;
-        document.getElementById('set-field-location-for-log').value = selectedField.fieldLocation;
-        document.getElementById('set-field-extent-size-for-log').value = selectedField.extentSize;
+        document.getElementById('set-field-name-to-logs-section').value = selectedField.fieldName;
+        document.getElementById('set-field-location-to-logs-section').value = selectedField.fieldLocation;
+        document.getElementById('set-field-extent-size-to-logs-section').value = selectedField.extentSize;
     } else {
         document.getElementById('set-field-name-for-log').value = "";
         document.getElementById('set-field-location-for-log').value = "";
@@ -52,6 +55,54 @@ document.getElementById('logFieldCodeOption').addEventListener('change', functio
     }
 });
 
+
+//load staff Ids for logs section
+function loadStaffIdsToLogs(){
+    $.ajax({
+        url: "http://localhost:8080/GreenShadow/api/v1/staff",
+        method: "GET",
+        contentType: "application/json",
+        headers: {
+            "Authorization": `Bearer ${authToken}`
+        },
+        success: function (data) {
+            staffData = data; // Assign API response to the global staffData variable
+
+            staffData.forEach((staff) => {
+                $("#logStaffIdOption").append(new Option(staff.staffId, staff.staffId));
+            });
+            console.log("Successfully loaded staff Ids to Logs section");
+        },
+        error: function (xhr, status, error) {
+            console.error("Error loading Staff Ids: ", error);
+            console.error("Response:", xhr.responseText);
+        }
+    });
+}
+
+
+//set staff details according to staff ID
+document.getElementById('logStaffIdOption').addEventListener('change', function () {
+    const selectedStaffId = this.value; //get selected staff ID
+    //Find the selected staff data
+    const selectedStaff = staffData.find(staff => staff.staffId === selectedStaffId);
+
+    if (selectedStaff) {
+        //Populate staff name and designation fields
+        document.getElementById('set-staff-name-to-logs-section').value = `${selectedStaff.firstName} ${selectedStaff.lastName}`;
+        document.getElementById('set-staff-email-to-logs-section').value = selectedStaff.email;
+        document.getElementById('set-designation-to-logs-section').value = selectedStaff.designation;
+        document.getElementById('set-staff-role-to-logs-section').value = selectedStaff.role;
+    } else {
+        document.getElementById('set-staff-name-to-logs-section').value = "";
+        document.getElementById('set-staff-email-to-logs-section').value = "";
+        document.getElementById('set-designation-to-logs-section').value = "";
+        document.getElementById('set-staff-role-to-logs-section').value = "";
+    }
+});
+
+
+//get formatted log code
 function  fetchLogCode(){
     $.ajax({
         url: "http://localhost:8080/GreenShadow/api/v1/logs/generate-next-log-code", // API URL
@@ -72,6 +123,8 @@ function  fetchLogCode(){
     });
 }
 
+
+//set log date
 function setLogDate() {
     // Get the current date
     const today = new Date();
