@@ -8,7 +8,7 @@ window.addEventListener('load', () => {
 
 function loadFieldCodes(){
     $.ajax({
-        url: "http://localhost:8080/GreenShadow/api/v1/fields", // API URL for staff data
+        url: "http://localhost:8080/GreenShadow/api/v1/fields",
         method: "GET",
         contentType: "application/json",
         headers: {
