@@ -7,7 +7,7 @@ window.addEventListener('load', () => {
     fetchLogCode();
     setLogDate();
     loadStaffIdsToLogs();
-    //loadCropCodesToLogs();
+    loadCropCodesToLogs();
     loadFieldCodesToLogs();
 });
 
@@ -102,6 +102,50 @@ document.getElementById('logStaffIdOption').addEventListener('change', function 
 });
 
 
+//load crop codes for logs section
+function loadCropCodesToLogs(){
+    $.ajax({
+        url: "http://localhost:8080/GreenShadow/api/v1/crops",
+        method: "GET",
+        contentType: "application/json",
+        headers: {
+            "Authorization": `Bearer ${authToken}`
+        },
+        success: function (data) {
+            cropData = data;
+
+            cropData.forEach((crop) => {
+                $("#logCropCodeOption").append(new Option(crop.cropCode, crop.cropCode));
+            });
+            console.log("Successfully loaded crop codes to Logs section");
+        },
+        error: function (xhr, status, error) {
+            console.error("Error loading crop codes: ", error);
+            console.error("Response:", xhr.responseText);
+        }
+    });
+}
+
+
+//set crop details according to crop code
+document.getElementById('logCropCodeOption').addEventListener('change', function () {
+    const selectedCropCode = this.value; //get selected staff ID
+    //Find the selected staff data
+    const selectedCrop = cropData.find(crop => crop.cropCode === selectedCropCode);
+
+    if (selectedCropCode) {
+        //Populate staff name and designation fields
+        document.getElementById('set-crop-common-name-to-logs-section').value = selectedCrop.cropCommonName;
+        document.getElementById('set-crop-scientific-name-to-logs-section').value = selectedCrop.scientificName;
+        document.getElementById('set-crop-category-to-logs-section').value = selectedCrop.category;
+    } else {
+        document.getElementById('set-crop-common-name-to-logs-section').value = "";
+        document.getElementById('set-crop-scientific-name-to-logs-section').value = "";
+        document.getElementById('set-crop-category-to-logs-section').value = "";
+    }
+});
+
+
 //get formatted log code
 function  fetchLogCode(){
     $.ajax({
@@ -126,10 +170,10 @@ function  fetchLogCode(){
 
 //set log date
 function setLogDate() {
-    // Get the current date
+    //Get the current date
     const today = new Date();
 
-    // Format the date as YYYY-MM-DD
+    //Format the date as YYYY-MM-DD
     const formattedDate = today.toISOString().split('T')[0];
 
     const logDateInput = document.getElementById("log-date");
@@ -137,4 +181,5 @@ function setLogDate() {
         logDateInput.value = formattedDate;
     }
 }
+
 
