@@ -566,6 +566,86 @@ $("#log-search").on("click", function () {
     });
 });
 
+// logs update
+$("#logs-update").on("click", function (e) {
+    e.preventDefault();
+
+    const logCode = $('#log-code').val();
+
+    if (!logCode) {
+        Swal.fire("Error", "Log code is required to update log details.", "error");
+        return;
+    }
+
+    // Gather form data
+    const formData = new FormData();
+    formData.append("logCode", logCode);
+    formData.append("logDate", $('#log-date').val() || ""); // Default to empty string
+    formData.append("logDetails", $('#log-details').val() || ""); // Default to empty string
+
+    // Handle the image file input
+    const logImageInput = $('#logImage')[0];
+    const logImage = logImageInput?.files[0];
+    if (logImage) {
+        formData.append("observedImage", logImage);
+    } else {
+        // Add an empty Blob to ensure the 'observedImage' part is sent
+        formData.append("observedImage", new Blob(), "");
+    }
+
+    // Prepare staff data (ensure it exists)
+    const staffId = $('#logStaffIdOption').val();
+    if (staffId) {
+        const staff = [{ staffId }];
+        formData.append("staffLogs", JSON.stringify(staff));
+    }
+
+    // Prepare field data (ensure it exists)
+    const fieldCode = $('#logFieldCodeOption').val();
+    if (fieldCode) {
+        const field = [{ fieldCode }];
+        formData.append("fieldLogs", JSON.stringify(field));
+    }
+
+    // Prepare crop data (ensure it exists)
+    const cropCode = $('#logCropCodeOption').val(); // Correct key for crop code
+    if (cropCode) {
+        const crop = [{ cropCode }];
+        formData.append("cropLogs", JSON.stringify(crop));
+    }
+
+    if (!authToken) {
+        Swal.fire("Error", "No authentication token found. Please log in again.", "error");
+        return;
+    }
+
+    // AJAX request with multipart/form-data
+    $.ajax({
+        url: `http://localhost:8080/GreenShadow/api/v1/logs/${logCode}`,
+        type: "PUT",
+        data: formData,
+        processData: false,
+        contentType: false,
+        headers: {
+            "Authorization": `Bearer ${authToken}`,
+        },
+        success: function (response) {
+            Swal.fire("Success", "Log updated successfully!", "success").then(() => {
+                $('#logs-section-details-form').modal('hide');
+            });
+            fetchLogData();
+            clearLogDetails();
+            fetchLogCode();
+        },
+        error: function (xhr) {
+            console.error("Update error:", xhr);
+            const errorMessage = xhr.responseJSON?.message || "Failed to update log details. Please try again.";
+            Swal.fire("Error", errorMessage, "error");
+        },
+    });
+});
+
+
 // Function to clear log details and related entities
 function clearLogDetails() {
     // Clear log details
@@ -595,6 +675,7 @@ function clearLogDetails() {
     $('#set-field-location-to-logs-section').val("");
     $('#set-field-extent-size-to-logs-section').val("");
 }
+
 
 
 
