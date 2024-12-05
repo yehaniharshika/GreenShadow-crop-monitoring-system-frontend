@@ -1,294 +1,68 @@
-<!--Field section -->
-<section id="field-section">
-  <div class="main-content">
+<section id="dashboard-section" class="main-content">
+  <!-- Content -->
+  <div class="">
 
-    <!--  Search Bar -->
-    <div class="search-bar mb-4">
-      <i class="fas fa-search "></i>
-      <input type="text" placeholder="Search fields by location...">
+
+    <!-- Dashboard Cards -->
+    <div class="row dashboard-cards">
+      <div class="col-md-3">
+        <div class="card glass-card text-white mb-4">
+          <div class="card-body">
+            <h5 class="card-title">Total Crops</h5>
+            <p class="card-text">20</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card glass-card text-white mb-4">
+          <div class="card-body">
+            <h5 class="card-title">Staff</h5>
+            <p class="card-text">18 Active</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card glass-card text-white mb-4">
+          <div class="card-body">
+            <h5 class="card-title">Tasks Completed</h5>
+            <p class="card-text">145</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card glass-card text-white mb-4">
+          <div class="card-body">
+            <h5 class="card-title">Alerts</h5>
+            <p class="card-text">3 New</p>
+          </div>
+        </div>
+      </div>
     </div>
-    <!--container of fields-->
-    <div class="item-container container">
-      <!-- Placeholder message when no fields are available -->
-      <div class="no-data">
-        <img src="assets/images/noData.png" class="no-data-img">
-        <p class="empty-message">No fields available to display</p>
-      </div>
 
-      <!-- Card -->
-      <div class="card-custom">
-        <!-- Image Slider -->
-        <div class="slider" data-slider-index="0">
-          <img src="https://via.placeholder.com/600x200?text=Field+Image+1" class="active" alt="Field Image 1">
-          <img src="https://via.placeholder.com/600x200?text=Field+Image+2" alt="Field Image 2">
-          <div class="slider-buttons">
-            <button class="slider-button prev-button">&#10094;</button>
-            <button class="slider-button next-button">&#10095;</button>
-          </div>
-        </div>
-        <!-- Card Content -->
-        <div class="card-content">
-          <div class="field-info">
-            <h4>Field Name</h4>
-            <p>A beautiful field for growing crops.</p>
-          </div>
-          <div class="field-info">
-            <h4>Size</h4>
-            <p>1500 Sq. meters</p>
-          </div>
-          <div class="field-info">
-            <h4>Location</h4>
-            <p>GPS Coordinates: 35.6895° N, 139.6917° E</p>
-          </div>
-          <!-- Centered View More Button -->
-          <div class="view-more-container">
-            <button type="button" class="btn view-btn" data-toggle="modal" data-target="#fieldDetailModal">View more</button>
+
+    <!-- Charts -->
+    <div class="row chart-cards">
+      <div class="col-md-6">
+        <div class="card mb-4">
+          <div class="card-body">
+            <h5 class="card-title">Crop Growth</h5>
+            <div class="chart-container">
+              <canvas id="growthChart"></canvas>
+            </div>
           </div>
         </div>
       </div>
-      <div class="card-custom">
-        <!-- Image Slider -->
-        <div class="slider" data-slider-index="0">
-          <img src="https://via.placeholder.com/600x200?text=Field+Image+1" class="active" alt="Field Image 1">
-          <img src="https://via.placeholder.com/600x200?text=Field+Image+2" alt="Field Image 2">
-          <div class="slider-buttons">
-            <button class="slider-button prev-button">&#10094;</button>
-            <button class="slider-button next-button">&#10095;</button>
-          </div>
-        </div>
-        <!-- Card Content -->
-        <div class="card-content">
-          <div class="field-info">
-            <h4>Field Name</h4>
-            <p>A beautiful field for growing crops.</p>
-          </div>
-          <div class="field-info">
-            <h4>Size</h4>
-            <p>1500 Sq. meters</p>
-          </div>
-          <div class="field-info">
-            <h4>Location</h4>
-            <p>GPS Coordinates: 35.6895° N, 139.6917° E</p>
-          </div>
-          <!-- Centered View More Button -->
-          <div class="view-more-container">
-            <button type="button" class="btn view-btn">View more</button>
-          </div>
-        </div>
-      </div>
-      <div class="card-custom">
-        <!-- Image Slider -->
-        <div class="slider" data-slider-index="0">
-          <img src="https://via.placeholder.com/600x200?text=Field+Image+1" class="active" alt="Field Image 1">
-          <img src="https://via.placeholder.com/600x200?text=Field+Image+2" alt="Field Image 2">
-          <div class="slider-buttons">
-            <button class="slider-button prev-button">&#10094;</button>
-            <button class="slider-button next-button">&#10095;</button>
-          </div>
-        </div>
-        <!-- Card Content -->
-        <div class="card-content">
-          <div class="field-info">
-            <h4>Field Name</h4>
-            <p>A beautiful field for growing crops.</p>
-          </div>
-          <div class="field-info">
-            <h4>Size</h4>
-            <p>1500 Sq. meters</p>
-          </div>
-          <div class="field-info">
-            <h4>Location</h4>
-            <p>GPS Coordinates: 35.6895° N, 139.6917° E</p>
-          </div>
-          <!-- Centered View More Button -->
-          <div class="view-more-container">
-            <button type="button" class="btn view-btn">View more</button>
-          </div>
-        </div>
-      </div>
-      <div class="card-custom">
-        <!-- Image Slider -->
-        <div class="slider" data-slider-index="0">
-          <img src="https://via.placeholder.com/600x200?text=Field+Image+1" class="active" alt="Field Image 1">
-          <img src="https://via.placeholder.com/600x200?text=Field+Image+2" alt="Field Image 2">
-          <div class="slider-buttons">
-            <button class="slider-button prev-button">&#10094;</button>
-            <button class="slider-button next-button">&#10095;</button>
-          </div>
-        </div>
-        <!-- Card Content -->
-        <div class="card-content">
-          <div class="field-info">
-            <h4>Field Name</h4>
-            <p>A beautiful field for growing crops.</p>
-          </div>
-          <div class="field-info">
-            <h4>Size</h4>
-            <p>1500 Sq. meters</p>
-          </div>
-          <div class="field-info">
-            <h4>Location</h4>
-            <p>GPS Coordinates: 35.6895° N, 139.6917° E</p>
-          </div>
-          <div class="view-more-container">
-            <button type="button" class="btn view-btn">View more</button>
-          </div>
-        </div>
-      </div>
-
-    </div>
-    <div class="add-btn-container">
-      <button id="add-field" type="button" class="btn add-filed" data-toggle="modal" data-target="#addFieldModal">  <i class="fas fa-plus-circle"></i>Add Field</button>
-    </div>
-  </div>
-
-  <!-- Modal Structure for view more/update/delete -->
-  <div class="modal fade" id="fieldDetailModal" tabindex="-1" aria-labelledby="fieldDetailModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-scrollable">
-      <div class="modal-content custom-modal-background">
-        <div class="modal-header">
-          <h4 class="modal-title" id="fieldDetailModalLabel" style="font-weight: bolder">Field Details</h4>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <!-- Form for Field Details -->
-          <form id="fieldDetailForm">
-            <!-- Field Code (Non-editable) -->
-            <div class="form-group">
-              <label for="fieldCode">Field Code</label>
-              <input type="text" class="form-control" id="fieldCode" value="F001" readonly>
+      <div class="col-md-6">
+        <div class="card mb-4">
+          <div class="card-body">
+            <h5 class="card-title">Yield Analytics</h5>
+            <div class="chart-container">
+              <canvas id="yieldChart"></canvas>
             </div>
-
-            <!-- Field Name -->
-            <div class="form-group">
-              <label for="fieldName">Field Name</label>
-              <input type="text" class="form-control" id="fieldName" value="Field A" readonly>
-            </div>
-
-            <!-- Field Location -->
-            <div class="form-group">
-              <label for="fieldLocation">Field Location (Coordinates)</label>
-              <input type="text" class="form-control" id="fieldLocation" value="35.6895° N, 139.6917° E" readonly>
-            </div>
-
-            <!-- Field Extent Size -->
-            <div class="form-group">
-              <label for="fieldSize">Extent Size (Sq. meters)</label>
-              <input type="text" class="form-control" id="fieldSize" value="1500" readonly>
-            </div>
-
-            <!-- Crops (Dropdown) -->
-            <div class="form-group">
-              <label for="crops">Crops</label>
-              <select id="crops" class="form-control" disabled>
-                <option>Wheat</option>
-                <option>Rice</option>
-                <option>Corn</option>
-              </select>
-            </div>
-
-            <!-- Staff (Dropdown) -->
-            <div class="form-group">
-              <label for="staff">Staff</label>
-              <select id="staff" class="form-control" disabled>
-                <option>John Doe</option>
-                <option>Jane Smith</option>
-                <option>Bob Brown</option>
-              </select>
-            </div>
-
-            <!-- Field Images -->
-            <div class="form-group">
-              <label>Field Images</label>
-              <div class="image-gallery">
-                <img src="https://via.placeholder.com/150" alt="Field Image 1" class="field-image">
-                <img src="https://via.placeholder.com/150" alt="Field Image 2" class="field-image">
-              </div>
-            </div>
-          </form>
+          </div>
         </div>
-        <div class="modal-footer btn-container">
-          <button type="button" class="btn " data-dismiss="modal">
-            <i class="fas fa-times-circle"></i> Close
-          </button>
-          <button type="button" class="btn " id="FieldUpdateBtn" onclick="toggleFieldEditMode()">
-            <i class="fas fa-edit"></i> Update
-          </button>
-          <button type="button" class="btn " id="FieldDeleteBtn">
-            <i class="fas fa-trash-alt"></i> Delete
-          </button>
-          <button type="button" class="btn " id="FieldSaveBtn" style="display: none;" onclick="saveChanges()">
-            <i class="fas fa-save"></i> Save Changes
-          </button>
-        </div>
-
       </div>
     </div>
   </div>
 
-  <!-- Add Field Modal -->
-  <div class="modal fade" id="addFieldModal" tabindex="-1" role="dialog" aria-labelledby="addFieldModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
-      <div class="modal-content add-modal-custom">
-        <div class="modal-header">
-          <h4 class="modal-title" id="addFieldModalLabel" style="font-weight: bolder">Add New Field</h4>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form id="addFieldForm">
-            <div class="form-group">
-              <label for="Code">Field Code</label>
-              <input type="text" class="form-control glass-input" id="Code" required>
-            </div>
-            <div class="form-group">
-              <label for="Name">Field Name</label>
-              <input type="text" class="form-control glass-input" id="Name" required>
-            </div>
-            <!-- Map Section -->
-            <div class="form-group">
-              <label for="fieldLocation">Select Location</label>
-              <div id="map" style="height: 300px; border-radius: 8px; margin-bottom: 15px;"></div>
-              <input type="text" class="form-control" id="location" placeholder="Location" readonly>
-
-            </div>
-            <div class="form-group">
-              <label for="Size">Extent Size (Sq. m)</label>
-              <input type="number" class="form-control glass-input" id="Size" required>
-            </div>
-
-            <!-- Image Uploads with Previews -->
-            <div class="image-container d-flex justify-content-between">
-              <div class="form-group">
-                <label for="fieldImage1" class="custom-file-upload">
-                  <i class="fas fa-upload"></i> Image 1
-                </label>
-                <input type="file" class="form-control-file" id="fieldImage1" onchange="previewImage(event, 'preview1')">
-                <img id="preview1" class="img-preview mt-3" src="" alt="Image Preview" style="display:none; ">
-              </div>
-              <div class="form-group">
-                <label for="fieldImage2" class="custom-file-upload">
-                  <i class="fas fa-upload"></i> Image 2
-                </label>
-                <input type="file" class="form-control-file" id="fieldImage2" onchange="previewImage(event, 'preview2')">
-                <img id="preview2" class="img-preview mt-3" src="" alt="Image Preview" style="display:none; ">
-              </div>
-            </div>
-
-          </form>
-        </div>
-        <div class="modal-footer btn">
-          <button type="button" class="btn " data-dismiss="modal">
-            <i class="fas fa-times"></i> Cancel
-          </button>
-          <button id="addField" type="button" class="btn ">
-            <i class="fas fa-plus"></i> Add Field
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
 </section>

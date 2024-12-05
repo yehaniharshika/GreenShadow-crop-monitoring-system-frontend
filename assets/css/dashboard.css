@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
 /* Sidebar styling */
 #sidebar {
     transition: all 0.3s ease;
@@ -36,9 +37,21 @@
     border-radius: 30px;
 }
 
+
+.card-header{
+    font-weight: bold;
+    font-size: 24px;
+    font-family: "Ubuntu", serif;
+}
+
 .cards{
     padding: 0;
 }
+
+small{
+     font-family: "Ubuntu", serif;
+}
+
 .crop-count-card,
 .field-count-card{
     background-color: #133a75;
@@ -65,9 +78,18 @@
     font-size: 28px;
 }
 
+
 .card-content small{
     font-weight: bold;
     font-size: 22px;
+}
+
+.yield-analytics-card{
+    background-color: #85ebe3;
+}
+
+.crop-growth-card{
+    background-color: #85ebe3;
 }
 @media (max-width: 768px) {
     #sidebar {
