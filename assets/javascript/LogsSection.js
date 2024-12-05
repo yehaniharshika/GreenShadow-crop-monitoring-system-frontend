@@ -13,7 +13,6 @@ window.addEventListener('load', () => {
 });
 
 
-
 function fetchLogData() {
     $.ajax({
         url: `http://localhost:8080/GreenShadow/api/v1/logs`,
@@ -41,37 +40,31 @@ function loadLogsTable(data) {
     logsTableBody.empty(); // Clear existing rows
 
     data.forEach(log => {
-        // Handle the observed image
+
+        //Handle the observed image
         const observedImage = log.observedImage
             ? `<img src="data:image/${getImageType(log.observedImage)};base64,${log.observedImage}" alt="Log Image" class="centered-image" style="max-width: 120px; height: 100px;">`
             : "No Image";
 
-
-        // Append a new row to the table
+        //Append a new row to the table
         const row = `
             <tr>
                 <td class="log-code-value">${log.logCode}</td>
                 <td class="log-date-value">${log.logDate}</td>
                 <td class="log-details-value">${log.logDetails}</td>
                 <td class="log-image-value">${observedImage}</td>
-                <td class="log-staff-id-value">${log.staffId || "N/A"}</td>
-                <td class="log-crop-code-value">${log.cropCode || "N/A"}</td>
-                <td class="log-field-code-value">${log.fieldCode || "N/A"}</td>
             </tr>`;
         logsTableBody.append(row);
     });
-
     console.log("Logs table loaded with images.");
 }
+
 
 $("#logs-tbl-tbody").on("click", "tr", function () {
     const logCode = $(this).find(".log-code-value").text();
     const logDate = $(this).find(".log-date-value").text();
     const logDetails = $(this).find(".log-details-value").text();
     const observedImage = $(this).find(".log-image-value img").attr("src") || "No Image";
-    const logsStaffId = $(this).find(".log-staff-id-value").text();
-    const logsCropCode = $(this).find(".log-crop-code-value").text();
-    const logsFieldCode = $(this).find(".log-field-code-value").text();
 
     //populate modal inputs
     $("#log-code").val(logCode);
@@ -83,57 +76,10 @@ $("#logs-tbl-tbody").on("click", "tr", function () {
         $("#previewImageLog").addClass("d-none");
     }
 
-    $("#logStaffIdOption").val(logsStaffId);
-    $("#logCropCodeOption").val(logsCropCode);
-    $("#logFieldCodeOption").val(logsFieldCode);
-
-    /*setStaffDetails(logsStaffId);
-    setCropDetails(logsCropCode);
-    setFieldDetails(logsFieldCode);*/
-
-    //$("#log-section-details-form").modal("show");
+    $("#logs-section-details-form").modal("show");
 });
 
-/*function setStaffDetails(staffId) {
-    const selectedStaff = staffData.find(staff => staff.staffId === staffId);
-    if (selectedStaff) {
-        document.getElementById('set-staff-name-to-logs-section').value = `${selectedStaff.firstName} ${selectedStaff.lastName}`;
-        document.getElementById('set-staff-email-to-logs-section').value = selectedStaff.email;
-        document.getElementById('set-designation-to-logs-section').value = selectedStaff.designation;
-        document.getElementById('set-staff-role-to-logs-section').value = selectedStaff.role;
-    } else {
-        document.getElementById('set-staff-name-to-logs-section').value = "";
-        document.getElementById('set-staff-email-to-logs-section').value = "";
-        document.getElementById('set-designation-to-logs-section').value = "";
-        document.getElementById('set-staff-role-to-logs-section').value = "";
-    }
-}
 
-function setCropDetails(cropCode) {
-    const selectedCrop = cropData.find(crop => crop.cropCode === cropCode);
-    if (selectedCrop) {
-        document.getElementById('set-crop-common-name-to-logs-section').value = selectedCrop.cropCommonName;
-        document.getElementById('set-crop-scientific-name-to-logs-section').value = selectedCrop.scientificName;
-        document.getElementById('set-crop-category-to-logs-section').value = selectedCrop.category;
-    } else {
-        document.getElementById('set-crop-common-name-to-logs-section').value = "";
-        document.getElementById('set-crop-scientific-name-to-logs-section').value = "";
-        document.getElementById('set-crop-category-to-logs-section').value = "";
-    }
-}
-
-function setFieldDetails(fieldCode) {
-    const selectedField = fieldData.find(field => field.fieldCode === fieldCode);
-    if (selectedField) {
-        document.getElementById('set-field-name-to-logs-section').value = selectedField.fieldName;
-        document.getElementById('set-field-location-to-logs-section').value = selectedField.fieldLocation;
-        document.getElementById('set-field-extent-size-to-logs-section').value = selectedField.extentSize;
-    } else {
-        document.getElementById('set-field-name-for-log').value = "";
-        document.getElementById('set-field-location-for-log').value = "";
-        document.getElementById('set-field-extent-size-for-log').value = "";
-    }
-}*/
 
 function getImageType(base64String) {
     if (!base64String) return "jpeg"; // Default type
