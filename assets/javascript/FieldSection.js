@@ -247,6 +247,7 @@ $("#field-save").click(function () {
             });
             console.log("Server response:", response);
             fetchFieldData();
+            staffClearFields();
             fetchFieldCode();
         },
         error: function (xhr) {
@@ -265,130 +266,76 @@ $("#field-update").on("click", function (e) {
 
     const fieldCode = $('#field-code').val();
 
-    if (!fieldCode){
+    if (!fieldCode) {
         Swal.fire("Error", "Field code is required to update field details.", "error");
         return;
     }
 
-    // Get staff details from the form
-    const fieldData = {
-        fieldCode: fieldCode,
-        fieldName: $('#field-name').val(),
-        fieldLocation: $('#field-location').val(),
-        extentSize: $('#extent-size').val(),
-        fieldImage1: $('#fieldImage1').val(),
-        fieldImage2: $('#fieldImage2').val(),
-        staffId: $('#fieldStaffIdOption').val()
-    };
+    // Ensure file inputs have files selected
+    const fieldImage1Input = $('#fieldImage1')[0];
+    const fieldImage2Input = $('#fieldImage2')[0];
 
-    console.log("Field Data: ", fieldData);
-    console.log(authToken)
+    if (!fieldImage1Input.files || !fieldImage1Input.files[0]) {
+        Swal.fire("Error", "Field Image 1 is required.", "error");
+        return;
+    }
+
+    if (!fieldImage2Input.files || !fieldImage2Input.files[0]) {
+        Swal.fire("Error", "Field Image 2 is required.", "error");
+        return;
+    }
+
+    // Gather form data
+    const formData = new FormData();
+    formData.append("fieldCode", fieldCode);
+    formData.append("fieldName", $('#field-name').val());
+    formData.append("fieldLocation", $('#field-location').val());
+    formData.append("extentSize", $('#extent-size').val());
+    formData.append("fieldImage1", fieldImage1Input.files[0]); // Attach file
+    formData.append("fieldImage2", fieldImage2Input.files[0]); // Attach file
+
+    // Prepare staff data (JSON)
+    const staff = [
+        {
+            staffId: $('#fieldStaffIdOption').val(),
+        },
+    ];
+    formData.append("staff", JSON.stringify(staff)); // Attach staff data as JSON string
 
     if (!authToken) {
         Swal.fire("Error", "No authentication token found. Please log in again.", "error");
         return;
     }
 
+    // AJAX request with multipart/form-data
     $.ajax({
         url: `http://localhost:8080/GreenShadow/api/v1/fields/${fieldCode}`,
         type: "PUT",
-        contentType: "application/json",
+        data: formData,
+        processData: false, // Prevent automatic data processing
+        contentType: false, // Let the browser set the appropriate headers for FormData
         headers: {
-            "Authorization": `Bearer ${authToken}`, // Add the token to the Authorization header
+            "Authorization": `Bearer ${authToken}`, // Add Bearer token
         },
-
-        data: JSON.stringify(fieldData),
         success: function (response) {
             Swal.fire(
                 "Success",
                 "Field updated successfully!",
-                "success").then(() => {
+                "success"
+            ).then(() => {
                 $('#field-section-details-form').modal('hide');
             });
             fetchFieldData();
-            //staffClearFields();
+            staffClearFields();
             fetchFieldCode();
         },
         error: function (xhr) {
-            const errorMessage = xhr.responseJSON?.message || "Failed to update staff details. Please try again.";
+            console.error("Update error:", xhr);
+            const errorMessage = xhr.responseJSON?.message || "Failed to update field details. Please try again.";
             Swal.fire("Error", errorMessage, "error");
         },
     });
 });
-
-/*$("#field-search").on("click", function (e) {
-    let fieldSearchCode = $("#field-search-by-field-code").val();
-
-    if (!fieldSearchCode) {
-        Swal.fire(
-            'Input Required',
-            'Please enter a correct Field code to search.',
-            'warning'
-        );
-        return;
-    }
-
-    console.log("searching for Field code: ", fieldSearchCode);
-    console.log(authToken);
-
-    $.ajax({
-        url: `http://localhost:8080/GreenShadow/api/v1/fields/${fieldSearchCode}`,
-        type: "GET",
-        contentType: "application/json",
-        headers: {
-            "Authorization": `Bearer ${authToken}`, // Authorization header with Bearer token
-        },
-        success: function (response) {
-            const field = response; // Assuming response is the field object
-
-            // Populate the form with field details
-            $("#field-code").val(field.fieldCode);
-            $("#field-name").val(field.fieldName);
-            $("#field-location").val(field.fieldLocation);
-            $("#extent-size").val(field.extentSize);
-
-            // Set field images, fallback to a default if no image is provided
-            if (field.fieldImage1) {
-                $("#previewImage1").attr("src", field.fieldImage1).removeClass('d-none');
-            } else {
-                $("#previewImage1").attr("src").removeClass('d-none');
-            }
-
-            if (field.fieldImage2) {
-                $("#previewImage2").attr("src", field.fieldImage2).removeClass('d-none');
-            } else {
-                $("#previewImage2").attr("src").removeClass('d-none');
-            }
-
-            // Set staff ID if available
-            if (field.staff && field.staff.length > 0) {
-                const staffId = field.staff[0]?.staffId;
-                if (staffId) {
-                    $("#fieldStaffIdOption").val(staffId); // Set the staff ID in the dropdown
-                }
-            }
-
-            // Show modal with field details
-            $('#field-section-details-form').modal('show');
-
-            // Success message
-            Swal.fire(
-                'Field Found!',
-                'Field details retrieved successfully.',
-                'success'
-            );
-        },
-        error: function (xhr) {
-            // Handle different error scenarios
-            const errorMessage = xhr.responseJSON?.message || "Failed to search Field. Please try again.";
-            Swal.fire(
-                "Error",
-                errorMessage,
-                "error"
-            );
-        },
-    });
-});*/
 
 
 
@@ -409,18 +356,18 @@ $("#field-search").on("click", function () {
 
     console.log("Searching for Field code:", fieldSearchCode);
 
-    // Perform the AJAX GET request to search for the field
+    // Perform the AJAX GET request to search for the field details
     $.ajax({
-        url: `http://localhost:8080/GreenShadow/api/v1/fields/${fieldSearchCode}`, // API endpoint
+        url: `http://localhost:8080/GreenShadow/api/v1/fields/${fieldSearchCode}`, // API endpoint for field details
         type: "GET",
         contentType: "application/json",
         headers: {
             "Authorization": `Bearer ${authToken}`, // Add Bearer token to headers
         },
         success: function (response) {
-            console.log("Search result:", response);
+            console.log("Field search result:", response);
 
-            // Populate the form fields with the response data
+            // Populate the form fields with the field details
             $('#field-code').val(response.fieldCode || "No Code");
             $('#field-name').val(response.fieldName || "No Name");
             $('#field-location').val(response.fieldLocation || "No Location");
@@ -443,29 +390,42 @@ $("#field-search").on("click", function () {
                 $('#previewImage2').addClass('d-none');
             }
 
-            // Handle staff details
-            if (response.staff && response.staff.length > 0) {
-                console.log("Staff array:", response.staff); // Log the staff array
+            // Fetch staff details associated with the fieldCode
+            $.ajax({
+                url: `http://localhost:8080/GreenShadow/api/v1/fields/${fieldSearchCode}/staff`, // Endpoint for staff details
+                type: "GET",
+                headers: {
+                    "Authorization": `Bearer ${authToken}`, // Add Bearer token to headers
+                },
+                success: function (staffResponse) {
+                    console.log("Staff data:", staffResponse);
 
-                const staff = response.staff[0]; // Get the first staff object
-                console.log("First staff object:", staff); // Log the first staff object
-
-                const staffId = staff?.staffId; // Access staffId from the first object
-                if (staffId) {
-                    $("#fieldStaffIdOption").val(staffId); // Set the staff ID in the input field
-                    console.log("Set staffId to fieldStaffIdOption:", staffId);
-                } else {
-                    console.error("No valid staffId found in the staff array.");
+                    if (staffResponse && staffResponse.length > 0) {
+                        // Populate the first staff details
+                        const firstStaff = staffResponse[0];
+                        $("#fieldStaffIdOption").val(firstStaff.staffId || ""); // Set the staff ID
+                        $('#set-field-staff-name').val(`${firstStaff.firstName || ""} ${firstStaff.lastName || ""}`); // Set staff name
+                        $('#set-field-staff-designation').val(firstStaff.designation || ""); // Set staff designation
+                    } else {
+                        console.warn("No staff assigned to this field.");
+                        $("#fieldStaffIdOption").val(""); // Clear the input field if no staff assigned
+                        $('#set-field-staff-name').val(""); // Clear staff name
+                        $('#set-field-staff-designation').val(""); // Clear staff designation
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error fetching staff data:", xhr.responseText || error);
+                    Swal.fire(
+                        "Error",
+                        "Failed to fetch staff details. Please try again.",
+                        "error"
+                    );
                 }
-            } else {
-                console.error("Staff array is empty or undefined.");
-                console.log("Response staff:", response.staff); // Log the staff field to understand its content
-                $("#fieldStaffIdOption").val(""); // Clear the staff field if no data
-            }
+            });
 
             $('#field-section-details-form').modal('show');
 
-            // Show success notification
+            // Show success notification for field details
             Swal.fire(
                 "Field Found",
                 `Details for Field Code: ${fieldSearchCode} loaded successfully.`,
@@ -483,6 +443,21 @@ $("#field-search").on("click", function () {
         }
     });
 });
+
+
+
+function staffClearFields(){
+    $("#field-code").val("");
+    $("#field-name").val("");
+    $("#field-location").val("");
+    $("#extent-size").val("");
+    $("#fieldImage1").val("");
+    $("#fieldImage2").val("");
+    $("#fieldStaffIdOption").val("");
+    $("#set-field-staff-name").val("");
+    $("#set-field-staff-designation").val("");
+
+}
 
 
 

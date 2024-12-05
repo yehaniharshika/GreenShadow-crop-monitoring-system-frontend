@@ -42,3 +42,60 @@
 .card-body form div label{
     font-weight: bold;
 }
+
+/*styles for the image display box */
+.log-image-container{
+    width: 320px;
+    height: 330px;
+    border: 2px solid #ddd;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin: 20px auto;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+}
+
+.log-image-box {
+    width: 260px;
+    height: 240px;
+    border: 2px solid #ddd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background-color: #e9e9e9;
+    margin-bottom: 10px;
+    border-radius: 8px;
+}
+
+.log-image-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/*choose Image button and icon */
+.log-choose-image-btn {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    font-weight: bolder;
+    color: #007bff;
+    background-color: #f1f1f1;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.log-choose-image-btn ion-icon {
+    margin-right: 8px;
+    font-size: 20px;
+}
+
+.log-choose-image-btn:hover {
+    background-color: red;
+}
