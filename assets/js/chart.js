@@ -157,7 +157,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             color: 'black',
                             font: {
                                 family: 'Ubuntu',
-                                size: 12
+                                size: 14
                             }
                         }
                     }

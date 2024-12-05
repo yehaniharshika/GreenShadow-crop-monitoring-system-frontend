@@ -99,7 +99,9 @@
     font-weight: bold;
 }
 
-@media (max-width: 1630px) {
+
+/*media queries*/
+@media (max-width: 1375px) {
     .circle-left{
         width: 220px;
         height: 220px;
@@ -116,96 +118,90 @@
     }
 }
 
-@media (max-width: 1280px) {
-    .circle-left{
-        width: 180px;
-        height: 180px;
-        border-radius: 50%;
-        object-fit: cover;
 
+@media (max-width: 1205px) {
+    .staff-img-part{
+        margin-top: 1rem;
+    }
+
+    .circle-left{
+        width: 190px;
+        height: 190px;
     }
 
     .circle-right{
-        width: 180px;
-        height: 180px;
-        border-radius: 50%;
-        object-fit: cover;
-        margin-right: -100px;
+        width: 190px;
+        height: 190px;
+        margin-right: -130px;
     }
 }
 
-@media (max-width: 998px) {
+@media (max-width: 1037px) {
     .circle-left{
-        width: 150px;
-        height: 150px;
-        margin-top: 3.2rem;
-        border-radius: 50%;
-        object-fit: cover;
-
+        width: 160px;
+        height: 160px;
     }
 
     .circle-right{
-        width: 150px;
-        height: 150px;
-        margin-top: 3.2rem;
-        border-radius: 50%;
-        object-fit: cover;
-        margin-right: -100px;
+        width: 160px;
+        height: 160px;
+        margin-right: -130px;
+    }
+
+    .circle-container{
+        gap: 8px;
+    }
+}
+
+
+@media (max-width: 990px) {
+    .search-staff-part {
+        margin-top: 6.2rem;
+        margin-left: -15rem;
+
+    }
+
+    .staff-img-part {
+        display: flex;
+        flex-direction: row;
+        align-items: center; /* Center images horizontally */
+        justify-content: center; /* Center images vertically */
+        margin: -1rem 0; /* Adjust spacing above and below */
+        width: 100%; /* Make it span full width */
+        background-color: transparent;
     }
 
     .circle-container {
-        display: flex;
-        gap: 5px;
+        flex-direction: row; /* Stack images vertically */
+        gap: 1rem; /* Adjust spacing between images */
     }
+
+    .circle-left{
+        width: 190px;
+        height: 190px;
+    }
+
+    .circle-right {
+        width: 190px; /* Adjust size for responsiveness */
+        height: 190px;
+        margin-right: -10px;
+    }
+
 }
 
+
 @media (max-width: 768px) {
-    #staff-section {
-        background-color: #cceded;
-        margin-bottom: 0;
-    }
-
-    .search-staff-part {
-        flex-direction: column;
-        align-items: center; /* Center content horizontally */
-        margin: 10px auto; /* Add some spacing around */
-    }
-
-    .search-staff-part .search-staff-card {
-        width: 100%; /* Take full width of the container */
-        margin-bottom: 15px; /* Add spacing below */
-    }
-
-    .search-staff-part .search-staff-card-body form {
-        flex-direction: column; /* Stack form elements vertically */
-        gap: 10px; /* Add spacing between elements */
-    }
-
-    .search-staff-part .form-control {
-        width: 100%; /* Full width on smaller screens */
-    }
-
-    .search-staff-part .btn {
-        width: 20%; /* Adjust button width */
-    }
-
-    .staff-img-part{
-        justify-content: center !important;
-        align-items: center !important;
-    }
-
-    .staff-table-view {
-        top: 0.4rem;
-        max-height: 400px;
-    }
-
     .circle-container {
         gap: 20px;
     }
 
+    .staff-img-part {
+        margin: -0.2rem 0; /* Adjust spacing above and below */
+    }
+
     .circle-left{
-        width: 180px;
-        height: 180px;
+        width: 190px;
+        height: 190px;
         margin-top: -1rem;
         border-radius: 50%;
         object-fit: cover;
@@ -213,25 +209,46 @@
     }
 
     .circle-right{
-        width: 180px;
-        height: 180px;
+        width: 190px;
+        height: 190px;
         margin-top: -1rem;
         border-radius: 50%;
         object-fit: cover;
         margin-right: 1.2rem;
     }
 
-    .circle-container {
-        display: flex;
-        gap: 5px;
+    .circle-container .circle {
+        text-align: center; /* Ensure images are centered inside the circles */
+    }
+
+
+    .search-staff-part{
+        flex-direction: column;
+        align-items: center; /* Center content horizontally */
+        margin: 10px auto; /* Add some spacing around */
+    }
+
+    .search-staff-part .search-staff-card {
+        width: 100%;
+        margin-bottom: 15px; /* Add spacing below */
+    }
+
+    .search-staff-part .search-staff-card-body form {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .search-staff-part .form-control {
+        width: 100%;
+    }
+
+    .search-staff-part .btn {
+        width: 22%;
     }
 
     .staff-table-view{
-        margin-top: 2.5rem;
-    }
-
-    .circle-container .circle {
-        text-align: center; /* Ensure images are centered inside the circles */
+        top: 1.8rem;
+        max-height: 430px;
     }
 }
 

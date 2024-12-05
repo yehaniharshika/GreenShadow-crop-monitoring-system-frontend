@@ -152,7 +152,8 @@ td {
     vertical-align: middle; /* Vertically centers the content */
 }
 
-@media (max-width: 1355px) {
+/*media queries*/
+@media (max-width: 1375px) {
     .field-circle-left{
         width: 220px;
         height: 220px;
@@ -169,30 +170,85 @@ td {
     }
 }
 
-@media (max-width: 1195px) {
+
+@media (max-width: 1205px) {
+    .field-img-part{
+        margin-top: 1rem;
+    }
+
+    .field-circle-left{
+        width: 190px;
+        height: 190px;
+    }
+
+    .field-circle-right{
+        width: 190px;
+        height: 190px;
+        margin-right: -130px;
+    }
+}
+
+@media (max-width: 1037px) {
+    .field-circle-left{
+        width: 160px;
+        height: 160px;
+    }
+
+    .field-circle-right{
+        width: 160px;
+        height: 160px;
+        margin-right: -130px;
+    }
+
     .field-circle-container{
         gap: 8px;
     }
+}
+
+
+@media (max-width: 990px) {
+    .search-field-part {
+        margin-top: 6.2rem;
+        margin-left: -15rem;
+
+    }
+
+    .field-img-part {
+        display: flex;
+        flex-direction: row;
+        align-items: center; /* Center images horizontally */
+        justify-content: center; /* Center images vertically */
+        margin: -1rem 0; /* Adjust spacing above and below */
+        width: 100%; /* Make it span full width */
+        background-color: transparent;
+    }
+
+    .field-circle-container {
+        flex-direction: row; /* Stack images vertically */
+        gap: 1rem; /* Adjust spacing between images */
+    }
 
     .field-circle-left{
-        width: 180px;
-        height: 180px;
-        border-radius: 50%;
-        object-fit: cover;
+        width: 190px;
+        height: 190px;
     }
 
-    .field-circle-right{
-        width: 180px;
-        height: 180px;
-        border-radius: 50%;
-        object-fit: cover;
-        margin-right: -120px;
+    .field-circle-right {
+        width: 190px; /* Adjust size for responsiveness */
+        height: 190px;
+        margin-right: -10px;
     }
+
 }
+
 
 @media (max-width: 768px) {
     .field-circle-container {
         gap: 20px;
+    }
+
+    .field-img-part {
+        margin: -0.2rem 0; /* Adjust spacing above and below */
     }
 
     .field-circle-left{
@@ -213,14 +269,10 @@ td {
         margin-right: 1.2rem;
     }
 
-    .circle-container .circle {
+    .field-circle-container .field-circle {
         text-align: center; /* Ensure images are centered inside the circles */
     }
 
-    #staff-section {
-        background-color: #cceded;
-        margin-bottom: 0;
-    }
 
     .search-field-part{
         flex-direction: column;
@@ -229,21 +281,21 @@ td {
     }
 
     .search-field-part .search-field-card {
-        width: 100%; /* Take full width of the container */
+        width: 100%;
         margin-bottom: 15px; /* Add spacing below */
     }
 
     .search-field-part .search-field-card-body form {
-        flex-direction: column; /* Stack form elements vertically */
-        gap: 10px; /* Add spacing between elements */
+        flex-direction: column;
+        gap: 10px;
     }
 
     .search-field-part .form-control {
-        width: 100%; /* Full width on smaller screens */
+        width: 100%;
     }
 
     .search-field-part .btn {
-        width: 22%; /* Adjust button width */
+        width: 22%;
     }
 
     .field-table-view{

@@ -16,6 +16,7 @@
 
 .Equipment-details-form{
     margin-top: 0.5rem;
+    background-color: #9fdece;
 }
 
 .equipment-table-view{
@@ -149,7 +150,7 @@
         justify-content: center; /* Center images vertically */
         margin: -1rem 0; /* Adjust spacing above and below */
         width: 100%; /* Make it span full width */
-        background-color: white;
+        background-color: transparent;
     }
 
     .equipment-circle-container {
