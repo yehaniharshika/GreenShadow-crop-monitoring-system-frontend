@@ -57,6 +57,7 @@ function loadFieldTable(data) {
     });
 }
 
+
 // Function to determine the image type from a base64 string
 function getImageType(base64String) {
     if (base64String.startsWith("iVBORw0K")) {
@@ -67,6 +68,7 @@ function getImageType(base64String) {
         return "jpeg"; // Default to JPEG
     }
 }
+
 
 // Handle row click to populate modal form
 $("#field-tbl-tbody").on('click', 'tr', function() {
@@ -338,8 +340,6 @@ $("#field-update").on("click", function (e) {
 });
 
 
-
-
 // Event listener for the search button
 $("#field-search").on("click", function () {
     // Get the field code entered by the user
@@ -444,6 +444,57 @@ $("#field-search").on("click", function () {
     });
 });
 
+
+
+//field delete
+$("#field-delete").on("click", function (e) {
+    e.preventDefault();
+
+    // Retrieve the staff ID from the input field
+    const fieldDeleteCode = $('#field-code').val();
+
+    if (!fieldDeleteCode) {
+        Swal.fire("Error", "Crop Code is required to delete crop details.", "error");
+        return;
+    }
+
+    console.log("field code to delete: ", fieldDeleteCode);
+
+    if (!authToken) {
+        Swal.fire(
+            "Error",
+            "No authentication token found. Please log in again.",
+            "error"
+        );
+        return;
+    }
+    console.log(authToken)
+    // Send the DELETE request
+    $.ajax({
+        url: `http://localhost:8080/GreenShadow/api/v1/fields/${fieldDeleteCode}`,
+        type: "DELETE",
+        headers: {
+            "Authorization": `Bearer ${authToken}` // Add the token to the Authorization header
+        },
+        dataType: "text",
+        success: function (response) {
+            Swal.fire("Success",
+                "Field deleted successfully!",
+                "success").then(() => {
+                //Hide the modal after successful deletion
+                $('#field-section-details-form').modal('hide');
+            });
+
+            //Refresh staff data
+            fetchFieldData();
+            fetchFieldCode();
+        },
+        error: function (xhr) {
+            const errorMessage = xhr.responseJSON?.message || "Failed to delete Field details.Please try again.";
+            Swal.fire("Error", errorMessage, "error");
+        }
+    });
+});
 
 
 function staffClearFields(){
