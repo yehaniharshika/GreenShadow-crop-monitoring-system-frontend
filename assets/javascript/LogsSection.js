@@ -592,6 +592,56 @@ $("#logs-update").on("click", function (e) {
 });
 
 
+//log delete
+$("#logs-delete").on("click", function (e) {
+    e.preventDefault();
+
+    // Retrieve the staff ID from the input field
+    const logDeleteCode = $('#log-code').val();
+
+    if (!logDeleteCode) {
+        Swal.fire("Error", "Crop Code is required to delete crop details.", "error");
+        return;
+    }
+
+    console.log("log code to delete: ", logDeleteCode);
+
+    if (!authToken) {
+        Swal.fire(
+            "Error",
+            "No authentication token found. Please log in again.",
+            "error"
+        );
+        return;
+    }
+    console.log("auth token: ",authToken)
+    // Send the DELETE request
+    $.ajax({
+        url: `http://localhost:8080/GreenShadow/api/v1/logs/${logDeleteCode}`,
+        type: "DELETE",
+        headers: {
+            "Authorization": `Bearer ${authToken}` // Add the token to the Authorization header
+        },
+        dataType: "text",
+        success: function (response) {
+            Swal.fire("Success",
+                "Log deleted successfully!",
+                "success").then(() => {
+                //Hide the modal after successful deletion
+                $('#logs-section-details-form').modal('hide');
+            });
+
+            //Refresh staff data
+            fetchLogData();
+            fetchLogCode();
+        },
+        error: function (xhr) {
+            const errorMessage = xhr.responseJSON?.message || "Failed to delete Log details.Please try again.";
+            Swal.fire("Error", errorMessage, "error");
+        }
+    });
+});
+
 // Function to clear log details and related entities
 function clearLogDetails() {
     // Clear log details
