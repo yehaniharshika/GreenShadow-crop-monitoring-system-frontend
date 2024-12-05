@@ -313,77 +313,6 @@ function setLogDate() {
 }
 
 
-
-/*$("#logs-save").click(function () {
-    // Collect form values
-    const logCode = $("#log-code").val()?.trim() || "";
-    const logDate = $("#log-date").val()?.trim() || "";
-    const logDetails = $("#log-details").val()?.trim() || "";
-    const observedImage = $("#observed-image")[0]?.files[0] || null;
-    const logCategory = $("#logCategory").val(); // Dropdown for log category
-
-    // Validate required fields
-    if (!logCode || !logDate || !logDetails || !observedImage || !logCategory) {
-        Swal.fire({
-            icon: "error",
-            title: "Missing Fields",
-            text: "Please fill in all the required fields!",
-        });
-        return;
-    }
-
-    // Prepare FormData
-    const formData = new FormData();
-    formData.append("logCode", logCode);
-    formData.append("logDate", logDate);
-    formData.append("logDetails", logDetails);
-    formData.append("observedImage", observedImage);
-
-    // Set the log category data
-    if (logCategory === "staff") {
-        const staffLogs = $("#logStaffIdOption").val()?.trim() || "";
-        formData.append("staffLogs", JSON.stringify([{ staffId: staffLogs }]));
-    } else if (logCategory === "field") {
-        const fieldLogs = $("#logFieldCodeOption").val()?.trim() || "";
-        formData.append("fieldLogs", JSON.stringify([{ fieldCode: fieldLogs }]));
-    } else if (logCategory === "crop") {
-        const cropLogs = $("#logCropCodeOption").val()?.trim() || "";
-        formData.append("cropLogs", JSON.stringify([{ cropCode: cropLogs }]));
-    }
-
-    // Authorization token (update this with your actual token)
-    const authToken = "<token>";
-
-    // AJAX POST request
-    $.ajax({
-        url: "http://localhost:8080/GreenShadow/api/v1/logs",
-        type: "POST",
-        data: formData,
-        processData: false,
-        contentType: false,
-        headers: {
-            "Authorization": `Bearer ${authToken}`,
-        },
-        success: function (response) {
-            Swal.fire({
-                icon: "success",
-                title: "Log Saved",
-                text: "The log was saved successfully!",
-            });
-
-            // Optionally reset the form
-            $("#logs-form")[0].reset();
-        },
-        error: function (xhr) {
-            Swal.fire({
-                icon: "error",
-                title: "Error Saving Log",
-                text: `Error: ${xhr.responseText}`,
-            });
-        },
-    });
-});*/
-
     // Handle form submission
 $("#logs-save").click(function () {
     // Get the values from the form fields
@@ -535,9 +464,12 @@ $("#log-search").on("click", function () {
 
     console.log("Searching for Log code:", logSearchCode);
 
+    // Clear previous log details and related entities
+    clearLogDetails();
+
     // Perform the AJAX GET request to search for the log details
     $.ajax({
-        url: `http://localhost:8080/GreenShadow/api/v1/logs/${logSearchCode}/related-entities`, // API endpoint for log details
+        url: `http://localhost:8080/GreenShadow/api/v1/logs/${logSearchCode}`, // API endpoint for log details
         type: "GET",
         contentType: "application/json",
         headers: {
@@ -549,9 +481,9 @@ $("#log-search").on("click", function () {
             // Populate the form fields with the log details
             $('#log-code').val(response.logCode || "No Code");
             $('#log-date').val(response.logDate || "No Date");
-            $('#log-details').val(response.logDetails || "No Details");
+            $('#log-details').val(response.logDetails || "No log details");
 
-            // Handle images (if any)
+            // Display images in preview
             if (response.observedImage) {
                 $('#previewImageLog')
                     .attr("src", `data:image/${getImageType(response.observedImage)};base64,${response.observedImage}`)
@@ -560,35 +492,62 @@ $("#log-search").on("click", function () {
                 $('#previewImageLog').addClass('d-none');
             }
 
-            // Handle staff, field, and crop details
-            if (response.staff && response.staff.length > 0) {
-                const staff = response.staff[0]; // Assuming the first staff is the relevant one
-                $("#logStaffIdOption").val(staff.staffId || ""); // Set the staff ID
-            } else {
-                console.warn("No staff data found for this log.");
-                $("#logStaffIdOption").val(""); // Clear if no staff data
-            }
+            // Fetch related entities (e.g., staff, crop, field) for the log entry
+            $.ajax({
+                url: `http://localhost:8080/GreenShadow/api/v1/logs/${logSearchCode}/related-entities`, // Endpoint for related entities
+                type: "GET",
+                headers: {
+                    "Authorization": `Bearer ${authToken}`, // Add Bearer token to headers
+                },
+                success: function (relatedEntities) {
+                    console.log("Related entities:", relatedEntities);
 
-            if (response.fields && response.fields.length > 0) {
-                const field = response.fields[0]; // Assuming the first field is the relevant one
-                $("#logFieldCodeOption").val(field.fieldCode || ""); // Set the field code
-            } else {
-                console.warn("No field data found for this log.");
-                $("#logFieldCodeOption").val(""); // Clear if no field data
-            }
+                    // Populate the related entity fields with the data returned from the second API
+                    if (relatedEntities) {
+                        // Set the staff details (if available)
+                        if (relatedEntities.staff && relatedEntities.staff.length > 0) {
+                            const firstStaff = relatedEntities.staff[0];
+                            $("#logStaffIdOption").val(firstStaff.staffId || "");
+                            $('#set-staff-name-to-logs-section').val(`${firstStaff.firstName || ""} ${firstStaff.lastName || ""}`);
+                            $('#set-designation-to-logs-section').val(firstStaff.designation || "");
+                            $('#set-staff-email-to-logs-section').val(firstStaff.email || "");
+                            $('#set-staff-role-to-logs-section').val(firstStaff.role || "");
+                        }
 
-            if (response.crops && response.crops.length > 0) {
-                const crop = response.crops[0]; // Assuming the first crop is the relevant one
-                $("#logCropCodeOption").val(crop.cropCode || ""); // Set the crop code
-            } else {
-                console.warn("No crop data found for this log.");
-                $("#logCropCodeOption").val(""); // Clear if no crop data
-            }
+                        // Set the crop details (if available)
+                        if (relatedEntities.crops && relatedEntities.crops.length > 0) {
+                            const firstCrop = relatedEntities.crops[0];
+                            $('#logCropCodeOption').val(firstCrop.cropCode || "");
+                            $('#set-crop-common-name-to-logs-section').val(firstCrop.cropCommonName || " ");
+                            $('#set-crop-scientific-name-to-logs-section').val(firstCrop.scientificName || " ");
+                            $('#set-crop-category-to-logs-section').val(firstCrop.category || " ");
+                        }
 
-            // Show the modal with the populated data
-            $('#log-section-details-form').modal('show');
+                        // Set the field details (if available)
+                        if (relatedEntities.fields && relatedEntities.fields.length > 0) {
+                            const firstField = relatedEntities.fields[0];
+                            $('#logFieldCodeOption').val(firstField.fieldCode || " ");
+                            $('#set-field-name-to-logs-section').val(firstField.fieldName || " ");
+                            $('#set-field-location-to-logs-section').val(firstField.fieldLocation || " ");
+                            $('#set-field-extent-size-to-logs-section').val(firstField.extentSize || " ");
+                        }
+                    } else {
+                        console.warn("No related entities found.");
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error fetching related entities:", xhr.responseText || error);
+                    Swal.fire(
+                        "Error",
+                        "Failed to fetch related entities. Please try again.",
+                        "error"
+                    );
+                }
+            });
 
-            // Show success notification
+            $('#logs-section-details-form').modal('show');
+
+            // Show success notification for log details
             Swal.fire(
                 "Log Found",
                 `Details for Log Code: ${logSearchCode} loaded successfully.`,
@@ -606,6 +565,39 @@ $("#log-search").on("click", function () {
         }
     });
 });
+
+// Function to clear log details and related entities
+function clearLogDetails() {
+    // Clear log details
+    $('#log-code').val("");
+    $('#log-date').val("");
+    $('#log-details').val("");
+
+    // Clear image preview
+    $('#previewImageLog').attr("src", "").addClass('d-none');
+
+    // Clear staff details
+    $("#logStaffIdOption").val("");
+    $('#set-staff-name-to-logs-section').val("");
+    $('#set-designation-to-logs-section').val("");
+    $('#set-staff-email-to-logs-section').val("");
+    $('#set-staff-role-to-logs-section').val("");
+
+    // Clear crop details
+    $('#logCropCodeOption').val("");
+    $('#set-crop-common-name-to-logs-section').val("");
+    $('#set-crop-scientific-name-to-logs-section').val("");
+    $('#set-crop-category-to-logs-section').val("");
+
+    // Clear field details
+    $('#logFieldCodeOption').val("");
+    $('#set-field-name-to-logs-section').val("");
+    $('#set-field-location-to-logs-section').val("");
+    $('#set-field-extent-size-to-logs-section').val("");
+}
+
+
+
 
 
 
