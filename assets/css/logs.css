@@ -206,7 +206,7 @@
         align-items: center; /* Center images horizontally */
         justify-content: center; /* Center images vertically */
         margin: -1rem 0; /* Adjust spacing above and below */
-        width: 100%; 
+        width: 100%;
         background-color: transparent;
     }
 

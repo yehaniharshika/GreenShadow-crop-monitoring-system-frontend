@@ -386,11 +386,13 @@ function setLogDate() {
 
     // Handle form submission
 $("#logs-save").click(function () {
-    const logCode = $("#log-code").val().trim();
-    const logDate = $("#log-date").val().trim();
-    const logDetails = $("#log-details").val().trim();
+    // Get the values from the form fields
+    const logCode = $("#log-code").val()?.trim();
+    const logDate = $("#log-date").val()?.trim();
+    const logDetails = $("#log-details").val()?.trim();
     const observedImage = $("#logImage")[0].files[0];
 
+    // Check for missing image
     if (!observedImage) {
         Swal.fire({
             icon: "error",
@@ -400,49 +402,45 @@ $("#logs-save").click(function () {
         return;
     }
 
+    // Initialize lists for each log category
     let staffList = [], fieldList = [], cropList = [];
-    const logCategory = $("#logCategory").val();
-    if (logCategory === "staff") {
-        const staffId = $("#logStaffIdOption").val().trim();
-        if (!staffId) {
-            Swal.fire({
-                icon: "error",
-                title: "Missing Staff ID",
-                text: "Please select a Staff ID!",
-            });
-            return;
-        }
+
+    // Check if Staff ID is provided
+    const staffId = $("#logStaffIdOption").val()?.trim();
+    if (staffId) {
         staffList.push({ staffId });
-    } else if (logCategory === "field") {
-        const fieldCode = $("#logFieldCodeOption").val().trim();
-        if (!fieldCode) {
-            Swal.fire({
-                icon: "error",
-                title: "Missing Field Code",
-                text: "Please select a Field Code!",
-            });
-            return;
-        }
+    }
+
+    // Check if Field Code is provided
+    const fieldCode = $("#logFieldCodeOption").val()?.trim();
+    if (fieldCode) {
         fieldList.push({ fieldCode });
-    } else if (logCategory === "crop") {
-        const cropCode = $("#logCropCodeOption").val().trim();
-        if (!cropCode) {
-            Swal.fire({
-                icon: "error",
-                title: "Missing Crop Code",
-                text: "Please select a Crop Code!",
-            });
-            return;
-        }
+    }
+
+    // Check if Crop Code is provided
+    const cropCode = $("#logCropCodeOption").val()?.trim();
+    if (cropCode) {
         cropList.push({ cropCode });
     }
 
+    // Check if at least one of the lists is populated
+    if (staffList.length === 0 && fieldList.length === 0 && cropList.length === 0) {
+        Swal.fire({
+            icon: "error",
+            title: "Missing Log Data",
+            text: "Please select at least one category: Staff, Field, or Crop.",
+        });
+        return;
+    }
+
+    // Prepare FormData to send with the request
     const formData = new FormData();
     formData.append("logCode", logCode);
     formData.append("logDate", logDate);
     formData.append("logDetails", logDetails);
     formData.append("observedImage", observedImage);
 
+    // Append non-empty lists to the form data
     if (staffList.length > 0) {
         formData.append("staffLogs", JSON.stringify(staffList));
     }
@@ -453,6 +451,7 @@ $("#logs-save").click(function () {
         formData.append("cropLogs", JSON.stringify(cropList));
     }
 
+    // Make AJAX request
     $.ajax({
         url: "http://localhost:8080/GreenShadow/api/v1/logs",
         type: "POST",
@@ -484,6 +483,7 @@ $("#logs-save").click(function () {
         }
     });
 });
+
 
 function logsClearFields(){
     // Clear text inputs

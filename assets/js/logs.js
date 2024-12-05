@@ -1,4 +1,4 @@
-function showLogSection() {
+/*function showLogSection() {
     //Hide all sections first
     const sections = ['crop-logs-section', 'field-logs-section', 'staff-logs-section'];
     sections.forEach(section => document.getElementById(section).style.display = 'none');
@@ -13,7 +13,7 @@ function showLogSection() {
     } else if (selection === 'staff') {
         document.getElementById('staff-logs-section').style.display = 'block';
     }
-}
+}*/
 
 document.getElementById('logImage').addEventListener('change', function (event) {
     const file = event.target.files[0];
