@@ -521,37 +521,37 @@ function logsClearFields(){
 
 
 $("#log-search").on("click", function () {
-    // Get the field code entered by the user
+    // Get the log code entered by the user
     const logSearchCode = $("#logs-search-by-log-code").val().trim();
 
     if (!logSearchCode) {
         Swal.fire(
             "Input Required",
-            "Please enter a valid Field code to search.",
+            "Please enter a valid Log code to search.",
             "warning"
         );
         return;
     }
 
-    console.log("Searching for log code:", logSearchCode);
+    console.log("Searching for Log code:", logSearchCode);
 
-    // Perform the AJAX GET request to search for the field
+    // Perform the AJAX GET request to search for the log details
     $.ajax({
-        url: `http://localhost:8080/GreenShadow/api/v1/logs/${logSearchCode}`, // API endpoint
+        url: `http://localhost:8080/GreenShadow/api/v1/logs/${logSearchCode}/related-entities`, // API endpoint for log details
         type: "GET",
         contentType: "application/json",
         headers: {
             "Authorization": `Bearer ${authToken}`, // Add Bearer token to headers
         },
         success: function (response) {
-            console.log("Search result:", response);
+            console.log("Log search result:", response);
 
-            // Populate the form fields with the response data
-            $('#log-code').val(response.logCode);
-            $('#log-date').val(response.logDate);
-            $('#log-details').val(response.logDetails);
+            // Populate the form fields with the log details
+            $('#log-code').val(response.logCode || "No Code");
+            $('#log-date').val(response.logDate || "No Date");
+            $('#log-details').val(response.logDetails || "No Details");
 
-            // Display images in preview
+            // Handle images (if any)
             if (response.observedImage) {
                 $('#previewImageLog')
                     .attr("src", `data:image/${getImageType(response.observedImage)};base64,${response.observedImage}`)
@@ -560,32 +560,38 @@ $("#log-search").on("click", function () {
                 $('#previewImageLog').addClass('d-none');
             }
 
-            // Handle staff details
+            // Handle staff, field, and crop details
             if (response.staff && response.staff.length > 0) {
-                console.log("Staff array:", response.staff); // Log the staff array
-
-                const staff = response.staff[0]; // Get the first staff object
-                console.log("First staff object:", staff); // Log the first staff object
-
-                const staffId = staff?.staffId; // Access staffId from the first object
-                if (staffId) {
-                    $("#logStaffIdOption").val(staffId); // Set the staff ID in the input field
-                    console.log("Set staffId to fieldStaffIdOption:", staffId);
-                } else {
-                    console.error("No valid staffId found in the staff array.");
-                }
+                const staff = response.staff[0]; // Assuming the first staff is the relevant one
+                $("#logStaffIdOption").val(staff.staffId || ""); // Set the staff ID
             } else {
-                console.error("Staff array is empty or undefined.");
-                console.log("Response staff:", response.staff); // Log the staff field to understand its content
-                $("#logStaffIdOption").val(""); // Clear the staff field if no data
+                console.warn("No staff data found for this log.");
+                $("#logStaffIdOption").val(""); // Clear if no staff data
             }
 
-            //$('#field-section-details-form').modal('show');
+            if (response.fields && response.fields.length > 0) {
+                const field = response.fields[0]; // Assuming the first field is the relevant one
+                $("#logFieldCodeOption").val(field.fieldCode || ""); // Set the field code
+            } else {
+                console.warn("No field data found for this log.");
+                $("#logFieldCodeOption").val(""); // Clear if no field data
+            }
+
+            if (response.crops && response.crops.length > 0) {
+                const crop = response.crops[0]; // Assuming the first crop is the relevant one
+                $("#logCropCodeOption").val(crop.cropCode || ""); // Set the crop code
+            } else {
+                console.warn("No crop data found for this log.");
+                $("#logCropCodeOption").val(""); // Clear if no crop data
+            }
+
+            // Show the modal with the populated data
+            $('#log-section-details-form').modal('show');
 
             // Show success notification
             Swal.fire(
-                "Field Found",
-                `Details for Field Code: ${logSearchCode} loaded successfully.`,
+                "Log Found",
+                `Details for Log Code: ${logSearchCode} loaded successfully.`,
                 "success"
             );
         },
@@ -600,6 +606,7 @@ $("#log-search").on("click", function () {
         }
     });
 });
+
 
 
 

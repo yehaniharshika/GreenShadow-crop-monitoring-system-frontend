@@ -50,8 +50,7 @@ function loadFieldTable(data) {
                 <td class="field-location-value">${field.fieldLocation || "No Location"}</td>
                 <td class="field-extent-size-value">${field.extentSize || "No Size"}</td>
                 <td class="field-image1-value">${fieldImage1}</td>
-                <td class="field-image2-value">${fieldImage2}</td>
-                <td class="field-staff-id-value">${field.staffId || "No Staff ID"}</td>
+                <td class="field-image2-value">${fieldImage2}</td>           
             </tr>`;
         fieldTableBody.append(row);
     });
@@ -81,14 +80,14 @@ $("#field-tbl-tbody").on('click', 'tr', function() {
     //extracting the src (base64) of the images
     let fieldImage1 = $(this).find(".field-image1-value img").attr('src') || "No Image";
     let fieldImage2 = $(this).find(".field-image2-value img").attr('src') || "No Image";
-    let fieldStaffId = $(this).find(".field-staff-id-value").text();
+
 
     //log the extracted values for debugging
     console.log("Field Code: ", fieldCode);
     console.log("Field Name: ", fieldName);
     console.log("Field Location: ", fieldLocation);
     console.log("Extent Size: ", extentSize);
-    console.log("staff ID: ", fieldStaffId);
+
     /*console.log("Field Image 1: ", fieldImage1);
     console.log("Field Image 2: ", fieldImage2);*/
 
@@ -110,7 +109,7 @@ $("#field-tbl-tbody").on('click', 'tr', function() {
     } else {
         $('#previewImage2').addClass('d-none');  // Hide image 2 if there's no image
     }
-    $('#fieldStaffIdOption').val(fieldStaffId);
+
 
     //show the modal
     $('#field-section-details-form').modal('show');
@@ -221,7 +220,7 @@ $("#field-save").click(function () {
     formData.append("fieldImage2", fieldImage2);
     formData.append("staff", JSON.stringify(staffList));
 
-        // Log to debug
+
     console.log("Submitting the following data to the server:");
     console.log({
         fieldCode,
@@ -263,6 +262,8 @@ $("#field-save").click(function () {
     });
 });
 
+
+//field update
 $("#field-update").on("click", function (e) {
     e.preventDefault();
 
