@@ -89,14 +89,14 @@
       </div>
 
       <!--Dashboard cards-->
-      <div class="container mt-4">
+      <div class="container mt-4 wider-container card-container" style="max-width: 90%; background-color: transparent; margin: 200px auto 0;">
         <div class="row g-3 cards">
           <div class="col-sm-6 col-lg-3 ">
             <div class="card text-white field-count-card">
               <div class="card-body d-flex align-items-center">
                 <div class="me-3"><img src="assets/icon/field.png" style="width: 70px; height: 70px;"></ion-icon></div>
                 <div class="card-content">
-                  <h5 class="card-title mb-0">10</h5>
+                  <h5 id="field-count" class="card-title mb-0"></h5>
                   <small>Field Count</small>
                 </div>
               </div>
@@ -108,7 +108,7 @@
               <div class="card-body d-flex align-items-center">
                 <div class="me-3"><img src="assets/icon/staff.png" style="width: 70px; height: 70px;"></div>
                 <div class="card-content">
-                  <h5 class="card-title mb-0">12</h5>
+                  <h5 id="staff-count" class="card-title mb-0"></h5>
                   <small>Staff Count</small>
                 </div>
               </div>
@@ -120,7 +120,7 @@
               <div class="card-body d-flex align-items-center">
                 <div class="me-3"><img src="assets/icon/plant.png" style="width: 70px; height: 70px;"></div>
                 <div class="card-content">
-                  <h5 class="card-title mb-0">227</h5>
+                  <h5 id="crop-count" class="card-title mb-0"></h5>
                   <small>Crop Count</small>
                 </div>
               </div>
@@ -131,7 +131,7 @@
               <div class="card-body d-flex align-items-center">
                 <div class="me-3"><img src="assets/icon/vehicle.png" style="width: 70px; height: 70px;"></div>
                 <div class="card-content">
-                  <h5 class="card-title mb-0" id="vehicle-count-amount">04</h5>
+                  <h5 class="card-title mb-0" id="vehicle-count"></h5>
                   <small>Vehicle Count</small>
                 </div>
               </div>
@@ -141,34 +141,30 @@
       </div>
 
       <!--charts section -->
-      <div class="container mt-4">
-        <div class="container mt-4">
-          <div class="row">
-            <div class="col-lg-6 mb-3">
-              <div class="card crop-growth-card">
-                <div class="card-header">
-                  Crop Growth
-                </div>
-                <div class="card-body">
-                  <canvas id="bar-chart"></canvas>
-                </div>
+      <div class="container mt-4 wider-container chart-container" style="max-width: 90%; background-color: transparent; margin: 0 auto;">
+        <div class="row">
+          <div class="col-lg-6 mb-3">
+            <div class="card crop-growth-card">
+              <div class="card-header">
+                Crop Growth
+              </div>
+              <div class="card-body">
+                <canvas id="bar-chart"></canvas>
               </div>
             </div>
-            <div class="col-lg-6 mb-3">
-              <div class="card yield-analytics-card">
-                <div class="card-header">
-                  Yield Analytics
-                </div>
-                <div class="card-body">
-                  <canvas id="pie-chart"></canvas>
-                </div>
+          </div>
+          <div class="col-lg-6 mb-3">
+            <div class="card yield-analytics-card">
+              <div class="card-header">
+                Yield Analytics
+              </div>
+              <div class="card-body">
+                <canvas id="pie-chart"></canvas>
               </div>
             </div>
           </div>
         </div>
-
       </div>
-
     </section>
 
     <!--field section-->
@@ -1202,6 +1198,7 @@
 <script src="assets/js/fieldImage.js"></script>
 <script src="assets/js/cropImage.js"></script>
 <script type="module" src="assets/js/main.js"></script>
+<script type="module" src="assets/javascript/Dashboard.js"></script>
 <script type="module" src="assets/javascript/StaffSection.js"></script>
 <script type="module" src="assets/javascript/CropSection.js"></script>
 <script type="module" src="assets/javascript/FieldSection.js"></script>

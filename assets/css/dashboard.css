@@ -32,7 +32,7 @@
 .staff-count-card,
 .vehicle-count-card{
     background-color: #004142;
-    height: 150px;
+    height: 180px;
     border: 3px solid goldenrod;
     border-radius: 30px;
 }
@@ -55,7 +55,7 @@ small{
 .crop-count-card,
 .field-count-card{
     background-color: #133a75;
-    height: 150px;
+    height: 180px;
     border: 3px solid goldenrod;
     border-radius: 30px;
 }
@@ -86,10 +86,17 @@ small{
 
 .yield-analytics-card{
     background-color: #85ebe3;
+    height: 440px;
 }
 
 .crop-growth-card{
     background-color: #85ebe3;
+    height: 440px;
+}
+
+.chart-container{
+    margin-top: 20rem;
+
 }
 @media (max-width: 768px) {
     #sidebar {
@@ -108,3 +115,4 @@ small{
         display: block;
     }
 }
+

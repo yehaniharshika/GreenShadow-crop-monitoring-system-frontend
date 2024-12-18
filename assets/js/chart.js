@@ -1,8 +1,10 @@
 document.addEventListener("DOMContentLoaded", function () {
+    let barChartInstance, pieChartInstance;
+
     // Bar chart for Crop Growth
     const barChartCanvas = document.getElementById('bar-chart');
     if (barChartCanvas && barChartCanvas.tagName.toLowerCase() === 'canvas') {
-        new Chart(barChartCanvas.getContext('2d'), {
+        barChartInstance = new Chart(barChartCanvas.getContext('2d'), {
             type: 'line',
             data: {
                 labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'], // Months
@@ -17,6 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
             },
             options: {
                 responsive: true,
+                maintainAspectRatio: false,
                 plugins: {
                     legend: {
                         display: true,
@@ -81,14 +84,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             }
         });
-    } else {
-        console.error("Bar chart canvas element not found or not a canvas.");
     }
 
     // Pie chart for Yield Analytics
     const pieChartCanvas = document.getElementById('pie-chart');
     if (pieChartCanvas && pieChartCanvas.tagName.toLowerCase() === 'canvas') {
-        new Chart(pieChartCanvas.getContext('2d'), {
+        pieChartInstance = new Chart(pieChartCanvas.getContext('2d'), {
             type: 'bar',
             data: {
                 labels: ['Crop A', 'Crop B', 'Crop C', 'Crop D'], // Crops
@@ -100,6 +101,7 @@ document.addEventListener("DOMContentLoaded", function () {
             },
             options: {
                 responsive: true,
+                maintainAspectRatio: false,
                 plugins: {
                     legend: {
                         display: true,
@@ -157,14 +159,18 @@ document.addEventListener("DOMContentLoaded", function () {
                             color: 'black',
                             font: {
                                 family: 'Ubuntu',
-                                size: 14
+                                size: 12
                             }
                         }
                     }
                 }
             }
         });
-    } else {
-        console.error("Pie chart canvas element not found or not a canvas.");
     }
+
+    // Handle window resize to refresh charts
+    window.addEventListener('resize', function () {
+        if (barChartInstance) barChartInstance.resize();
+        if (pieChartInstance) pieChartInstance.resize();
+    });
 });
