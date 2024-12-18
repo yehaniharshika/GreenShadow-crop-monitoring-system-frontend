@@ -4,6 +4,7 @@ $(document).ready(function () {
     setFieldCount();
     setStaffCount();
     setCropCount();
+    setVehicleCount();
 });
 
 function setFieldCount(){
@@ -53,5 +54,52 @@ function setStaffCount(){
 }
 
 
+//set crop count
+function setCropCount(){
+    const setCropCount = $('#crop-count');
 
+    $.ajax({
+        url: 'http://localhost:8080/GreenShadow/api/v1/crops/cropCount',
+        type: 'GET',
+        headers: {
+            "Authorization": `Bearer ${authToken}` // Add Bearer token to headers
+        },
+        success: function (response) {
+            console.log("Crop count fetched successfully:", response);
+            const formattedCropCount = response < 10 ? `0${response}` : response;
+
+            //set the field count in the front end
+            setCropCount.text(formattedCropCount);
+        },
+        error: function (xhr, status, error) {
+            console.error("Error fetching Crop count:", error);
+            setCropCount.text('Error');
+        }
+    });
+}
+
+
+//set vehicle count
+function setVehicleCount(){
+    const setVehicleCount = $('#vehicle-count');
+
+    $.ajax({
+        url: 'http://localhost:8080/GreenShadow/api/v1/vehicles/vehicleCount',
+        type: 'GET',
+        headers: {
+            "Authorization": `Bearer ${authToken}` // Add Bearer token to headers
+        },
+        success: function (response) {
+            console.log("Crop count fetched successfully:", response);
+            const formattedVehicleCount = response < 10 ? `0${response}` : response;
+
+            //set the vehicle count in the front end
+            setVehicleCount.text(formattedVehicleCount);
+        },
+        error: function (xhr, status, error) {
+            console.error("Error fetching Crop count:", error);
+            setVehicleCount.text('Error');
+        }
+    });
+}
 
