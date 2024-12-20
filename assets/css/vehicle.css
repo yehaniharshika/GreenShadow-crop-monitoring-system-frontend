@@ -81,6 +81,48 @@
     font-weight: bold;
 }
 
+/*model styles*/
+.vehicle-card-body{
+    background-color: #85d3d3;
+    border: 2px solid darkblue;
+}
+
+.vehicle-card-body form input{
+    border: 2px solid black;
+    font-family: "Ubuntu", serif;
+}
+
+.vehicle-card-body form textarea{
+    border: 2px solid black;
+    font-family: "Ubuntu", serif;
+}
+
+.vehicle-card-body form select{
+    border: 2px solid black;
+    font-family: "Ubuntu", serif;
+}
+
+.btn-vehicle-btn-list button{
+    font-weight: 600;
+    font-family: "Ubuntu", serif;
+}
+
+/*search card styles*/
+.search-vehicle-card-body {
+    background-color: #b3e4e4;
+    border: 2px solid gray;
+    border-radius: 8px;
+}
+
+.search-vehicle-card-body form input{
+    font-family: "Ubuntu", serif;
+    border: 1px solid grey;
+}
+
+.search-vehicle-card-body form button{
+    font-family: "Ubuntu", serif;
+    font-weight: bold;
+}
 
 /*media queries*/
 @media (max-width: 1375px) {

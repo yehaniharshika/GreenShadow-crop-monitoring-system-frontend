@@ -48,7 +48,7 @@
 .log-image-container{
     width: 320px;
     height: 330px;
-    border: 2px solid #ddd;
+    border: 2px solid black;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -62,7 +62,7 @@
 .log-image-box {
     width: 260px;
     height: 240px;
-    border: 2px solid #ddd;
+    border: 2px solid grey;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -78,14 +78,53 @@
     object-fit: cover;
 }
 
+/*search card styles*/
+.search-logs-card-body {
+    background-color: #b3e4e4;
+    border: 2px solid gray;
+    border-radius: 8px;
+}
+
+.search-logs-card-body form input{
+    font-family: "Ubuntu", serif;
+    border: 1px solid grey;
+}
+
+.search-logs-card-body form button{
+    font-family: "Ubuntu", serif;
+    font-weight: bold;
+}
+
+
+/*logs modal card styles*/
+.log-card-body{
+    background-color: #85d3d3;
+    border: 2px solid darkblue;
+}
+
+.log-card-body form input{
+    border: 2px solid black;
+    font-family: "Ubuntu", serif;
+}
+
+.log-card-body form textarea{
+    border: 2px solid black;
+    font-family: "Ubuntu", serif;
+}
+
+.log-card-body form select{
+    border: 2px solid black;
+    font-family: "Ubuntu", serif;
+}
+
 /*choose Image button and icon */
 .log-choose-image-btn {
     display: flex;
     align-items: center;
     font-size: 16px;
     font-weight: bolder;
-    color: #007bff;
-    background-color: #f1f1f1;
+    color: black;
+    background-color: grey;
     padding: 10px 20px;
     border: none;
     border-radius: 8px;
@@ -98,7 +137,8 @@
 }
 
 .log-choose-image-btn:hover {
-    background-color: red;
+    background-color: #01a3a4;
+    color: black;
 }
 
 /*log display image part*/

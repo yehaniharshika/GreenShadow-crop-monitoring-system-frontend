@@ -48,11 +48,6 @@
     font-weight: 600;
 }
 
-.field-card-body{
-    background-color: #85d3d3;
-    border: 2px solid darkblue;
-}
-
 .field-circle{
     display: inline-block;
     border-radius: 50%;
@@ -90,6 +85,11 @@
 }
 
 /*field card css styles*/
+.field-card-body{
+    background-color: #85d3d3;
+    border: 2px solid darkblue;
+}
+
 .field-card-body form input{
     border: 2px solid black;
     font-family: "Ubuntu", serif;

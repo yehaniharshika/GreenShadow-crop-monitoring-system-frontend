@@ -32,6 +32,48 @@
     width: 90%;
 }
 
+.btn-equipment-btn-list button{
+    font-weight: 600;
+    font-family: "Ubuntu", serif;
+}
+
+.equipment-card-body{
+    background-color: #85d3d3;
+    border: 2px solid darkblue;
+}
+
+.equipment-card-body form input{
+    border: 2px solid black;
+    font-family: "Ubuntu", serif;
+}
+
+.equipment-card-body form textarea{
+    border: 2px solid black;
+    font-family: "Ubuntu", serif;
+}
+
+.equipment-card-body form select{
+    border: 2px solid black;
+    font-family: "Ubuntu", serif;
+}
+
+/*search card styles*/
+.search-equipment-card-body {
+    background-color: #b3e4e4;
+    border: 2px solid gray;
+    border-radius: 8px;
+}
+
+.search-equipment-card-body form input{
+    font-family: "Ubuntu", serif;
+    border: 1px solid grey;
+}
+
+.search-equipment-card-body form button{
+    font-family: "Ubuntu", serif;
+    font-weight: bold;
+}
+
 /*image part*/
 .equipment-img-part{
     background-color: transparent;
