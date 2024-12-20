@@ -2,7 +2,7 @@ const authToken = localStorage.getItem("authToken");
 let fieldData=[];
 window.addEventListener('load', () => {
     fetchCropCode();
-    fetchCropData();
+    loadCropCards();
     loadFieldCodes();
 });
 
@@ -29,7 +29,7 @@ function loadFieldCodes(){
     });
 }
 
-function fetchCropData() {
+function loadCropCards() {
     $.ajax({
         url: "http://localhost:8080/GreenShadow/api/v1/crops",
         method: "GET",
@@ -37,23 +37,83 @@ function fetchCropData() {
         headers: {
             "Authorization": `Bearer ${authToken}`
         },
-        success: function (response) {
-            console.log("Crop data fetched successfully.");
-            loadCropTable(response);
+        success: function (crops) {
+            const cropCardsContainer = $('#crop-cards-container');
+            cropCardsContainer.empty();
+
+            crops.forEach(crop => {
+                const cropImage = crop.cropImage
+                    ? `data:image/jpeg;base64,${crop.cropImage}`
+                    : null;
+
+                const card = `
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+                        <div class="card crop-card" data-id="${crop.cropCode}">
+                            <div class="card-body">
+                                <p class="card-text"><strong>Crop Code: </strong> ${crop.cropCode}</p>
+                                <p class="card-text"><strong>Common Name: </strong> ${crop.cropCommonName}</p>
+                                <p class="card-text"><strong>Scientific Name: </strong> ${crop.scientificName}</p>
+                                <p class="card-text"><strong>Crop Category: </strong> ${crop.category}</p>
+                                <p class="card-text"><strong>Season: </strong> ${crop.cropSeason}</p>
+                                <p class="card-text"><strong>Field Code: </strong>${crop.fieldCode}</p>
+                                ${cropImage
+                    ? `<img src="${cropImage}" class="img-fluid mt-2" alt="Crop Image" />`
+                    : "<p>No Image Available</p>"
+                }
+                            </div>
+                        </div>
+                    </div>`;
+                cropCardsContainer.append(card);
+            });
+
+            // Attach click event to cards for modal functionality
+            $('.crop-card').click(function () {
+                const cropCode = $(this).data('id');
+                const selectedCrop = crops.find(crop => crop.cropCode === cropCode);
+
+                if (selectedCrop) {
+                    // Set modal fields
+                    $('#crop-code').val(selectedCrop.cropCode);
+                    $('#crop-common-name').val(selectedCrop.cropCommonName);
+                    $('#crop-scientific-name').val(selectedCrop.scientificName);
+                    $('#category').val(selectedCrop.category);
+                    $('#season').val(selectedCrop.cropSeason);
+                    $('#cropFieldCodeOption').val(selectedCrop.fieldCode);
+
+                    // Set modal images
+                    if (selectedCrop.cropImage) {
+                        $('#previewImageCrop')
+                            .attr('src', `data:image/jpeg;base64,${selectedCrop.cropImage}`)
+                            .removeClass('d-none'); // Show image
+                    } else {
+                        $('#previewImageCrop').addClass('d-none'); // Hide image
+                    }
+
+                    // Open the modal
+                    $('#crop-section-details-form').modal('show');
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Crop Not Found",
+                        text: "The selected crop could not be found!",
+                    });
+                }
+            });
         },
         error: function (xhr, status, error) {
-            Swal.fire({
-                icon: "error",
-                title: "Failed to Load Data",
-                text: `Error: ${xhr.responseText || error}`,
-            });
-            console.error("Failed to fetch Crop data:", xhr.responseText || error);
+            console.error("Error fetching crop data:", xhr.responseText || error);
+            Swal.fire(
+                "Error",
+                "Failed to fetch crop details for this field.",
+                "error"
+            );
         }
     });
 }
 
+
 //Load cro data to table
-function loadCropTable(data) {
+/*function loadCropTable(data) {
     const cropTableBody = $("#crop-tbl-tbody");
     cropTableBody.empty(); // Clear existing rows
 
@@ -107,7 +167,7 @@ $("#crop-tbl-tbody").on("click", "tr", function () {
 
     //show crop modal
     $("#crop-section-details-form").modal("show");
-});
+});*/
 
 
 function getImageType(base64String) {
@@ -216,8 +276,9 @@ $("#crop-save").click(function () {
                 text: "Crop Saved Successfully!",
             });
             console.log("Server response:", response);
+            loadCropCards();
+            clearCropDetails();
             fetchCropCode();
-            fetchCropData();
         },
         error: function (xhr) {
             Swal.fire({
@@ -264,7 +325,8 @@ $("#crop-delete").on("click", function (e) {
             });
 
             //Refresh staff data
-            fetchCropData();
+            loadCropCards();
+            clearCropDetails();
             fetchCropCode();
         },
         error: function (xhr) {
@@ -343,7 +405,8 @@ $("#crop-update").click(function () {
             console.log("Update response:", response);
 
             // Refresh crop data and codes
-            fetchCropData();
+            loadCropCards();
+            clearCropDetails();
             fetchCropCode();
 
             // Optionally hide the modal after updating
@@ -440,6 +503,18 @@ $("#crop-search").on("click", function () {
         }
     });
 });
+
+function clearCropDetails(){
+    $('#crop-code').val("");
+    $('#crop-common-name').val("");
+    $('#crop-scientific-name').val("");
+    $('#category').val("");
+    $('#season').val("");
+    $('#cropFieldCodeOption').val("");
+    $('#set-crop-field-name').val("");
+    $('#set-crop-field-location').val("");
+    $('#set-crop-field-extent-size').val("");
+}
 
 
 
