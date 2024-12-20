@@ -81,7 +81,7 @@
 }
 
 /* Additional styling for cards */
-.crop-c {
+.crop-card {
     background: linear-gradient(#01a3a4,white);
     border: 3px solid black;
     border-radius: 8px;
@@ -89,21 +89,53 @@
     height: 540px;
 }
 
-.field-card .card-body {
+
+.search-crop-card-body{
+    background-color: #b3e4e4;
+    border: 2px solid gray;
+    border-radius: 8px;
+}
+
+.search-crop-card-body form input{
+    font-family: "Ubuntu", serif;
+    border: 1px solid grey;
+}
+
+.search-crop-card-body form button{
+    font-family: "Ubuntu", serif;
+    font-weight: bold;
+}
+
+.btn-crop-list button{
+    font-family: "Ubuntu", serif;
+    font-weight: 600;
+}
+
+.crop-card-body{
+    background-color: #85d3d3;
+    border: 2px solid darkblue;
+}
+
+.crop-card .card-body {
     padding: 20px;
     font-family: "Ubuntu", serif;
 }
 
-.field-card img {
+.crop-card img {
     max-width: 100%;
     border-radius: 8px;
     max-height: 260px;
 }
+
+h2{
+    font-weight: bold;
+}
+
 /*styles for the image display box */
 .crop-image-container{
     width: 320px;
     height: 330px;
-    border: 2px solid #ddd;
+    border: 2px solid black;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -117,7 +149,7 @@
 .crop-image-box {
     width: 260px;
     height: 240px;
-    border: 2px solid #ddd;
+    border: 2px solid grey;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -139,8 +171,8 @@
     align-items: center;
     font-size: 16px;
     font-weight: bolder;
-    color: #007bff;
-    background-color: #f1f1f1;
+    color: black;
+    background-color: grey;
     padding: 10px 20px;
     border: none;
     border-radius: 8px;
@@ -153,9 +185,24 @@
 }
 
 .crop-choose-image-btn:hover {
-    background-color: red;
+    background-color: #01a3a4;
+    color: black;
 }
 
+.crop-card-body form input{
+    border: 2px solid black;
+    font-family: "Ubuntu", serif;
+}
+
+.crop-card-body form textarea{
+    border: 2px solid black;
+    font-family: "Ubuntu", serif;
+}
+
+.crop-card-body form select{
+    border: 2px solid black;
+    font-family: "Ubuntu", serif;
+}
 
 /*media queries*/
 @media (max-width: 1375px) {
@@ -176,41 +223,6 @@
 }
 
 
-@media (max-width: 1205px) {
-    .crop-img-part{
-        margin-top: 1rem;
-    }
-
-    .crop-circle-left{
-        width: 190px;
-        height: 190px;
-    }
-
-    .crop-circle-right{
-        width: 190px;
-        height: 190px;
-        margin-right: -130px;
-    }
-}
-
-@media (max-width: 1037px) {
-    .crop-circle-left{
-        width: 160px;
-        height: 160px;
-    }
-
-    .crop-circle-right{
-        width: 160px;
-        height: 160px;
-        margin-right: -130px;
-    }
-
-    .crop-circle-container{
-        gap: 8px;
-    }
-}
-
-
 @media (max-width: 990px) {
     .search-crop-part {
         margin-top: 6.2rem;
@@ -218,66 +230,10 @@
 
     }
 
-    .crop-img-part {
-        display: flex;
-        flex-direction: row;
-        align-items: center; /* Center images horizontally */
-        justify-content: center; /* Center images vertically */
-        margin: -1rem 0; /* Adjust spacing above and below */
-        width: 100%; /* Make it span full width */
-        background-color: transparent;
-    }
-
-    .crop-circle-container {
-        flex-direction: row; /* Stack images vertically */
-        gap: 1rem; /* Adjust spacing between images */
-    }
-
-    .crop-circle-left{
-        width: 190px;
-        height: 190px;
-    }
-
-    .crop-circle-right {
-        width: 190px; /* Adjust size for responsiveness */
-        height: 190px;
-        margin-right: -10px;
-    }
-
 }
 
 
 @media (max-width: 768px) {
-    .crop-circle-container {
-        gap: 20px;
-    }
-
-    .crop-img-part {
-        margin: -0.2rem 0; /* Adjust spacing above and below */
-    }
-
-    .crop-circle-left{
-        width: 190px;
-        height: 190px;
-        margin-top: -1rem;
-        border-radius: 50%;
-        object-fit: cover;
-
-    }
-
-    .crop-circle-right{
-        width: 190px;
-        height: 190px;
-        margin-top: -1rem;
-        border-radius: 50%;
-        object-fit: cover;
-        margin-right: 1.2rem;
-    }
-
-    .crop-circle-container .crop-circle {
-        text-align: center; /* Ensure images are centered inside the circles */
-    }
-
 
     .search-crop-part{
         flex-direction: column;
