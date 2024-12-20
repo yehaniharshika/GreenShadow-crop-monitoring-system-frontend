@@ -4,6 +4,93 @@ window.addEventListener('load', () => {
     fetchStaffData();
 });
 
+const regexPatterns = {
+    firstName: /^[A-Za-z\s]{3,}$/,
+    lastName: /^[A-Za-z\s]{3,}$/,
+    dob: /^\d{4}-\d{2}-\d{2}$/,  // Date format: YYYY-MM-DD
+    gender: /^(Male|Female|Other)$/,  // Gender options
+    email: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$/,  // Email format
+    phone: /^(070|071|072|074|075|076|077|078|038)\d{7}$/,  // Phone number format
+};
+
+function validateStaffForm() {
+    let valid = true; // Track overall form validity
+
+    const fields = [
+        { id: '#firstName', pattern: regexPatterns.firstName, error: "Invalid First Name. Only letters allowed." },
+        { id: '#lastName', pattern: regexPatterns.lastName, error: "Invalid Last Name. Only letters allowed." },
+        { id: '#dob', pattern: regexPatterns.dob, error: "Invalid Date of Birth. Format should be YYYY-MM-DD." },
+        { id: '#gender', pattern: regexPatterns.gender, error: "Invalid Gender. Allowed values: Male, Female, Other." },
+        { id: '#email', pattern: regexPatterns.email, error: "Invalid Email format." },
+        { id: '#contact-number', pattern: regexPatterns.phone, error: "Invalid contact number. It should be exactly 10 digits." }
+    ];
+
+    // Validate each field
+    fields.forEach(({ id, pattern, error }) => {
+        const value = $(id).val();
+        if (!pattern.test(value)) {
+            Swal.fire("Error", error, "error");
+            valid = false;
+        }
+    });
+
+    return valid; // Return overall validity
+}
+
+$("#staff-save").on("click", function (e) {
+    e.preventDefault(); // Prevent default form submission
+
+    if (!validateStaffForm()) {
+        return; // Stop if validation fails
+    }
+
+    // Collect staff details from the form
+    const staffData = {
+        staffId: $('#staff-id').val(),
+        firstName: $('#firstName').val(),
+        lastName: $('#lastName').val(),
+        DOB: $('#dob').val(),
+        gender: $('#gender').val(),
+        designation: $('#designation').val(),
+        joinedDate: $('#joined-date').val(),
+        addressLine1: $('#addressLine1').val(),
+        addressLine2: $('#addressLine2').val(),
+        addressLine3: $('#addressLine3').val(),
+        addressLine4: $('#addressLine4').val(),
+        addressLine5: $('#addressLine5').val(),
+        email: $('#email').val(),
+        role: $('#role').val(),
+        contactNumber: $('#contact-number').val()
+    };
+
+    if (!authToken) {
+        Swal.fire("Error", "No authentication token found. Please log in again.", "error");
+        return;
+    }
+
+    // Save staff details via AJAX
+    $.ajax({
+        url: `http://localhost:8080/GreenShadow/api/v1/staff`,
+        type: "POST",
+        contentType: "application/json",
+        headers: {
+            "Authorization": `Bearer ${authToken}`,
+        },
+        data: JSON.stringify(staffData),
+        success: function (response) {
+            Swal.fire("Success", "Staff saved successfully!", "success").then(() => {
+                fetchStaffData();
+                staffClearFields();
+                fetchStaffId();
+            });
+        },
+        error: function (xhr) {
+            Swal.fire("Error", xhr.responseJSON?.message || "Failed to save staff. Please try again.", "error");
+        },
+    });
+});
+
+
 function  fetchStaffId(){
     $.ajax({
         url: "http://localhost:8080/GreenShadow/api/v1/staff/generate-next-staff-id", // API URL
@@ -104,63 +191,13 @@ $("#staff-tbl-tbody").on('click', 'tr', function() {
     $('#staff-section-details-form').modal('show');
 });
 
-$("#staff-save").on("click", function (e) {
-    e.preventDefault();
-
-    // Get staff details from the form
-    const staffData = {
-        staffId: $('#staff-id').val(),
-        firstName: $('#firstName').val(),
-        lastName: $('#lastName').val(),
-        DOB: $('#dob').val(),
-        gender: $('#gender').val(),
-        designation: $('#designation').val(),
-        joinedDate: $('#joined-date').val(),
-        addressLine1: $('#addressLine1').val(),
-        addressLine2: $('#addressLine2').val(),
-        addressLine3: $('#addressLine3').val(),
-        addressLine4: $('#addressLine4').val(),
-        addressLine5: $('#addressLine5').val(),
-        email: $('#email').val(),
-        role: $('#role').val(),
-        contactNumber: $('#contact-number').val()
-    };
-
-    console.log("Staff Data:", staffData);
-
-    console.log(authToken)
-
-    if (!authToken) {
-        Swal.fire("Error", "No authentication token found. Please log in again.", "error");
-        return;
-    }
-
-    $.ajax({
-        url: `http://localhost:8080/GreenShadow/api/v1/staff`,
-        type: "POST",
-        contentType: "application/json",
-        headers: {
-            "Authorization": `Bearer ${authToken}`, // Add the token to the Authorization header
-        },
-        data: JSON.stringify(staffData),
-        success: function (response) {
-            Swal.fire(
-                "Success",
-                "Staff saved successfully!",
-                "success").then(() => {
-            });
-            fetchStaffData();
-            staffClearFields()
-            fetchStaffId();
-        },
-        error: function (xhr) {
-            Swal.fire("Error", xhr.responseJSON.message || "Failed to save staff. Please try again.", "error");
-        },
-    });
-});
 
 $("#staff-update").on("click", function (e) {
     e.preventDefault();
+
+    if (!validateStaffForm()) {
+        return; // Stop if validation fails
+    }
 
     const staffId = $('#staff-id').val();
 

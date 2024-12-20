@@ -4,12 +4,56 @@ let staffData = [];
 window.addEventListener('load', () => {
     fetchFieldCode();
     loadStaffIds();
-    fetchFieldData();
+    loadFieldCards();
 });
 
 
+function initializeSlider() {
+    //Initialize slider functionality for each field card
+    document.querySelectorAll('.slider').forEach(slider => {
+        const images = slider.querySelectorAll('.slider-image');
+        let currentImageIndex = 0;
 
-function fetchFieldData(){
+        //Function to show the image at the given index
+        function showImage(index) {
+            images.forEach(image => image.classList.add('d-none'));
+            //Show the selected image
+            images[index].classList.remove('d-none');
+        }
+
+        // Function to move to the next image automatically (alternating every 3000ms)
+        function nextImage() {
+            currentImageIndex = (currentImageIndex + 1) % images.length;
+            showImage(currentImageIndex);
+        }
+
+        // Set an interval to automatically move the slider every 3 seconds (3000ms)
+        setInterval(nextImage, 2500);
+
+        // Start with the first image
+        showImage(currentImageIndex);
+
+        // Ensure the buttons exist before adding event listeners
+        const prevButton = slider.querySelector('.prev-button');
+        const nextButton = slider.querySelector('.next-button');
+
+        if (prevButton && nextButton) {
+            // Event listener for next button
+            nextButton.addEventListener('click', () => {
+                currentImageIndex = (currentImageIndex + 1) % images.length;
+                showImage(currentImageIndex);
+            });
+
+            // Event listener for previous button
+            prevButton.addEventListener('click', () => {
+                currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+                showImage(currentImageIndex);
+            });
+        }
+    });
+}
+
+function loadFieldCards() {
     $.ajax({
         url: "http://localhost:8080/GreenShadow/api/v1/fields",
         method: "GET",
@@ -17,44 +61,221 @@ function fetchFieldData(){
         headers: {
             "Authorization": `Bearer ${authToken}`
         },
-        success: function (response){
-            loadFieldTable(response);
+        success: function (fields) {
+            const cardsContainer = $('#field-cards-container');
+            cardsContainer.empty(); // Clear previous cards
 
+            fields.forEach(field => {
+                // Handle image rendering with Base64
+                const fieldImage1 = field.fieldImage1
+                    ? `data:image/jpeg;base64,${field.fieldImage1}`
+                    : "";
+
+                const fieldImage2 = field.fieldImage2
+                    ? `data:image/jpeg;base64,${field.fieldImage2}`
+                    : "";
+
+                const card = `
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+                        <div class="card field-card" data-id="${field.fieldCode}">
+                            <div class="card-body">
+                                <p class="card-text"><strong>Field Code: </strong> ${field.fieldCode}</p>
+                                <p class="card-text"><strong>Field Name: </strong> ${field.fieldName}</p>
+                                <p class="card-text"><strong>Location: </strong> ${field.fieldLocation}</p>
+                                <p class="card-text"><strong>Extent Size: </strong> ${field.extentSize} Sq. m</p>
+                                                                <p class="card-text"><strong>Staff ID: </strong> <span id="staff-id-${field.fieldCode}">Loading...</span></p>
+
+                                <strong>Field Images: </strong>
+                                <div class="slider-container">
+                                    <div class="slider">
+                                        ${fieldImage1
+                    ? `<img src="${fieldImage1}" class="slider-image img-fluid" alt="Field Image 1" />`
+                    : "<p>No Image</p>"}
+                                        ${fieldImage2
+                    ? `<img src="${fieldImage2}" class="slider-image img-fluid d-none" alt="Field Image 2" />`
+                    : "<p>No Image</p>"}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`;
+                cardsContainer.append(card);
+
+                // Fetch staff details for the field
+                $.ajax({
+                    url: `http://localhost:8080/GreenShadow/api/v1/fields/${field.fieldCode}/staff`, // Staff details endpoint
+                    type: "GET",
+                    headers: {
+                        "Authorization": `Bearer ${authToken}`,
+                    },
+                    success: function (staffResponse) {
+                        const staffIdElement = $(`#staff-id-${field.fieldCode}`);
+
+                        if (staffResponse && staffResponse.length > 0) {
+                            // Assuming the first staff member is the one we want to display
+                            const firstStaff = staffResponse[0];
+                            staffIdElement.text(firstStaff.staffId || "No Staff ID");
+                        } else {
+                            staffIdElement.text("No Staff Assigned");
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Error fetching staff data:", xhr.responseText || error);
+                        Swal.fire(
+                            "Error",
+                            "Failed to fetch staff details for this field.",
+                            "error"
+                        );
+                    }
+                });
+            });
+
+            //Initialize slider functionality after rendering cards
+            initializeSlider();
+
+            // Attach click event to cards for modal functionality
+            $('.field-card').click(function () {
+                const fieldCode = $(this).data('id');
+                const selectedField = fields.find(field => field.fieldCode === fieldCode);
+
+                if (selectedField) {
+                    // Set modal fields
+                    $('#field-code').val(selectedField.fieldCode);
+                    $('#field-name').val(selectedField.fieldName);
+                    $('#field-location').val(selectedField.fieldLocation);
+                    $('#extent-size').val(selectedField.extentSize);
+
+                    // Set modal images
+                    if (selectedField.fieldImage1) {
+                        $('#previewImage1')
+                            .attr('src', `data:image/jpeg;base64,${selectedField.fieldImage1}`)
+                            .removeClass('d-none');  // Show image 1
+                    } else {
+                        $('#previewImage1').addClass('d-none');  // Hide image 1
+                    }
+
+                    if (selectedField.fieldImage2) {
+                        $('#previewImage2')
+                            .attr('src', `data:image/jpeg;base64,${selectedField.fieldImage2}`)
+                            .removeClass('d-none');  // Show image 2
+                    } else {
+                        $('#previewImage2').addClass('d-none');  // Hide image 2
+                    }
+                    $('#fieldStaffIdOption').val(selectedField.staffId);
+
+
+                    // Open the modal
+                    $('#field-section-details-form').modal('show');
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Field Not Found",
+                        text: "The selected field could not be found!",
+                    });
+                }
+            });
         },
         error: function (xhr, status, error) {
-            console.error("Failed to fetch field data:", xhr.responseText || error);
+            console.error('Failed to load fields:', xhr.responseText || error);
+            Swal.fire({
+                icon: "error",
+                title: "Error Loading Fields",
+                text: `Unable to fetch fields. Error: ${xhr.responseText || error}`,
+            });
         }
     });
 }
 
-// Function to load data into the table
-function loadFieldTable(data) {
-    const fieldTableBody = $("#field-tbl-tbody");
-    fieldTableBody.empty();
 
-    data.forEach(field => {
-        // Check and display field images
-        const fieldImage1 = field.fieldImage1
-            ? `<img src="data:image/${getImageType(field.fieldImage1)};base64,${field.fieldImage1}" alt="Field Image 1" class="centered-image">`
-            : "No Image";
+//Save Field Function
+$("#field-save").click(function () {
+    const fieldCode = $("#field-code").val().trim();
+    const fieldName = $("#field-name").val().trim();
+    const fieldLocation = $("#field-location").val().trim();
+    const extentSize = $("#extent-size").val().trim();
+    const fieldImage1 = $("#fieldImage1")[0].files[0];
+    const fieldImage2 = $("#fieldImage2")[0].files[0];
+    const staffId = $("#fieldStaffIdOption").val();
 
-        const fieldImage2 = field.fieldImage2
-            ? `<img src="data:image/${getImageType(field.fieldImage2)};base64,${field.fieldImage2}" alt="Field Image 2" class="centered-image">`
-            : "No Image";
+    // Validate fields
+    if (!fieldCode || !fieldName || !fieldLocation || !extentSize || !fieldImage1 || !fieldImage2 || !staffId) {
+        Swal.fire({
+            icon: "error",
+            title: "Missing Fields",
+            text: "Please fill in all the required fields!",
+        });
+        return;
+    }
 
-        // Add table row
-        const row = `
-            <tr>
-                <td class="field-code-value">${field.fieldCode || "No Code"}</td>
-                <td class="field-name-value">${field.fieldName || "No Name"}</td>
-                <td class="field-location-value">${field.fieldLocation || "No Location"}</td>
-                <td class="field-extent-size-value">${field.extentSize || "No Size"}</td>
-                <td class="field-image1-value">${fieldImage1}</td>
-                <td class="field-image2-value">${fieldImage2}</td>           
-            </tr>`;
-        fieldTableBody.append(row);
+    const locationParts = fieldLocation.split(",");
+    if (locationParts.length !== 2) {
+        Swal.fire({
+            icon: "error",
+            title: "Invalid Location Format",
+            text: "Please enter the location in the format: Latitude,Longitude",
+        });
+        return;
+    }
+
+    const latitude = locationParts[0].trim();
+    const longitude = locationParts[1].trim();
+    const formattedLocation = `Latitude: ${latitude}, Longitude: ${longitude}`;
+
+    // Create staff list JSON object
+    const staffList = [{ staffId }];
+
+    // Create FormData object
+    const formData = new FormData();
+    formData.append("fieldCode", fieldCode);
+    formData.append("fieldName", fieldName);
+    formData.append("extentSize", extentSize);
+    formData.append("fieldLocation", formattedLocation);
+    formData.append("fieldImage1", fieldImage1);
+    formData.append("fieldImage2", fieldImage2);
+    formData.append("staff", JSON.stringify(staffList));
+
+    console.log("Submitting the following data to the server:", {
+        fieldCode,
+        fieldName,
+        extentSize,
+        formattedLocation,
+        staff: staffList,
     });
-}
+
+    $.ajax({
+        url: "http://localhost:8080/GreenShadow/api/v1/fields",
+        type: "POST",
+        data: formData,
+        processData: false, // Prevent jQuery from processing the FormData
+        contentType: false, // Let the browser set the content type (multipart/form-data)
+        headers: {
+            "Authorization": `Bearer ${authToken}`, // Add Bearer token to headers
+        },
+        dataType: "text", // Explicitly set the response data type to plain text
+        success: function (response) {
+            Swal.fire({
+                icon: "success",
+                title: "Field Saved",
+                text: "Field saved successfully!",
+            });
+            console.log("Server response:", response);
+            const staffId = response.staffId; // Assuming the backend response contains this
+            $(`.field-card[data-id="${fieldCode}"] .card-text strong:contains('Staff ID')`)
+                .next().text(staffId || "No Staff ID Assigned");
+            loadFieldCards();
+            clearFieldsDetails();
+            fetchFieldCode();
+        },
+        error: function (xhr) {
+            Swal.fire({
+                icon: "error",
+                title: "Error Saving Field",
+                text: `Error: ${xhr.responseText || "Unknown error occurred"}`,
+            });
+            console.error("Error details:", xhr);
+        }
+    });
+});
 
 
 // Function to determine the image type from a base64 string
@@ -67,53 +288,6 @@ function getImageType(base64String) {
         return "jpeg"; // Default to JPEG
     }
 }
-
-
-// Handle row click to populate modal form
-$("#field-tbl-tbody").on('click', 'tr', function() {
-    //extracting text values from table row cells
-    let fieldCode = $(this).find(".field-code-value").text();
-    let fieldName = $(this).find(".field-name-value").text();
-    let fieldLocation = $(this).find(".field-location-value").text();
-    let extentSize = $(this).find(".field-extent-size-value").text();
-
-    //extracting the src (base64) of the images
-    let fieldImage1 = $(this).find(".field-image1-value img").attr('src') || "No Image";
-    let fieldImage2 = $(this).find(".field-image2-value img").attr('src') || "No Image";
-
-
-    //log the extracted values for debugging
-    console.log("Field Code: ", fieldCode);
-    console.log("Field Name: ", fieldName);
-    console.log("Field Location: ", fieldLocation);
-    console.log("Extent Size: ", extentSize);
-
-    /*console.log("Field Image 1: ", fieldImage1);
-    console.log("Field Image 2: ", fieldImage2);*/
-
-    //set the values to the modal form inputs (for text-based fields)
-    $('#field-code').val(fieldCode);
-    $('#field-name').val(fieldName);
-    $('#field-location').val(fieldLocation);
-    $('#extent-size').val(extentSize);
-
-    //display the images in the modal using <img> tags
-    if (fieldImage1 !== "No Image") {
-        $('#previewImage1').attr('src', fieldImage1).removeClass('d-none');  // Show image 1
-    } else {
-        $('#previewImage1').addClass('d-none');  // Hide image 1 if there's no image
-    }
-
-    if (fieldImage2 !== "No Image") {
-        $('#previewImage2').attr('src', fieldImage2).removeClass('d-none');  // Show image 2
-    } else {
-        $('#previewImage2').addClass('d-none');  // Hide image 2 if there's no image
-    }
-
-
-    //show the modal
-    $('#field-section-details-form').modal('show');
-});
 
 
 //set field code
@@ -181,89 +355,7 @@ document.getElementById('fieldStaffIdOption').addEventListener('change', functio
 });
 
 
-//field save
-$("#field-save").click(function () {
-    const fieldCode = $("#field-code").val().trim();
-    const fieldName = $("#field-name").val().trim();
-    const fieldLocation = $("#field-location").val().trim();
-    const extentSize = $("#extent-size").val().trim();
-    const fieldImage1 = $("#fieldImage1")[0].files[0];
-    const fieldImage2 = $("#fieldImage2")[0].files[0];
-
-    //collect staff data
-    const staffId = $("#fieldStaffIdOption").val();
-
-    //validate fields
-    if (!fieldCode || !fieldName || !fieldLocation || !extentSize || !fieldImage1 || !fieldImage2 || !staffId) {
-        Swal.fire({
-            icon: "error",
-            title: "Missing Fields",
-            text: "Please fill in all the required fields!",
-        });
-        return;
-    }
-
-    // create a staff list JSON object
-    const staffList = [
-        {
-            staffId: staffId,
-        }
-    ];
-
-    // create FormData object
-    const formData = new FormData();
-    formData.append("fieldCode", fieldCode);
-    formData.append("fieldName", fieldName);
-    formData.append("extentSize", extentSize);
-    formData.append("fieldLocation", fieldLocation);
-    formData.append("fieldImage1", fieldImage1);
-    formData.append("fieldImage2", fieldImage2);
-    formData.append("staff", JSON.stringify(staffList));
-
-
-    console.log("Submitting the following data to the server:");
-    console.log({
-        fieldCode,
-        fieldName,
-        extentSize,
-        fieldLocation,
-        staff: staffList
-    });
-
-    $.ajax({
-        url: "http://localhost:8080/GreenShadow/api/v1/fields", // Replace with your API endpoint
-        type: "POST",
-        data: formData,
-        processData: false, // Prevent jQuery from processing the FormData
-        contentType: false, // Let the browser set the content type (multipart/form-data)
-        headers: {
-            "Authorization": `Bearer ${authToken}`, // Add Bearer token to headers
-        },
-        dataType: "text", // Explicitly set the response data type to plain text
-        success: function (response) {
-            Swal.fire({
-                icon: "success",
-                title: "Field Saved",
-                text: "Field saved successfully!",
-            });
-            console.log("Server response:", response);
-            fetchFieldData();
-            staffClearFields();
-            fetchFieldCode();
-        },
-        error: function (xhr) {
-            Swal.fire({
-                icon: "error",
-                title: "Error Saving Field",
-                text: `Error: ${xhr.responseText}`,
-            });
-            console.error("Error details:", xhr);
-        }
-    });
-});
-
-
-//field update
+/*Field update*/
 $("#field-update").on("click", function (e) {
     e.preventDefault();
 
@@ -277,6 +369,20 @@ $("#field-update").on("click", function (e) {
     // Ensure file inputs have files selected
     const fieldImage1Input = $('#fieldImage1')[0];
     const fieldImage2Input = $('#fieldImage2')[0];
+
+    const locationParts = $('#field-location').val().split(",");
+    if (locationParts.length !== 2) {
+        Swal.fire({
+            icon: "error",
+            title: "Invalid Location Format",
+            text: "Please enter the location in the format: Latitude,Longitude",
+        });
+        return;
+    }
+
+    const latitude = locationParts[0].trim();
+    const longitude = locationParts[1].trim();
+    const formattedLocation = `Latitude: ${latitude}, Longitude: ${longitude}`;
 
     if (!fieldImage1Input.files || !fieldImage1Input.files[0]) {
         Swal.fire("Error", "Field Image 1 is required.", "error");
@@ -292,7 +398,7 @@ $("#field-update").on("click", function (e) {
     const formData = new FormData();
     formData.append("fieldCode", fieldCode);
     formData.append("fieldName", $('#field-name').val());
-    formData.append("fieldLocation", $('#field-location').val());
+    formData.append("fieldLocation", formattedLocation); // Use formattedLocation
     formData.append("extentSize", $('#extent-size').val());
     formData.append("fieldImage1", fieldImage1Input.files[0]); // Attach file
     formData.append("fieldImage2", fieldImage2Input.files[0]); // Attach file
@@ -328,8 +434,8 @@ $("#field-update").on("click", function (e) {
             ).then(() => {
                 $('#field-section-details-form').modal('hide');
             });
-            fetchFieldData();
-            staffClearFields();
+            loadFieldCards();
+            clearFieldsDetails();
             fetchFieldCode();
         },
         error: function (xhr) {
@@ -339,6 +445,7 @@ $("#field-update").on("click", function (e) {
         },
     });
 });
+
 
 
 // Event listener for the search button
@@ -487,7 +594,8 @@ $("#field-delete").on("click", function (e) {
             });
 
             //Refresh staff data
-            fetchFieldData();
+            loadFieldCards();
+            clearFieldsDetails();
             fetchFieldCode();
         },
         error: function (xhr) {
@@ -498,18 +606,18 @@ $("#field-delete").on("click", function (e) {
 });
 
 
-function staffClearFields(){
+function clearFieldsDetails() {
     $("#field-code").val("");
     $("#field-name").val("");
     $("#field-location").val("");
     $("#extent-size").val("");
-    $("#fieldImage1").val("");
-    $("#fieldImage2").val("");
+    $("#fieldImage1").attr("src", ""); // Clear the src attribute of the image
+    $("#fieldImage2").attr("src", ""); // Clear the src attribute of the image
     $("#fieldStaffIdOption").val("");
     $("#set-field-staff-name").val("");
     $("#set-field-staff-designation").val("");
-
 }
+
 
 
 

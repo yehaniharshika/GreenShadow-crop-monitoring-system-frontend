@@ -14,7 +14,7 @@
     margin-top: 0.5rem;
 }
 
-.crop-table-view{
+.crops-card-view{
     position: relative;
     top: 2.5rem;
     left: 0;
@@ -80,6 +80,25 @@
     object-fit: cover;
 }
 
+/* Additional styling for cards */
+.crop-c {
+    background: linear-gradient(#01a3a4,white);
+    border: 3px solid black;
+    border-radius: 8px;
+    overflow: hidden;
+    height: 540px;
+}
+
+.field-card .card-body {
+    padding: 20px;
+    font-family: "Ubuntu", serif;
+}
+
+.field-card img {
+    max-width: 100%;
+    border-radius: 8px;
+    max-height: 260px;
+}
 /*styles for the image display box */
 .crop-image-container{
     width: 320px;

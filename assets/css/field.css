@@ -18,7 +18,8 @@
     background-color: #cceded;
 }
 
-.field-table-view{
+
+.field-card-view {
     position: relative;
     top: 2.5rem;
     left: 0;
@@ -27,7 +28,7 @@
     padding: 0;
     overflow-x: auto;
     overflow-y: auto;
-    max-height: 560px;
+    max-height: 600px;
     width: 97%;
 }
 
@@ -42,6 +43,16 @@
     margin-top: 3rem;
 }
 
+.btn-field-list button{
+    font-family: "Ubuntu", serif;
+    font-weight: 600;
+}
+
+.field-card-body{
+    background-color: #85d3d3;
+    border: 2px solid darkblue;
+}
+
 .field-circle{
     display: inline-block;
     border-radius: 50%;
@@ -54,26 +65,60 @@
     object-fit: cover;
 }
 
-.field-circle-right{
-    width: 260px;
-    height: 260px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-right: -160px;
-}
-
-.field-circle-left{
-    width: 260px;
-    height: 260px;
-    border-radius: 50%;
-    object-fit: cover;
-}
 
 #Field-Header-back-colour{
     background: #133a75;
     color: #eeeeee;
     font-size: 18px;
     font-weight: 600;
+}
+
+.search-field-card-body {
+    background-color: #b3e4e4;
+    border: 2px solid gray;
+    border-radius: 8px;
+}
+
+.search-field-card-body form input{
+    font-family: "Ubuntu", serif;
+    border: 1px solid grey;
+}
+
+.search-field-card-body form button{
+    font-family: "Ubuntu", serif;
+    font-weight: bold;
+}
+/*field card css styles*/
+.field-card-body form input{
+    border: 2px solid black;
+    font-family: "Ubuntu", serif;
+}
+
+.field-card-body form textarea{
+    border: 2px solid black;
+    font-family: "Ubuntu", serif;
+}
+
+.field-card-body form select{
+    border: 2px solid black;
+    font-family: "Ubuntu", serif;
+}
+
+.field-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #133a75;
+    transition: transform 0.2s;
+    cursor: pointer;
+}
+
+.field-card:hover {
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.2);
+}
+
+.field-card img {
+    max-height: 100px;
+    object-fit: cover;
 }
 
 .card-body form div label{
@@ -83,7 +128,7 @@
 .image-container {
     width: 340px;
     height: 350px;
-    border: 2px solid #ddd;
+    border: 2px solid black;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -98,7 +143,7 @@
 .image-box {
     width: 300px;
     height: 260px;
-    border: 2px solid #ddd;
+    border: 2px solid grey;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -114,14 +159,14 @@
     object-fit: cover;
 }
 
-/* Choose Image button and icon */
+/*Choose Image button and icon */
 .choose-image-btn {
     display: flex;
     align-items: center;
     font-size: 16px;
     font-weight: bolder;
-    color: #007bff;
-    background-color: #f1f1f1;
+    color: black;
+    background-color: grey;
     padding: 10px 20px;
     border: none;
     border-radius: 8px;
@@ -134,7 +179,8 @@
 }
 
 .choose-image-btn:hover {
-    background-color: red;
+    background-color: #01a3a4;
+    color: black;
 }
 
 .centered-image {
@@ -146,11 +192,52 @@
     object-fit: cover; /* Ensures image retains its aspect ratio */
 }
 
-/* Optional: Add some styling for table cells with images */
-td {
-    text-align: center; /* Ensures text and images are centered in the cell */
-    vertical-align: middle; /* Vertically centers the content */
+/* Increase the size of the images */
+.slider-image {
+    width: 100%; /* Make images fully responsive, adjusting to container width */
+    height: 400px; /* Maintain aspect ratio */
+    padding: 10px; /* Add padding around images */
+    box-sizing: border-box; /* Include padding in the total width/height */
 }
+
+/* Control slider container size */
+.slider-container {
+    width: 100%; /* Full width for the container */
+    height: 400px; /* Adjust the height to suit your design */
+    overflow: hidden; /* Hide any content that overflows */
+    position: relative; /* For positioning */
+}
+
+/* Style for the slider buttons */
+.slider-buttons {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+}
+
+/* Additional styling for cards */
+.field-card {
+    background: linear-gradient(#01a3a4,white);
+    border: 3px solid black;
+    border-radius: 8px;
+    overflow: hidden;
+    height: 540px;
+}
+
+.field-card .card-body {
+    padding: 20px;
+    font-family: "Ubuntu", serif;
+}
+
+.field-card img {
+    max-width: 100%;
+    border-radius: 8px;
+    max-height: 260px;
+}
+
 
 /*media queries*/
 @media (max-width: 1375px) {
@@ -298,8 +385,8 @@ td {
         width: 22%;
     }
 
-    .field-table-view{
+    .field-card-view{
         top: 1.8rem;
-        max-height: 430px;
+        max-height: 550px;
     }
 }

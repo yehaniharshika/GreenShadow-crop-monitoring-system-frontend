@@ -175,7 +175,7 @@
       </div>
       <section class="row">
         <section class="add-staff-button col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#field-section-details-form">
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#field-section-details-form" style="background-color: #133a75">
             <ion-icon name="add-sharp"></ion-icon>Add field
           </button>
         </section>
@@ -194,7 +194,7 @@
                     <div id="Field-Header-back-colour" class="card-header">
                       Field Details
                     </div>
-                    <div class="card-body">
+                    <div class="card-body field-card-body">
                       <form>
                         <div class="mb-3">
                           <label for="field-code" class="form-label">Field Code</label>
@@ -290,37 +290,16 @@
           </div>
         </section>
 
-        <section class="field-img-part col-md-4 d-flex align-items-center justify-content-center">
-            <div class="field-circle-container text-center">
-                <div class="field-circle field-circle-left">
-                    <img src="assets/images/field01.jpg" alt="Image 1" class="img-fluid rounded-circle">
-                </div>
-                <div class="field-circle field-circle-right ms-3">
-                    <img src="assets/images/field03.jpg" alt="Image 2" class="img-fluid rounded-circle">
-                </div>
-            </div>
-        </section>
+        <section class="field-card-view col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+          <div class="field-section-card-container" style="height: 800px; overflow-y: auto; background-color: transparent">
+            <div class="row" id="field-cards-container">
 
-        <section class="field-table-view col-12 col-sm-12 col-md-12 col-lg-10 col-xl-10 col-xxl-10">
-          <div class="table-responsive">
-            <table class="table table-striped  table-bordered" >
-              <thead>
-              <tr>
-                <th scope="col">Field code</th>
-                <th scope="col">Field name</th>
-                <th scope="col">Field Location</th>
-                <th scope="col">extent size</th>
-                <th scope="col">Field Image-01</th>
-                <th scope="col">Field Image-02</th>
-              </tr>
-              </thead>
-              <tbody  id="field-tbl-tbody">
-              </tbody>
-            </table>
+            </div>
           </div>
         </section>
       </section>
     </section>
+
 
     <!--staff section-->
     <section class="col-md-9 col-lg-10 main " id="staff-section">
@@ -506,7 +485,7 @@
                 <th scope="col">Role</th>
               </tr>
               </thead>
-              <tbody  id="staff-tbl-tbody">
+              <tbody id="staff-tbl-tbody">
               </tbody>
             </table>
           </div>
@@ -646,7 +625,7 @@
           </div>
         </section>
 
-        <section class="crop-table-view col-12 col-sm-12 col-md-12 col-lg-10 col-xl-10 col-xxl-10">
+        <!--<section class="crop-table-view col-12 col-sm-12 col-md-12 col-lg-10 col-xl-10 col-xxl-10">
           <div class="table-responsive">
             <table class="table table-striped  table-bordered" >
               <thead>
@@ -663,6 +642,13 @@
               <tbody  id="crop-tbl-tbody">
               </tbody>
             </table>
+          </div>
+        </section>-->
+        <section class="crops-card-view col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+          <div class="crop-section-card-container" style="height: 800px; overflow-y: auto; background-color: transparent">
+            <div class="row" id="crop-cards-container">
+
+            </div>
           </div>
         </section>
       </section>
