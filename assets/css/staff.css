@@ -12,9 +12,36 @@
 }
 
 .search-staff-card{
-    background: #67c8c8;
+    background-color: #b3e4e4;
+    border: 2px solid gray;
+    border-radius: 8px;
 }
 
+.search-staff-card form input{
+    font-family: "Ubuntu", serif;
+    border: 1px solid grey;
+}
+
+.search-staff-card form button{
+    font-family: "Ubuntu", serif;
+    font-weight: bold;
+}
+
+/*staff modal card styles*/
+.staff-card-body{
+    background-color: #85d3d3;
+    border: 2px solid darkblue;
+}
+
+.staff-card-body form input{
+    border: 2px solid black;
+    font-family: "Ubuntu", serif;
+}
+
+.staff-card-body form select{
+    border: 2px solid black;
+    font-family: "Ubuntu", serif;
+}
 
 .add-staff-button{
     font-weight: bold;
@@ -60,6 +87,32 @@
     border-radius: 50%;
     object-fit: cover;
 
+}
+
+/*table styles*/
+thead th {
+    font-size: 1.2rem; /* Increase font size for headers */
+    font-family: "Ubuntu", sans-serif;
+    letter-spacing: 1px; /* Add spacing for elegance */
+}
+
+thead th {
+    background-color: #01a3a4 !important;
+    color: white !important;
+}
+
+tbody tr:hover {
+    background-color: #f1f1f1; /* Light hover effect */
+}
+
+table td, table th {
+    padding: 15px; /* Add padding for better readability */
+    font-size: 1rem; /* Consistent text size */
+    font-family: "Ubuntu", sans-serif;;
+}
+
+table{
+    border: 1px solid black !important;
 }
 
 .add-staff-button button{
@@ -251,6 +304,8 @@
         max-height: 430px;
     }
 }
+
+
 
 
 
