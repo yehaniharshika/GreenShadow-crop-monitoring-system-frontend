@@ -1,4 +1,5 @@
 const authToken = localStorage.getItem("authToken");
+let staffData = [];
 window.addEventListener('load', () => {
     fetchStaffId();
     fetchStaffData();
@@ -120,13 +121,36 @@ function fetchStaffData(){
             "Authorization": `Bearer ${authToken}`
         },
         success: function (response){
-            loadStaffTable(response);
+            console.log("Fetched staff data:", response); // Log response
+            staffData = response || []; // Ensure staffData is an array
+            loadStaffTable(staffData); // Populate the table
         },
         error: function (xhr, status, error) {
             console.error("Failed to fetch staff data:", xhr.responseText || error);
         }
     });
 }
+
+/*staff data sort*/
+$("#sort-options").on("change", function () {
+    const sortBy = $(this).val(); // Get the selected sort option
+
+    if (!sortBy || staffData.length === 0) {
+        console.error("Sort option is invalid or staffData is empty.");
+        return;
+    }
+
+    staffData.sort((a, b) => {
+        const valueA = a[sortBy]?.toString().toLowerCase() || ""; // Handle null/undefined values
+        const valueB = b[sortBy]?.toString().toLowerCase() || "";
+
+        if (valueA < valueB) return -1;
+        if (valueA > valueB) return 1;
+        return 0;
+    });
+
+    loadStaffTable(staffData); // Reload the table with sorted data
+});
 
 function loadStaffTable(data){
     const tableBody = $("#staff-tbl-tbody");

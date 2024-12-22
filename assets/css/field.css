@@ -6,7 +6,7 @@
 }
 
 .search-field-part {
-    margin-top: 6.6rem;
+    margin-top: 6.2rem;
     margin-left: -15rem;
 }
 
@@ -21,20 +21,46 @@
 
 .field-card-view {
     position: relative;
-    top: 2.5rem;
+    top: 2rem;
     left: 0;
     right: 0;
     margin: auto;
     padding: 0;
     overflow-x: auto;
     overflow-y: auto;
-    max-height: 600px;
+    max-height: 550px;
     width: 97%;
 }
 
 .field-img-part{
     background-color: transparent;
     margin-top: -2rem;
+}
+
+
+
+
+
+
+/*sort field data styles*/
+
+.sort-field-data-part {
+    flex: 1;
+    max-width: 48%;
+    margin-left: 27rem;
+    margin-top: 5rem;
+}
+
+.d-flex.justify-content-between {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sorting-controls {
+    background-color: red; /* Example styling */
+    padding: 1rem;
+    border-radius: 4px;
 }
 
 .field-circle-container{

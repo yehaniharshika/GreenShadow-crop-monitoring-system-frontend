@@ -279,14 +279,25 @@
         </div>
 
         <section class="search-field-part col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
-          <div class="card search-field-card" >
-            <div  class="card-body search-field-card-body">
+          <div class="card search-field-card">
+            <div class="card-body search-field-card-body">
               <h5 id="search-bar" class="card-title">Search Field</h5>
               <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Enter Field code here" id="field-search-by-field-code" aria-label="Search" >
+                <input class="form-control me-2" type="search" placeholder="Enter Field code here" id="field-search-by-field-code" aria-label="Search">
                 <button class="btn btn-outline-primary" type="button" id="field-search">Search</button>
               </form>
             </div>
+          </div>
+        </section>
+
+        <!-- Right side containing the sort field data -->
+        <section class="sort-field-data-part col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+          <div class="sorting-controls">
+            <label for="sort-options">Sort By:</label>
+            <select id="sort-field-options" class="form-select">
+              <option disabled selected value="">Select Option</option>
+              <option value="fieldSize">Field size</option>
+            </select>
           </div>
         </section>
 
@@ -448,6 +459,16 @@
                 <button class="btn btn-outline-primary" type="button" id="staff-search">Search</button>
               </form>
             </div>
+          </div>
+
+          <div class="sorting-controls">
+            <label for="sort-options">Sort By:</label>
+            <select id="sort-options" class="form-select">
+              <option disabled selected value="">Select Option</option>
+              <option value="firstName">First Name</option>
+              <option value="gender">Gender</option>
+              <option value="designation">Designation</option>
+            </select>
           </div>
         </section>
 
